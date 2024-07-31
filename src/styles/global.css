@@ -5,7 +5,7 @@
     --XLIGHT_BG: #EEF5FF;
     --DARK_BORDER: #176B87;
     --LIGHT_COLOR: #EEF5FF;
-    --DARK_COLOR: #176B87;
+    --DARK_COLOR: #0c3947;
     --PRIMARY_FONT: "Roboto", sans-serif;
 }
 
@@ -18,7 +18,7 @@
 }
 
 body, #root {
-    background-color: var(--MEDIUM_BG);
+    background-color: var(--LIGHT_BG);
     min-height: 100vh;
     display: flex;
     flex-direction: column;

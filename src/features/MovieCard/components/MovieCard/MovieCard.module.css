@@ -1,0 +1,26 @@
+.movie-card-article {
+    background-color: var(--MEDIUM_BG);
+    border: 2px solid var(--DARK_BG);
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 1rem;
+    border-radius: 6px;
+}
+
+.movie-card-article > p,
+.movie-card-article > h3 {
+    color: var(--DARK_COLOR);
+    font-size: 1.1rem;
+}
+
+.movie-card-article:hover > p,
+.movie-card-article:hover > h3 {
+    color: var(--LIGHT_COLOR);
+}
+
+.movie-card-article:hover {
+    background-color: var(--DARK_BG);
+    border: 2px solid var(--MEDIUM_BG);
+}

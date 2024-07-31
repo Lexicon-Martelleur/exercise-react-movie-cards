@@ -7,7 +7,7 @@ interface Props {
   children?: React.ReactNode;
 }
 
-export const SessionMessageProvider: React.FC<Props> = ({
+export const MovieCardProvider: React.FC<Props> = ({
     children
 }): ReactElement => {
   const [
