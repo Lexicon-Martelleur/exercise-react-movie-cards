@@ -6,7 +6,7 @@ The image at the bottom of this article is just a wireframe, your application sh
 
 <figure style=" margin: 0; text-align: center">
   <figcaption>AddMovie</figcaption>
-  <img src="./src/assets/add-movie.png" style="padding: 1rem; width: 400px">
+  <img src="./src/assets/proto/add-movie.png" style="padding: 1rem; width: 400px">
 </figure>
 
 ### Requirements of the application
@@ -42,5 +42,5 @@ The image at the bottom of this article is just a wireframe, your application sh
 
 <div style="text-align: center">
   <figcaption>MovieCard</figcaption>
-  <img src="./src/assets/movie-component.png" style="padding: 1rem; width: 400px">
+  <img src="./src/assets/proto/movie-component.png" style="padding: 1rem; width: 400px">
 </div>
