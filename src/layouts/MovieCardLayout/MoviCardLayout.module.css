@@ -1,0 +1,17 @@
+.header {
+    background-color: var(--DARK_BG);
+    padding: 1rem;
+    text-align: center;
+}
+  
+.main {
+    flex-grow: 1;
+    padding: 2rem;
+    background-color: var(--EEF5FF);
+}
+  
+.footer {
+    background-color: var(--DARK_BG);
+    padding: 1rem;
+    text-align: center;
+}

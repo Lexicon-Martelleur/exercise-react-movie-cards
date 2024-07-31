@@ -1,0 +1,2 @@
+export { MovieCardLayout } from "./MovieCardLayout";
+ 
