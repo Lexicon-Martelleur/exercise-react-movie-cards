@@ -4,3 +4,9 @@
     flex-wrap: wrap;
     gap: 2rem;
 }
+
+.movielist-title {
+    width: 100%;
+    color: var(--DARK_COLOR);
+    text-align: center;
+}

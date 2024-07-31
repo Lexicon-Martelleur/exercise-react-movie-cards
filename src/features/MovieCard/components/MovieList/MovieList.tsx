@@ -9,11 +9,12 @@ export const MovieList = (): ReactElement => {
     
     return (
         <section className={styles.movielistSection}>
+            <h2 className={styles.movielistTitle}>Available Movie Cards</h2>
             {movieCardState.movieCards.map(movieCardEnity =>
                 <MovieCard 
                     key={movieCardEnity.id}
                     movieCard={movieCardEnity.moviecard} />
             )}
         </section>
-    )
+    );
 }

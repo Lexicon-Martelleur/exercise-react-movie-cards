@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 
 import { IMovieCard } from "../../../../service";
-import styles from "./MovieCard.module.css" 
+import styles from "./MovieCard.module.css";
 
 interface Props {
     movieCard: IMovieCard;
@@ -17,5 +17,5 @@ export const MovieCard: React.FC<Props> = ({
             <p>Rating: {movieCard.rating}</p>
             <p>Genre: {movieCard.genre}</p>
         </article>
-    )
+    );
 }
