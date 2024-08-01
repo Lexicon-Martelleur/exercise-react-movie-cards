@@ -1,8 +1,7 @@
 import React, { ReactElement, useEffect, useRef } from "react";
 
-import styles from "./MovieCardDialog.module.css"
+import styles from "./MovieCardDialog.module.css";
 import { IMovieCard } from "../../../../service";
-import { MovieCard } from "../MovieCard/MovieCard";
 
 interface Props {
     open: boolean;
