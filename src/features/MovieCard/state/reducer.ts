@@ -1,12 +1,21 @@
 import { v4 as uuid } from 'uuid';
 
-import { IMovieCardEntity } from "../../../service";
+import {
+    getAllMovieCards,
+    getEmptyMovieCard,
+    IMovieCardEntity
+} from "../../../service";
 import { movieCardActions } from "./constants";
-import * as action from "./types";
+import * as type from "./types";
+
+export const movieCardInitData: type.IMovieCardState = {
+    newMovieCard: getEmptyMovieCard(),
+    movieCards: getAllMovieCards() 
+} as const;
 
 export const movieCardReducer = (
-    state: action.IMovieCardState,
-    action: action.MovieCardActionType
+    state: type.IMovieCardState,
+    action: type.MovieCardActionType
 ) => {
     switch (action.type) {
         case movieCardActions.updateNewMovieCard:
@@ -21,16 +30,16 @@ export const movieCardReducer = (
 }
 
 function handleUpdateNewMovieCard(
-    state: action.IMovieCardState,
-    action: action.UpdateNewMovieCardAction
-): action.IMovieCardState {
+    state: type.IMovieCardState,
+    action: type.UpdateNewMovieCardAction
+): type.IMovieCardState {
     return { ...state,  newMovieCard: action.payload}
 }
 
 function handleAddMovieCard(
-    state: action.IMovieCardState,
-    action: action.AddMovieCardAction
-): action.IMovieCardState {
+    state: type.IMovieCardState,
+    action: type.AddMovieCardAction
+): type.IMovieCardState {
     const newMovieCardEntity: IMovieCardEntity = {
         id: uuid(),
         moviecard: action.payload
@@ -43,9 +52,9 @@ function handleAddMovieCard(
 }
 
 function handleRemoveMovieCard(
-    state: action.IMovieCardState,
-    action: action.RemoveMovieCardAction
-): action.IMovieCardState {
+    state: type.IMovieCardState,
+    action: type.RemoveMovieCardAction
+): type.IMovieCardState {
     return {
         ...state,
         movieCards: state.movieCards.filter(card => card.id !== action.payload

@@ -1,5 +1,4 @@
 export * from "./actions";
 export * from "./constants";
-export * from "./data";
 export * from "./reducer";
 export * from "./types";
