@@ -14,12 +14,6 @@
     overflow: auto;
 }
 
-.add-movie-fieldset > div {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
 .add-movie-fieldset label,
 .add-movie-fieldset legend,
 .add-movie-fieldset input,
@@ -44,4 +38,19 @@
     padding: 1rem;
     font-size: 1.1rem;
     cursor: pointer;
+}
+
+.column-ctr {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.row-ctr {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
 }

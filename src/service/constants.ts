@@ -15,7 +15,7 @@ export const minRating = 1;
 
 export const minLengthTitle = 1;
 
-export const minLengthDescription = 10;
+export const minLengthDescription = 1;
 
 export const maxLengthTitle = 100;
 

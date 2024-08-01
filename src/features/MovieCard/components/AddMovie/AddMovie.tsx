@@ -59,7 +59,7 @@ export const AddMovie = (): ReactElement => {
 
     return (
         <section className={styles.addMovieSection}>
-            <FormExpander title={"Create Movie Card"}
+            <FormExpander title={"Create Movie Card Form"}
                 isFormOpen={isFormOpen}
                 toggleForm={toggleForm}/>
             {isFormOpen && <AddMovieForm

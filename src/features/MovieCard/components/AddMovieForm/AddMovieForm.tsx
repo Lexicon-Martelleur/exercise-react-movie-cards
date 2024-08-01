@@ -49,7 +49,7 @@ export const AddMovieForm: React.FC<Props> = ({
         <form onSubmit={handleSubmit} ref={formElement}>
             <fieldset className={styles.addMovieFieldset}>
                 <legend>Create movie card</legend>
-                <div>
+                <div className={styles.columnCtr}>
                     <label htmlFor={inputNames.title}>Title</label>
                     <input type="text"
                         required
@@ -60,7 +60,7 @@ export const AddMovieForm: React.FC<Props> = ({
                         value={inputState.title}
                         onChange={_ => handleInputChange()}/>
                 </div>
-                <div>    
+                <div className={styles.rowCtr}>    
                     <label htmlFor={inputNames.rating}>Rating</label>
                     <StarRating rating={rating} updateRating={updateRating}/>
                     <input type="range"
@@ -74,7 +74,7 @@ export const AddMovieForm: React.FC<Props> = ({
                         id={inputNames.rating}
                         onChange={_ => handleInputChange()}/>
                 </div>
-                <div>
+                <div className={styles.columnCtr}>
                     <label htmlFor={inputNames.genre}>Genre</label>
                     <select name={inputNames.genre}
                         required
@@ -84,7 +84,7 @@ export const AddMovieForm: React.FC<Props> = ({
                         {constructOptionElements()}
                     </select>
                 </div>
-                <div>
+                <div className={styles.columnCtr}>
                     <label htmlFor={inputNames.description}>Description</label>
                     <textarea rows={5}
                         required
