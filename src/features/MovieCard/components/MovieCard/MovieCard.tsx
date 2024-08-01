@@ -1,25 +1,25 @@
 import React, { ReactElement } from "react";
 
-import { IMovieCard } from "../../../../service";
+import { IMovieCardEntity } from "../../../../service";
 import styles from "./MovieCard.module.css";
 import { StarRating } from "../StarRating";
+import { selectDescription, selectGenre, selectRating, selectTitle } from "../../state";
 
 interface Props {
-    movieCard: IMovieCard;
-    onSelect: (movieCard: IMovieCard) => void
+    movieCardEntity: IMovieCardEntity;
+    onSelect: (movieCard: IMovieCardEntity) => void
 }
 
 export const MovieCard: React.FC<Props> = ({
-    movieCard,
+    movieCardEntity,
     onSelect
 }): ReactElement => {
     return (
         <article className={styles.movieCardArticle}
-            onClick={_ => onSelect(movieCard)}
-            title={`Select ${movieCard.title}`}>
-            <h3>{movieCard.title} | {movieCard.genre}</h3>
-            <StarRating rating={movieCard.rating} size="small"/>
-            <p>{movieCard.description}</p>
+            onClick={_ => onSelect(movieCardEntity)} >
+            <h3>{selectTitle(movieCardEntity)} | {selectGenre(movieCardEntity)}</h3>
+            <StarRating rating={selectRating(movieCardEntity)} size="small"/>
+            <p>{selectDescription(movieCardEntity)}</p>
         </article>
     );
 }

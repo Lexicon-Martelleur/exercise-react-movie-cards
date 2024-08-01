@@ -4,24 +4,29 @@ import { useMovieCardContext } from "../../context";
 import { MovieCard } from "../MovieCard";
 import { MovieCardDialog } from "../MovieCardDialog";
 import styles from "./MovieList.module.css";
-import { IMovieCard } from "../../../../service";
+import { IMovieCardEntity } from "../../../../service";
+import { removeMovieCardAction } from "../../state";
 
 export const MovieList = (): ReactElement => {
-    const [_, movieCardState] = useMovieCardContext();
+    const [dispatchMovieCardAction, movieCardState] = useMovieCardContext();
     const [ isMovieCardDialogOen, setIsMovieCardDialogOpen ] = useState(false);
-    const [selectedMovieCard, setSelecteMovieCard] = useState<IMovieCard | null>(null);
+    const [selectedMovieCard, setSelecteMovieCard] = useState<IMovieCardEntity | null>(null);
     
-    const handleSelectMovieCard = (movieCard: IMovieCard) => {
+    const handleSelectMovieCard = (movieCard: IMovieCardEntity) => {
         setSelecteMovieCard(movieCard);
         setIsMovieCardDialogOpen(true);
     }
 
     const handleCloseMovieCardDialog = () => {
         setIsMovieCardDialogOpen(false);
+        setSelecteMovieCard(null);
     }
 
-    const handleConfirmation = () => {
+    const handleConfirm = () => {
+        if (selectedMovieCard == null) { return; }
+        dispatchMovieCardAction(removeMovieCardAction(selectedMovieCard.id));
         setIsMovieCardDialogOpen(false);
+        setSelecteMovieCard(null);
     }
 
     return (
@@ -30,14 +35,14 @@ export const MovieList = (): ReactElement => {
             {movieCardState.movieCards.map(movieCardEnity =>
                 <MovieCard
                     key={movieCardEnity.id}
-                    movieCard={movieCardEnity.moviecard}
+                    movieCardEntity={movieCardEnity}
                     onSelect={handleSelectMovieCard}/>
             )}
             <MovieCardDialog
                 open={isMovieCardDialogOen}
-                movieCard={selectedMovieCard}
+                movieCardEntity={selectedMovieCard}
                 onClose={handleCloseMovieCardDialog}
-                onConfirmation={handleConfirmation}/>
+                onConfirm={handleConfirm}/>
         </section>
     );
 }
