@@ -1,13 +1,13 @@
-import { ReactElement, useContext, useState } from "react";
+import { ReactElement, useState } from "react";
 
-import { MovieCardContext } from "../../context/movieCardContext";
+import { useMovieCardContext } from "../../context";
 import { MovieCard } from "../MovieCard";
-import { MovieCardDialog } from "../MovieCardDialog"
+import { MovieCardDialog } from "../MovieCardDialog";
 import styles from "./MovieList.module.css";
 import { IMovieCard } from "../../../../service";
 
 export const MovieList = (): ReactElement => {
-    const [_, movieCardState] = useContext(MovieCardContext);
+    const [_, movieCardState] = useMovieCardContext();
     const [ isMovieCardDialogOen, setIsMovieCardDialogOpen ] = useState(false);
     const [selectedMovieCard, setSelecteMovieCard] = useState<IMovieCard | null>(null);
     

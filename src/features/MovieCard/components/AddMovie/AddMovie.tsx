@@ -1,9 +1,9 @@
-import { FormEventHandler, ReactElement, useContext, useState } from "react";
+import { FormEventHandler, ReactElement, useState } from "react";
 
 import { FormExpander } from "../FormExpander";
 import { AddMovieForm } from "../AddMovieForm";
 import { IMovieFormInputName } from "../types";
-import { MovieCardContext } from "../../context";
+import { useMovieCardContext } from "../../context";
 import { createMovieCardObject, getEmptyMovieCard } from "../../../../service";
 import { addMovieCardAction, updateNewMovieCardAction } from "../../state";
 import styles from "./AddMovie.module.css";
@@ -14,11 +14,11 @@ export const AddMovie = (): ReactElement => {
         rating: "rating",
         genre: "genre",
         description: "description"
-    }
+    };
     const [
         dispatchMovieCardAction,
         movieCardState
-    ] = useContext(MovieCardContext);
+    ] = useMovieCardContext();
 
     const [isFormOpen, setIsFormOpen] = useState(false);
 

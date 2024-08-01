@@ -1,7 +1,8 @@
+import { v4 as uuid } from 'uuid';
+
 import { IMovieCardEntity } from "../../../service";
 import { movieCardActions } from "./constants";
 import * as action from "./types";
-import { v4 as uuid } from 'uuid';
 
 export const movieCardReducer = (
     state: action.IMovieCardState,
@@ -30,21 +31,15 @@ function handleAddMovieCard(
     state: action.IMovieCardState,
     action: action.AddMovieCardAction
 ): action.IMovieCardState {
-    try {
-        const newMovieCardEntity: IMovieCardEntity = {
-            id: uuid(),
-            moviecard: action.payload
-        };
+    const newMovieCardEntity: IMovieCardEntity = {
+        id: uuid(),
+        moviecard: action.payload
+    };
 
-        const x = {
-            ...state,
-            movieCards: [...state.movieCards, newMovieCardEntity],
-        };
-        console.log(x)
-        return x;
-    } catch {
-        return state
-    }
+    return {
+        ...state,
+        movieCards: [...state.movieCards, newMovieCardEntity],
+    };
 }
 
 function handleRemoveMovieCard(

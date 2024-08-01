@@ -24,6 +24,6 @@
 }
 
 .movie-card-article:hover {
-    background-color: var(--DARK_COLOR);
+    background-color: var(--DARK_BG);
     border: 2px solid var(--DARK_BORDER);
 }

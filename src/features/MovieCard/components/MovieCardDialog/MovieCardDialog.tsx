@@ -16,7 +16,7 @@ export const MovieCardDialog: React.FC<Props> = ({
     onClose,
     onConfirmation
 }): ReactElement => {
-    const dialog = useRef<HTMLDialogElement | null>(null)
+    const dialog = useRef<HTMLDialogElement | null>(null);
 
     useEffect(() => {
         if (dialog.current == null ) { return; }
