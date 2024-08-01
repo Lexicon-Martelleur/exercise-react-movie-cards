@@ -3,13 +3,14 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 60%;
+    height: 40%;
     background-color: var(--DARK_BG);
     padding: 1rem;
     border-radius: 8px;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     overflow: auto;
     border: 4px solid var(--LIGHT_BORDER);
+    aspect-ratio: 1/1;
 }
 
 .movie-card-dialog::backdrop {
@@ -26,7 +27,13 @@
     justify-content: space-between;
 }
 
-.movie-card-dialog-body > button {
+.movie-card-dialog-footer {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.movie-card-dialog-footer > button {
     border-radius: 1rem;
     color: var(--DARK_COLOR);
     background-color: var(--LIGHT_BG);
@@ -34,4 +41,10 @@
     outline: none;
     padding: 1rem 2rem;
     cursor: pointer;
+}
+
+@media (max-height: 500px) {
+    .movie-card-dialog {
+        height: 80%;
+    }      
 }

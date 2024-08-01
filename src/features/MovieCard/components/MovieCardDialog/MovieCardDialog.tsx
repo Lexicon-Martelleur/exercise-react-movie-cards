@@ -31,13 +31,12 @@ export const MovieCardDialog: React.FC<Props> = ({
     return (
         <dialog ref={dialog} className={styles.movieCardDialog}>
             <div className={styles.movieCardDialogBody}>
-                <h1>Movie Card Dialog</h1>
-                <p>Do you want to use movie card?</p>
-                {movieCard != null && <MovieCard
-                    movieCard={movieCard}
-                    onSelect={onConfirmation}/>
-                }
-                <button onClick={_ => onClose()}>Close</button>
+                <h1>Movie card: {movieCard != null && movieCard.title}</h1>
+                <p>Confirm to use movie card?</p>
+                <div className={styles.movieCardDialogFooter}>
+                    <button onClick={_ => onConfirmation()}>Confirm</button>
+                    <button onClick={_ => onClose()}>Close</button>
+                </div>
             </div>
         </dialog>
     );
