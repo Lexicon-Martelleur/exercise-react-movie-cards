@@ -1,0 +1,25 @@
+.form-expander {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    color: var(--DARK_COLOR);
+    text-align: center;
+}
+
+.form-expander-title {
+    color: var(--DARK_COLOR);
+    text-align: center;
+}
+
+.open-form-button {
+    cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 50%
+}
+
+.open-form-button:hover {
+    background-color: var(--DARK_BG);
+}

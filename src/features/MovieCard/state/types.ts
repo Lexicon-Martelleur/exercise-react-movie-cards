@@ -18,7 +18,7 @@ export interface AddMovieCardAction {
 
 export interface RemoveMovieCardAction {
     type: typeof movieCardActions.removeMovieCard;
-    payload: number;
+    payload: string;
 }
 
 export type MovieCardActionType = (

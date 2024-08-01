@@ -14,6 +14,6 @@ export interface IMovieCard {
 }
 
 export interface IMovieCardEntity {
-    id: number;
+    id: string;
     moviecard: IMovieCard;
 }

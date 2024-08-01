@@ -1,0 +1,11 @@
+.star-rating {
+    display: flex;
+}
+
+.star-rating-icon {
+    cursor: pointer;
+}
+
+.hide-star {
+    display: none;    
+}

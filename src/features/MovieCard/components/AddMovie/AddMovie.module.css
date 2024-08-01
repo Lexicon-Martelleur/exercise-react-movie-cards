@@ -10,78 +10,7 @@
     width: 100%;
 }
 
-.add-movie-title-ctr {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;;
-    width: 100%;
-    color: var(--DARK_COLOR);
-    text-align: center;
-}
-
 .add-movie-title-ctr > h2 {
     color: var(--DARK_COLOR);
     text-align: center;
-}
-
-.open-form-button {
-    cursor: pointer;
-    padding: 0.3rem;
-    border-radius: 50%
-}
-
-.open-form-button:hover {
-    background-color: var(--DARK_BG);
-}
-
-.add-movie-title-ctr > h2 {
-    color: var(--DARK_COLOR);
-    text-align: center;
-}
-
-.add-movie-fieldset {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--MEDIUM_BG);
-    border: 2px solid var(--DARK_BG);
-    padding: 2rem;
-    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-    border-radius: 6px;
-    height: 75vh;
-    margin-bottom: 2rem;
-    justify-content: space-between;
-    color: var(--DARK_COLOR);
-}
-
-.add-movie-fieldset > div {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.add-movie-fieldset label,
-.add-movie-fieldset legend,
-.add-movie-fieldset input,
-.add-movie-fieldset textarea,
-.add-movie-fieldset select,
-.add-movie-fieldset option {
-    color: var(--DARK_COLOR);
-    font-size: 1.1rem;
-}
-
-.add-movie-fieldset input,
-.add-movie-fieldset textarea,
-.add-movie-fieldset select {
-    padding: 1rem;
-    border: none;
-    border-radius: 6px;
-}
-
-.add-movie-fieldset > button {
-    border: 0;
-    background-color: var(--DARK_BG);
-    padding: 1rem;
-    font-size: 1.1rem;
 }

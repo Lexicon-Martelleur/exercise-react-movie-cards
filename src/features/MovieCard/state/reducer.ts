@@ -1,6 +1,7 @@
 import { IMovieCardEntity } from "../../../service";
 import { movieCardActions } from "./constants";
 import * as action from "./types";
+import { v4 as uuid } from 'uuid';
 
 export const movieCardReducer = (
     state: action.IMovieCardState,
@@ -30,7 +31,7 @@ function handleAddMovieCard(
     action: action.AddMovieCardAction
 ): action.IMovieCardState {
     const newMovieCardEntity: IMovieCardEntity = {
-        id: Math.floor(Math.random() * Date.now()),
+        id: uuid(),
         moviecard: action.payload
     };
 

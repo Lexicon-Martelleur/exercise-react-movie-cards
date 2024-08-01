@@ -2,7 +2,7 @@ import { IMovieCard } from "../../../service";
 import { movieCardActions } from "./constants";
 import { AddMovieCardAction, RemoveMovieCardAction, UpdateNewMovieCardAction } from "./types";
 
-export const updateNewMovieCard = (
+export const updateNewMovieCardAction = (
     movieCard: IMovieCard
 ): UpdateNewMovieCardAction => {
     return {
@@ -11,7 +11,7 @@ export const updateNewMovieCard = (
     };
 }
 
-export const addMovieCard = (
+export const addMovieCardAction = (
     movieCard: IMovieCard
 ): AddMovieCardAction => {
     return {
@@ -20,8 +20,8 @@ export const addMovieCard = (
     };
 }
 
-export const removeMovieCard = (
-    movieCardId: number
+export const removeMovieCardAction = (
+    movieCardId: string
 ): RemoveMovieCardAction => {
     return {
         type: movieCardActions.removeMovieCard,

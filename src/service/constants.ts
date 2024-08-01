@@ -9,6 +9,6 @@ export const movieGenre = {
     unknown: "Unknown"
 } as const;
 
-export const maxRating = 100;
+export const maxRating = 5;
 
-export const minRating = 0;
+export const minRating = 1;
