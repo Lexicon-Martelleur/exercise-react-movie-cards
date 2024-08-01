@@ -30,15 +30,21 @@ function handleAddMovieCard(
     state: action.IMovieCardState,
     action: action.AddMovieCardAction
 ): action.IMovieCardState {
-    const newMovieCardEntity: IMovieCardEntity = {
-        id: uuid(),
-        moviecard: action.payload
-    };
+    try {
+        const newMovieCardEntity: IMovieCardEntity = {
+            id: uuid(),
+            moviecard: action.payload
+        };
 
-    return {
-        ...state,
-        movieCards: [...state.movieCards, newMovieCardEntity],
-    };
+        const x = {
+            ...state,
+            movieCards: [...state.movieCards, newMovieCardEntity],
+        };
+        console.log(x)
+        return x;
+    } catch {
+        return state
+    }
 }
 
 function handleRemoveMovieCard(

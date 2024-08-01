@@ -1,14 +1,14 @@
 import { FormEventHandler, ReactElement, useRef, useState } from "react";
 import { v4 as uuid } from 'uuid';
 
-import { IMovieCard, maxRating, minRating, movieGenre } from "../../../../service";
-import { StarRating } from "../StarRating"
-import { IMovieFormInputName } from "../types"
+import * as service from "../../../../service";
+import { StarRating } from "../StarRating";
+import { IMovieFormInputName } from "../types";
 import styles from "./AddMovieForm.module.css";
 
 interface Props {
     inputNames: IMovieFormInputName
-    inputState: IMovieCard
+    inputState: service.IMovieCard
     handleChange: (formElement: HTMLFormElement) => void
     handleSubmit: FormEventHandler<HTMLFormElement>
 }
@@ -24,7 +24,7 @@ export const AddMovieForm: React.FC<Props> = ({
     const formElement = useRef<HTMLFormElement | null>(null);
 
     const constructOptionElements = () => {
-        return Object.values(movieGenre).map(value =>
+        return Object.values(service.movieGenre).map(value =>
             <option 
                 key={uuid()}
                 value={value.toLowerCase()}>
@@ -53,6 +53,8 @@ export const AddMovieForm: React.FC<Props> = ({
                     <label htmlFor={inputNames.title}>Title</label>
                     <input type="text"
                         required
+                        minLength={service.minLengthTitle}
+                        maxLength={service.maxLengthTitle}
                         name={inputNames.title}
                         id={inputNames.title}
                         value={inputState.title}
@@ -66,8 +68,8 @@ export const AddMovieForm: React.FC<Props> = ({
                         hidden
                         ref={ratingInput}
                         value={inputState.rating}
-                        min={minRating}
-                        max={maxRating}
+                        min={service.minRating}
+                        max={service.maxRating}
                         name={inputNames.rating}
                         id={inputNames.rating}
                         onChange={_ => handleInputChange()}/>
@@ -86,6 +88,8 @@ export const AddMovieForm: React.FC<Props> = ({
                     <label htmlFor={inputNames.description}>Description</label>
                     <textarea rows={5}
                         required
+                        minLength={service.minLengthDescription}
+                        maxLength={service.maxLengthDescription}
                         name={inputNames.description}
                         id={inputNames.description}
                         value={inputState.description}

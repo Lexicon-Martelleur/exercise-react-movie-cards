@@ -41,4 +41,5 @@
     background-color: var(--DARK_BG);
     padding: 1rem;
     font-size: 1.1rem;
+    cursor: pointer;
 }

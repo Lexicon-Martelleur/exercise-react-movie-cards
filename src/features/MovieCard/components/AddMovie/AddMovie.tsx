@@ -1,12 +1,12 @@
 import { FormEventHandler, ReactElement, useContext, useState } from "react";
 
-import { FormExpander } from "../FormExpander"
-import { AddMovieForm } from "../AddMovieForm"
-import styles from "./AddMovie.module.css";
+import { FormExpander } from "../FormExpander";
+import { AddMovieForm } from "../AddMovieForm";
 import { IMovieFormInputName } from "../types";
 import { MovieCardContext } from "../../context";
-import { createMovieCardObject } from "../../../../service";
-import { updateNewMovieCardAction } from "../../state";
+import { createMovieCardObject, getEmptyMovieCard } from "../../../../service";
+import { addMovieCardAction, updateNewMovieCardAction } from "../../state";
+import styles from "./AddMovie.module.css";
 
 export const AddMovie = (): ReactElement => {
     const inputNames: IMovieFormInputName = {
@@ -19,25 +19,26 @@ export const AddMovie = (): ReactElement => {
 
     const [isFormOpen, setIsFormOpen] = useState(false);
 
-    const handleOnSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
         event.preventDefault();
-        Object.keys(inputNames).forEach(inputName => {
-            const input = getInputValue(event.currentTarget.elements.namedItem(inputName));
-            console.log(input)
-        })
+        const movieCard = createMovieCardObject({
+            title: getInputValue(event.currentTarget.elements.namedItem(inputNames.title)),
+            rating: getInputValue(event.currentTarget.elements.namedItem(inputNames.rating)),
+            genre: getInputValue(event.currentTarget.elements.namedItem(inputNames.genre)),
+            description: getInputValue(event.currentTarget.elements.namedItem(inputNames.description)),
+        });
+        
+        dispatchMovieCardAction(addMovieCardAction(movieCard));
+        dispatchMovieCardAction(updateNewMovieCardAction(getEmptyMovieCard()));
     }
 
     const handleChange = (formElement: HTMLFormElement) => {
-        Object.keys(inputNames).forEach(inputName => {
-            const input = getInputValue(formElement.elements.namedItem(inputName));
-            console.log(input)
-        })
         const movieCard = createMovieCardObject({
             title: getInputValue(formElement.elements.namedItem(inputNames.title)),
             rating: getInputValue(formElement.elements.namedItem(inputNames.rating)),
             genre: getInputValue(formElement.elements.namedItem(inputNames.genre)),
             description: getInputValue(formElement.elements.namedItem(inputNames.description)),
-        })
+        });
         dispatchMovieCardAction(updateNewMovieCardAction(movieCard))
     }
 
@@ -62,7 +63,7 @@ export const AddMovie = (): ReactElement => {
                 inputNames={inputNames}
                 inputState={movieCardState.newMovieCard}
                 handleChange={handleChange}
-                handleSubmit={handleOnSubmit}/>}
+                handleSubmit={handleSubmit}/>}
         </section>
     );
 }
