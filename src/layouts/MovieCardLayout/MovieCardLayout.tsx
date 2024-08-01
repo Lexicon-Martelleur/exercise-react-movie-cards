@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-import styles from "./MoviCardLayout.module.css";
+import styles from "./MovieCardLayout.module.css";
 import { MovieCardContainer } from "../../features";
 
 export const MovieCardLayout = (): ReactElement => {

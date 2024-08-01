@@ -1,0 +1,1 @@
+export { MovieCardDialog } from "./MovieCardDialog";
