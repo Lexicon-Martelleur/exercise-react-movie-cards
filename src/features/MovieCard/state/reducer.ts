@@ -33,7 +33,7 @@ function handleUpdateNewMovieCard(
     state: type.IMovieCardState,
     action: type.UpdateNewMovieCardAction
 ): type.IMovieCardState {
-    return { ...state,  newMovieCard: action.payload}
+    return { ...state,  newMovieCard: action.payload };
 }
 
 function handleAddMovieCard(

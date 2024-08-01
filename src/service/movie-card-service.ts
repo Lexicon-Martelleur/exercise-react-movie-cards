@@ -62,7 +62,7 @@ export function createMovieCardObject(obj: unknown): IMovieCard {
 export function isValidGenre (genre: string): genre is MovieGenreType {
     return (
         typeof genre === "string" &&
-        Object.values(movieGenre).includes(genre as MovieGenreType)
+        Object.keys(movieGenre).includes(genre as MovieGenreType)
     );
 }
 

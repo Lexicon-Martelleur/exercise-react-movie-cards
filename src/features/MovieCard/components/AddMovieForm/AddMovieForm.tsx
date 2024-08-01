@@ -7,17 +7,19 @@ import { IMovieFormInputName } from "../types";
 import styles from "./AddMovieForm.module.css";
 
 interface Props {
-    inputNames: IMovieFormInputName
-    inputState: service.IMovieCard
-    handleChange: (formElement: HTMLFormElement) => void
-    handleSubmit: FormEventHandler<HTMLFormElement>
+    inputNames: IMovieFormInputName;
+    inputState: service.IMovieCard;
+    onChange: (formElement: HTMLFormElement) => void;
+    onSubmit: FormEventHandler<HTMLFormElement>;
+    onPreSubmit: (close: boolean) => void;
 }
 
 export const AddMovieForm: React.FC<Props> = ({
     inputNames,
     inputState,
-    handleChange,
-    handleSubmit
+    onChange,
+    onSubmit,
+    onPreSubmit
 }): ReactElement => {
     const [rating, setRating] = useState(inputState.rating);
     const ratingInput = useRef<HTMLInputElement | null>(null);
@@ -42,11 +44,11 @@ export const AddMovieForm: React.FC<Props> = ({
 
     const handleInputChange = () => {
         if (formElement.current == null) { return; }
-        handleChange(formElement.current);
+        onChange(formElement.current);
     }
 
     return (
-        <form onSubmit={handleSubmit} ref={formElement}>
+        <form onSubmit={onSubmit} ref={formElement}>
             <fieldset className={styles.addMovieFieldset}>
                 <legend>Create movie card</legend>
                 <div className={styles.columnCtr}>
@@ -95,7 +97,13 @@ export const AddMovieForm: React.FC<Props> = ({
                         value={inputState.description}
                         onChange={_ => handleInputChange()} />
                 </div>
-                <button type="submit">Create Movie Card</button>
+                <button type="submit"
+                    onMouseDown={_ => onPreSubmit(false)}>
+                    Create Card</button>
+                <button type="submit"
+                    onMouseDown={_ => onPreSubmit(true)}>
+                    Create Card And Close Form
+                </button>
             </fieldset>
         </form>
     );

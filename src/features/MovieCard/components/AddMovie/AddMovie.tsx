@@ -8,6 +8,9 @@ import { createMovieCardObject, getEmptyMovieCard } from "../../../../service";
 import { addMovieCardAction, updateNewMovieCardAction } from "../../state";
 import styles from "./AddMovie.module.css";
 
+/**
+ * @TODO ISSUE genre not updating 
+ */
 export const AddMovie = (): ReactElement => {
     const inputNames: IMovieFormInputName = {
         title: "title",
@@ -21,6 +24,7 @@ export const AddMovie = (): ReactElement => {
     ] = useMovieCardContext();
 
     const [isFormOpen, setIsFormOpen] = useState(false);
+    const [closeOnSubmit, setCloseOnSubmit] = useState(false);
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
         event.preventDefault();
@@ -33,6 +37,10 @@ export const AddMovie = (): ReactElement => {
         
         dispatchMovieCardAction(addMovieCardAction(movieCard));
         dispatchMovieCardAction(updateNewMovieCardAction(getEmptyMovieCard()));
+        if (closeOnSubmit) {
+            setIsFormOpen(false);
+            setCloseOnSubmit(false);
+        }
     }
 
     const handleChange = (formElement: HTMLFormElement) => {
@@ -42,7 +50,11 @@ export const AddMovie = (): ReactElement => {
             genre: getInputValue(formElement.elements.namedItem(inputNames.genre)),
             description: getInputValue(formElement.elements.namedItem(inputNames.description)),
         });
-        dispatchMovieCardAction(updateNewMovieCardAction(movieCard))
+        dispatchMovieCardAction(updateNewMovieCardAction(movieCard));
+    }
+
+    const handlePreSubmit = (close: boolean) => {
+        setCloseOnSubmit(close);
     }
 
     const getInputValue = (item: unknown) => {
@@ -65,8 +77,9 @@ export const AddMovie = (): ReactElement => {
             {isFormOpen && <AddMovieForm
                 inputNames={inputNames}
                 inputState={movieCardState.newMovieCard}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}/>}
+                onChange={handleChange}
+                onSubmit={handleSubmit}
+                onPreSubmit={handlePreSubmit}/>}
         </section>
     );
 }
