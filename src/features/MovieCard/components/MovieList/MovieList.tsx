@@ -4,6 +4,9 @@ import { MovieCardContext } from "../../context/movieCardContext";
 import { MovieCard } from "../MovieCard";
 import styles from "./MovieList.module.css";
 
+/**
+ * @TODO implement delete / use movie card 
+ */
 export const MovieList = (): ReactElement => {
     const [_, movieCardState] = useContext(MovieCardContext);
     
