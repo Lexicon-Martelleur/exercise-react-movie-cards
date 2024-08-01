@@ -1,4 +1,7 @@
 .movie-card-article {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
     background-color: var(--MEDIUM_BG);
     border: 2px solid var(--DARK_BG);
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;

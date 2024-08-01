@@ -1,15 +1,17 @@
 .add-movie-fieldset {
     display: flex;
     flex-direction: column;
+    gap: 2rem;
     background-color: var(--MEDIUM_BG);
     border: 2px solid var(--DARK_BG);
     padding: 2rem;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     border-radius: 6px;
-    height: 75vh;
+    min-height: 75vh;
     margin-bottom: 2rem;
     justify-content: space-between;
     color: var(--DARK_COLOR);
+    overflow: auto;
 }
 
 .add-movie-fieldset > div {

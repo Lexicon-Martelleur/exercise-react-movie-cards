@@ -3,20 +3,22 @@ import { v4 as uuid } from 'uuid';
 
 import { maxRating } from "../../../../service";
 import { icons } from "../../../../assets";
-import { Icon } from "../../../../components";
+import { Icon, IconSizeType } from "../../../../components";
 import styles from "./StarRating.module.css";
 
 interface Props {
     rating: number;
-    updateRating?: (value: number) => void
+    size?: IconSizeType;
+    updateRating?: (value: number) => void;
 }
 
 export const StarRating: React.FC<Props> = ({
     rating,
+    size,
     updateRating
 }): ReactElement => {
     const handleRating = (value: number) => {
-        updateRating != null && updateRating(value)
+        updateRating != null && updateRating(value);
     }
 
     return (
@@ -26,9 +28,9 @@ export const StarRating: React.FC<Props> = ({
             className={styles.starRatingIcon}
             onClick={_ => handleRating(value)}>
             {value > rating
-                ? <Icon size={"medium"} icon={icons.gradeUnchecked}/>
-                : <Icon size={"medium"} icon={icons.gradeChecked}/>}
+                ? <Icon size={size == null ? "medium": size} icon={icons.gradeUnchecked}/>
+                : <Icon size={size == null ? "medium": size} icon={icons.gradeChecked}/>}
             </div>)}
         </div>
-    )
+    );
 }

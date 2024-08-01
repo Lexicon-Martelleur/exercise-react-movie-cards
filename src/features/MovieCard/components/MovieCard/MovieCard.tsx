@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 
 import { IMovieCard } from "../../../../service";
 import styles from "./MovieCard.module.css";
+import { StarRating } from "../StarRating";
 
 interface Props {
     movieCard: IMovieCard;
@@ -12,10 +13,9 @@ export const MovieCard: React.FC<Props> = ({
 }): ReactElement => {
     return (
         <article className={styles.movieCardArticle}>
-            <h3>TItle: {movieCard.title}</h3>
-            <p>Description: {movieCard.description}</p>
-            <p>Rating: {movieCard.rating}</p>
-            <p>Genre: {movieCard.genre}</p>
+            <h3>{movieCard.title} | {movieCard.genre}</h3>
+            <StarRating rating={movieCard.rating} size="small"/>
+            <p>{movieCard.description}</p>
         </article>
     );
 }

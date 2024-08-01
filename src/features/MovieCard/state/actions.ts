@@ -1,6 +1,10 @@
 import { IMovieCard } from "../../../service";
 import { movieCardActions } from "./constants";
-import { AddMovieCardAction, RemoveMovieCardAction, UpdateNewMovieCardAction } from "./types";
+import {
+    AddMovieCardAction,
+    RemoveMovieCardAction,
+    UpdateNewMovieCardAction
+} from "./types";
 
 export const updateNewMovieCardAction = (
     movieCard: IMovieCard

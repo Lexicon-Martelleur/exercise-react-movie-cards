@@ -15,7 +15,10 @@ export const AddMovie = (): ReactElement => {
         genre: "genre",
         description: "description"
     }
-    const [dispatchMovieCardAction, movieCardState] = useContext(MovieCardContext);
+    const [
+        dispatchMovieCardAction,
+        movieCardState
+    ] = useContext(MovieCardContext);
 
     const [isFormOpen, setIsFormOpen] = useState(false);
 
