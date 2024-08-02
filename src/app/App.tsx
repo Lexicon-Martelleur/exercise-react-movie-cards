@@ -1,4 +1,4 @@
-import { MovieCardLayout } from "./layouts";
+import { MovieCardLayout } from "../layouts";
 
 export function App() {
   return (

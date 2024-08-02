@@ -1,5 +1,10 @@
 import { maxRating, minRating, movieGenre } from "./constants";
-import { IMovieCard, IMovieCardEntity, MovieGenreType, RatingType } from "./types";
+import {
+    IMovieCard,
+    IMovieCardEntity,
+    MovieGenreType,
+    RatingType
+} from "./types";
 
 export function getEmptyMovieCard (): IMovieCard {
     return {

@@ -19,7 +19,6 @@ export const AddMovie = (): ReactElement => {
         dispatchMovieCardAction,
         movieCardState
     ] = useMovieCardContext();
-
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [closeOnSubmit, setCloseOnSubmit] = useState(false);
     const [isLoading, setIsLoading] = useState(false);

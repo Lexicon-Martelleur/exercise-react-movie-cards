@@ -3,7 +3,12 @@ import React, { ReactElement } from "react";
 import { IMovieCardEntity } from "../../../../service";
 import styles from "./MovieCard.module.css";
 import { StarRating } from "../StarRating";
-import { selectDescription, selectGenre, selectRating, selectTitle } from "../../state";
+import {
+    selectDescription,
+    selectGenre,
+    selectRating,
+    selectTitle
+} from "../../state";
 
 interface Props {
     movieCardEntity: IMovieCardEntity;

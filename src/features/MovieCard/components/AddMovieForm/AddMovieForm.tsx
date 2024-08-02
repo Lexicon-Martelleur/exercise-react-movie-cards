@@ -73,6 +73,7 @@ export const AddMovieForm: React.FC<Props> = ({
                     <label htmlFor={inputNames.title}>Title</label>
                     <input type="text"
                         required
+                        autoFocus
                         minLength={service.minLengthTitle}
                         maxLength={service.maxLengthTitle}
                         name={inputNames.title}
