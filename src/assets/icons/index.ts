@@ -2,6 +2,7 @@ import expandContent from "./expand_content.svg";
 import collapseContent from "./collapse_content.svg";
 import gradeChecked from "./grade_checked.svg";
 import gradeUnchecked from "./grade_unchecked.svg";
+import backspace from "./backspace.svg";
 
 export const icons = {
   expandContent: {
@@ -21,6 +22,12 @@ export const icons = {
   },
   gradeUnchecked: {
     src: gradeUnchecked,
+    alt: "Check grade",
+    title: "Check grade"
+  }
+  ,
+  backspace: {
+    src: backspace,
     alt: "Check grade",
     title: "Check grade"
   }

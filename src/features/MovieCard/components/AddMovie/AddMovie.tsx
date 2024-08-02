@@ -8,9 +8,6 @@ import { createMovieCardObject, getEmptyMovieCard } from "../../../../service";
 import { addMovieCardAction, updateNewMovieCardAction } from "../../state";
 import styles from "./AddMovie.module.css";
 
-/**
- * @TODO ISSUE genre not updating 
- */
 export const AddMovie = (): ReactElement => {
     const inputNames: IMovieFormInputName = {
         title: "title",
@@ -47,9 +44,10 @@ export const AddMovie = (): ReactElement => {
             if (closeOnSubmit) {
                 setIsFormOpen(false);
                 setCloseOnSubmit(false);
+                dispatchMovieCardAction(updateNewMovieCardAction(getEmptyMovieCard()));
             }
             clearTimeout(timeout);
-        }, 3000);
+        }, 2000);
     }
 
     const handleChange = (formElement: HTMLFormElement) => {
@@ -60,6 +58,10 @@ export const AddMovie = (): ReactElement => {
             description: getInputValue(formElement.elements.namedItem(inputNames.description)),
         });
         dispatchMovieCardAction(updateNewMovieCardAction(movieCard));
+    }
+
+    const handleClearForm = () => {
+        dispatchMovieCardAction(updateNewMovieCardAction(getEmptyMovieCard()));
     }
 
     const handlePreSubmit = (close: boolean) => {
@@ -87,6 +89,7 @@ export const AddMovie = (): ReactElement => {
                 inputNames={inputNames}
                 inputState={movieCardState.newMovieCard}
                 isLoading={isLoading}
+                onClear={handleClearForm}
                 onChange={handleChange}
                 onSubmit={handleSubmit}
                 onPreSubmit={handlePreSubmit}/>}

@@ -33,12 +33,25 @@
 }
 
 .submit-button {
-    border: 0;
     background-color: var(--DARK_BG);
     padding: 1rem;
     font-size: 1.1rem;
     cursor: pointer;
-    border-radius: 0.5rem
+    border-radius: 0.5rem;
+    border: 0;
+}
+
+.clear-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    border: 0;
+    background-color: var(--LIGHT_BG);
+    color: var(--DARK_COLOR);
 }
 
 .submit-button:disabled {
@@ -56,6 +69,15 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.row-ctr-center {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     width: 100%;
 }

@@ -5,11 +5,14 @@ import * as service from "../../../../service";
 import { StarRating } from "../StarRating";
 import { IMovieFormInputName } from "../types";
 import styles from "./AddMovieForm.module.css";
+import { icons } from "../../../../assets";
+import { Icon } from "../../../../components";
 
 interface Props {
     inputNames: IMovieFormInputName;
     inputState: service.IMovieCard;
     isLoading: boolean;
+    onClear: () => void;
     onChange: (formElement: HTMLFormElement) => void;
     onSubmit: FormEventHandler<HTMLFormElement>;
     onPreSubmit: (close: boolean) => void;
@@ -19,6 +22,7 @@ export const AddMovieForm: React.FC<Props> = ({
     inputNames,
     inputState,
     isLoading,
+    onClear,
     onChange,
     onSubmit,
     onPreSubmit
@@ -49,10 +53,22 @@ export const AddMovieForm: React.FC<Props> = ({
         onChange(formElement.current);
     }
 
+    const handleClear = () => {
+        setRating(service.minRating);
+        onClear();
+    }
+
     return (
         <form onSubmit={onSubmit} ref={formElement}>
             <fieldset className={styles.addMovieFieldset}>
                 <legend>Create movie card</legend>
+                <div className={styles.rowCtrCenter}>
+                    <button className={styles.clearButton}
+                        onClick={_ => handleClear()}>
+                        Clear all fields
+                        <Icon icon={icons.backspace}/>
+                    </button>
+                </div>
                 <div className={styles.columnCtr}>
                     <label htmlFor={inputNames.title}>Title</label>
                     <input type="text"
