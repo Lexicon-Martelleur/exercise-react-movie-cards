@@ -3,7 +3,7 @@ import { movieCardActions } from "./constants";
 
 export type IMovieCardState = Readonly<{
     newMovieCard: Readonly<IMovieCard>;
-    movieCards: Readonly<IMovieCardEntity[]>; 
+    movieCards: Readonly<IMovieCardEntity>[]; 
 }>
 
 export interface UpdateNewMovieCardAction {

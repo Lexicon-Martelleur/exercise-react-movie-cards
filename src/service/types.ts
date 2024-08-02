@@ -6,14 +6,14 @@ export type MovieGenreType = typeof movieGenre[
 
 export type RatingType = number;
 
-export interface IMovieCard {
+export type IMovieCard = Readonly <{
     title: string;
     description: string;
     genre: MovieGenreType;
     rating: RatingType;
-}
+}>
 
-export interface IMovieCardEntity {
+export type IMovieCardEntity = Readonly<{
     id: string;
     moviecard: IMovieCard;
-}
+}>

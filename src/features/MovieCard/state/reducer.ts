@@ -44,7 +44,7 @@ function handleAddMovieCard(
         id: uuid(),
         moviecard: action.payload
     };
-    
+
     return {
         ...state,
         movieCards: [...state.movieCards, newMovieCardEntity],
