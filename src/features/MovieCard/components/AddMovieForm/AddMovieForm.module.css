@@ -58,7 +58,7 @@
 form:invalid .submit-button {
     background-color: var(--DARK_T_BG);
     cursor: not-allowed;
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 .submit-button:disabled {

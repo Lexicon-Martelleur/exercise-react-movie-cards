@@ -13,7 +13,6 @@ export const MovieList = (): ReactElement => {
     const [selectedMovieCard, setSelecteMovieCard] = useState<IMovieCardEntity | null>(null);
     
     const handleSelectMovieCard = (movieCard: IMovieCardEntity) => {
-        if (selectedMovieCard == null) { return; }
         setSelecteMovieCard(movieCard);
         setIsMovieCardDialogOpen(true);
     }
