@@ -52,6 +52,13 @@
     border: 0;
     background-color: var(--LIGHT_BG);
     color: var(--DARK_COLOR);
+    pointer-events: auto;
+}
+
+form:invalid .submit-button {
+    background-color: var(--DARK_T_BG);
+    cursor: not-allowed;
+    pointer-events: none; 
 }
 
 .submit-button:disabled {

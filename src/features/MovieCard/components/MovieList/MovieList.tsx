@@ -3,9 +3,9 @@ import { ReactElement, useState } from "react";
 import { useMovieCardContext } from "../../context";
 import { MovieCard } from "../MovieCard";
 import { MovieCardDialog } from "../MovieCardDialog";
-import styles from "./MovieList.module.css";
 import { IMovieCardEntity } from "../../../../service";
 import { removeMovieCardAction } from "../../state";
+import styles from "./MovieList.module.css";
 
 export const MovieList = (): ReactElement => {
     const [dispatchMovieCardAction, movieCardState] = useMovieCardContext();
@@ -13,6 +13,7 @@ export const MovieList = (): ReactElement => {
     const [selectedMovieCard, setSelecteMovieCard] = useState<IMovieCardEntity | null>(null);
     
     const handleSelectMovieCard = (movieCard: IMovieCardEntity) => {
+        if (selectedMovieCard == null) { return; }
         setSelecteMovieCard(movieCard);
         setIsMovieCardDialogOpen(true);
     }
