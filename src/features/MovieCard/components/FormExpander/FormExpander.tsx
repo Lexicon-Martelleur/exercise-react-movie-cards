@@ -17,24 +17,26 @@ export const FormExpander: React.FC<Props> = ({
 }): ReactElement => {
     return (
         <div className={styles.formExpander}>
-            <h2 className={styles.formExpanderTitle}>{title}</h2>
-            {!isFormOpen
-            ?
-            <div onClick={toggleForm}>
+            <div className={styles.formExpanderButton}
+                onClick={toggleForm}>
+                <h2 className={styles.formExpanderTitle}>
+                    {isFormOpen ? "Close" : "Open"} {title}
+                </h2>
+                {!isFormOpen
+                ?
                 <Icon
                     className={styles.openFormButton}
                     size={"medium"}
                     icon={icons.expandContent}>
                 </Icon>
-            </div>
-            :
-            <div onClick={toggleForm}>
+                :
                 <Icon
                     className={styles.openFormButton}
                     size={"medium"}
                     icon={icons.collapseContent}>
                 </Icon>
-            </div>}
+                }
+            </div>
         </div>
     );
 }

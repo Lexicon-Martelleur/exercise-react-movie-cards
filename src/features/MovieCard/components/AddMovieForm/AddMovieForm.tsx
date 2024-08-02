@@ -9,6 +9,7 @@ import styles from "./AddMovieForm.module.css";
 interface Props {
     inputNames: IMovieFormInputName;
     inputState: service.IMovieCard;
+    isLoading: boolean;
     onChange: (formElement: HTMLFormElement) => void;
     onSubmit: FormEventHandler<HTMLFormElement>;
     onPreSubmit: (close: boolean) => void;
@@ -17,6 +18,7 @@ interface Props {
 export const AddMovieForm: React.FC<Props> = ({
     inputNames,
     inputState,
+    isLoading,
     onChange,
     onSubmit,
     onPreSubmit
@@ -97,10 +99,16 @@ export const AddMovieForm: React.FC<Props> = ({
                         value={inputState.description}
                         onChange={_ => handleInputChange()} />
                 </div>
-                <button type="submit"
+                <div className={`${styles.loader} ${!isLoading && styles.loaderHidden}`}></div>
+                <button className={styles.submitButton}
+                    type="submit"
+                    disabled={isLoading}
                     onMouseDown={_ => onPreSubmit(false)}>
-                    Create Card</button>
-                <button type="submit"
+                    Create Card
+                </button>
+                <button className={styles.submitButton}
+                    type="submit"
+                    disabled={isLoading}
                     onMouseDown={_ => onPreSubmit(true)}>
                     Create Card And Close Form
                 </button>

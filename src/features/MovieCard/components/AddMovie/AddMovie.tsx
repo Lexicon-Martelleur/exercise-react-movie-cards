@@ -25,9 +25,11 @@ export const AddMovie = (): ReactElement => {
 
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [closeOnSubmit, setCloseOnSubmit] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
         event.preventDefault();
+        setIsLoading(true);
         const movieCard = createMovieCardObject({
             title: getInputValue(event.currentTarget.elements.namedItem(inputNames.title)),
             rating: getInputValue(event.currentTarget.elements.namedItem(inputNames.rating)),
@@ -35,12 +37,19 @@ export const AddMovie = (): ReactElement => {
             description: getInputValue(event.currentTarget.elements.namedItem(inputNames.description)),
         });
         
+        fakeLoading();
         dispatchMovieCardAction(addMovieCardAction(movieCard));
-        dispatchMovieCardAction(updateNewMovieCardAction(getEmptyMovieCard()));
-        if (closeOnSubmit) {
-            setIsFormOpen(false);
-            setCloseOnSubmit(false);
-        }
+    }
+
+    const fakeLoading = () => {
+        const timeout = setTimeout(() => {
+            setIsLoading(false);
+            if (closeOnSubmit) {
+                setIsFormOpen(false);
+                setCloseOnSubmit(false);
+            }
+            clearTimeout(timeout);
+        }, 3000);
     }
 
     const handleChange = (formElement: HTMLFormElement) => {
@@ -71,12 +80,13 @@ export const AddMovie = (): ReactElement => {
 
     return (
         <section className={styles.addMovieSection}>
-            <FormExpander title={"Create Movie Card Form"}
+            <FormExpander title={"Movie Card Form"}
                 isFormOpen={isFormOpen}
                 toggleForm={toggleForm}/>
             {isFormOpen && <AddMovieForm
                 inputNames={inputNames}
                 inputState={movieCardState.newMovieCard}
+                isLoading={isLoading}
                 onChange={handleChange}
                 onSubmit={handleSubmit}
                 onPreSubmit={handlePreSubmit}/>}

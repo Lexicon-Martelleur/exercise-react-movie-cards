@@ -32,13 +32,17 @@
     border-radius: 0.5rem;
 }
 
-.add-movie-fieldset > button {
+.submit-button {
     border: 0;
     background-color: var(--DARK_BG);
     padding: 1rem;
     font-size: 1.1rem;
     cursor: pointer;
     border-radius: 0.5rem
+}
+
+.submit-button:disabled {
+    background-color: var(--DARK_T_BG);
 }
 
 .column-ctr {
@@ -54,4 +58,22 @@
     align-items: center;
     gap: 0.5rem;
     width: 100%;
+}
+
+.loader-hidden {
+    visibility: hidden;
+}
+
+.loader {
+    margin: 0 auto;
+    width: 15px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    animation: l5 1s infinite linear alternate;
+}
+@keyframes l5 {
+    0%  {box-shadow: 20px 0 #000, -20px 0 #0002;background: #000 }
+    33% {box-shadow: 20px 0 #000, -20px 0 #0002;background: #0002}
+    66% {box-shadow: 20px 0 #0002,-20px 0 #000; background: #0002}
+    100%{box-shadow: 20px 0 #0002,-20px 0 #000; background: #000 }
 }

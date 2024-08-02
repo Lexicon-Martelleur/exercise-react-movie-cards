@@ -2,24 +2,26 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    width: 100%;
+}
+
+.form-expander-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
     gap: 1rem;
-    width: 100%;
-    color: var(--DARK_COLOR);
-    text-align: center;
+    padding: 0.5rem;
+    cursor: pointer;
+    border-bottom: 2px solid var(--LIGHT_BG);
 }
+
+.form-expander-button:hover {
+    border-bottom: 2px solid var(--DARK_BORDER);
+}
+
 
 .form-expander-title {
     color: var(--DARK_COLOR);
     text-align: center;
-}
-
-.open-form-button {
-    cursor: pointer;
-    padding: 0.3rem;
-    border-radius: 50%
-}
-
-.open-form-button:hover {
-    background-color: var(--DARK_BG);
 }
