@@ -3,17 +3,18 @@ import { renderHook, act } from "@testing-library/react";
 import { useMovieList } from "./useMovieList";
 import { mockMovieCardEntity } from "../../__test__/mock";
 import { useMovieCardContext } from "../../context";
+import { IMovieCardEntity } from "../../../../service";
 
 jest.mock("../../context");
 
-describe("UseMovieList", () => {
-    const mockDispatch = jest.fn(); 
+describe("useMovieList", () => {
+    const mockDispatch = jest.fn();
+    const movieCards: IMovieCardEntity[] = []; 
     
     beforeEach(() => {
-        jest.clearAllMocks();
         (useMovieCardContext as jest.Mock).mockReturnValue([
             mockDispatch,
-            { movieCards: [] }
+            { movieCards }
         ]);
     });
 
@@ -96,6 +97,13 @@ describe("UseMovieList", () => {
             expect(result.current.isMovieCardDialogOen).toBe(false);
         });
     });
+
+    describe("getMoviCards", () => {
+        it("return the current moviecards", () => {
+            const { result } = renderMovieListHook();
+            expect(result.current.getMovieCards()).toBe(movieCards);
+        })
+    })
 })
 
 function renderMovieListHook () {

@@ -23,6 +23,7 @@ const config: Config = {
   setupFilesAfterEnv: ["<rootDir>/test/jest.setup.ts"],
   clearMocks: true,
   restoreMocks: true,
+  fakeTimers: { enableGlobally: true },
 
   collectCoverage: true,
   coverageDirectory: "coverage",

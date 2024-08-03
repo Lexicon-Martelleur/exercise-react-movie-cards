@@ -14,8 +14,7 @@ export const AddMovie = (): ReactElement => {
                 isFormOpen={hook.isFormOpen}
                 toggleForm={hook.toggleForm}/>
             {hook.isFormOpen && <AddMovieForm
-                inputNames={hook.inputNames}
-                inputState={hook.movieCardState.newMovieCard}
+                formInputState={hook.movieCardState.newMovieCard}
                 isLoading={hook.isLoading}
                 onClear={hook.handleClearForm}
                 onChange={hook.handleChange}

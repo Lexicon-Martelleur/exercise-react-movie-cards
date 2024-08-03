@@ -1,17 +1,11 @@
 import { FormEventHandler, useState } from "react";
 
-import { IMovieFormInputName } from "../types";
 import { useMovieCardContext } from "../../context";
 import { createMovieCardObject, getEmptyMovieCard } from "../../../../service";
 import { addMovieCardAction, updateNewMovieCardAction } from "../../state";
+import { movieFormInputNames } from "../constants";
 
 export const useAddMovie = () => {
-    const inputNames: IMovieFormInputName = {
-        title: "title",
-        rating: "rating",
-        genre: "genre",
-        description: "description"
-    };
     const [dispatchMovieCardAction, movieCardState] = useMovieCardContext();
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [closeFormOnSubmit, setCloseFormOnSubmit] = useState(false);
@@ -21,10 +15,10 @@ export const useAddMovie = () => {
         event.preventDefault();
         setIsLoading(true);
         const movieCard = createMovieCardObject({
-            title: getInputValue(event.currentTarget.elements.namedItem(inputNames.title)),
-            rating: getInputValue(event.currentTarget.elements.namedItem(inputNames.rating)),
-            genre: getInputValue(event.currentTarget.elements.namedItem(inputNames.genre)),
-            description: getInputValue(event.currentTarget.elements.namedItem(inputNames.description)),
+            title: getInputValue(event.currentTarget.elements.namedItem(movieFormInputNames.title)),
+            rating: getInputValue(event.currentTarget.elements.namedItem(movieFormInputNames.rating)),
+            genre: getInputValue(event.currentTarget.elements.namedItem(movieFormInputNames.genre)),
+            description: getInputValue(event.currentTarget.elements.namedItem(movieFormInputNames.description)),
         });
         
         fakeLoading();
@@ -43,12 +37,13 @@ export const useAddMovie = () => {
         }, 2000);
     }
 
-    const handleChange = (formElement: HTMLFormElement) => {
+    const handleChange = (formElement: HTMLFormElement | null) => {
+        if (formElement == null) { return; }
         const movieCard = createMovieCardObject({
-            title: getInputValue(formElement.elements.namedItem(inputNames.title)),
-            rating: getInputValue(formElement.elements.namedItem(inputNames.rating)),
-            genre: getInputValue(formElement.elements.namedItem(inputNames.genre)),
-            description: getInputValue(formElement.elements.namedItem(inputNames.description)),
+            title: getInputValue(formElement.elements.namedItem(movieFormInputNames.title)),
+            rating: getInputValue(formElement.elements.namedItem(movieFormInputNames.rating)),
+            genre: getInputValue(formElement.elements.namedItem(movieFormInputNames.genre)),
+            description: getInputValue(formElement.elements.namedItem(movieFormInputNames.description)),
         });
         dispatchMovieCardAction(updateNewMovieCardAction(movieCard));
     }
@@ -76,7 +71,6 @@ export const useAddMovie = () => {
     return {
         isFormOpen,
         isLoading,
-        inputNames,
         movieCardState,
         toggleForm,
         handleClearForm,
