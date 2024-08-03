@@ -2,8 +2,8 @@ import { IMovieCard, IMovieCardEntity } from "../../../service";
 import { movieCardActions } from "./constants";
 
 export type IMovieCardState = Readonly<{
-    newMovieCard: Readonly<IMovieCard>;
-    movieCards: Readonly<IMovieCardEntity>[]; 
+    newMovieCard: IMovieCard;
+    movieCards: IMovieCardEntity[]; 
 }>
 
 export interface UpdateNewMovieCardAction {

@@ -6,7 +6,7 @@ export type MovieGenreType = typeof movieGenre[
 
 export type RatingType = number;
 
-export type IMovieCard = Readonly <{
+export type IMovieCard = Readonly<{
     title: string;
     description: string;
     genre: MovieGenreType;

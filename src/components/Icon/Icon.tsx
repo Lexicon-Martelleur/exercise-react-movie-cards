@@ -1,31 +1,29 @@
 import { ReactElement } from "react";
 
 import { IIcon } from "./types";
-import styles from "./Icon.module.css";
 import { IconSizeType } from "./types";
-import React from "react";
+import styles from "./Icon.module.css";
 
 interface Props {
   icon: IIcon;
   size?: IconSizeType;
-  className?: string
+  className?: string;
 }
 
 export const Icon: React.FC<Props> = ({
   icon,
   size,
   className
-}): ReactElement => {
-  return (
-    <>
-      {(size === "small" || size == null) && 
-        <img className={`${className ?? ""}`} {...icon} />}
-      {size === "medium" && 
-        <img className={`${styles.medium} ${className ?? ""}`} {...icon} />}
-      {size === "large" &&
-        <img className={`${styles.large} ${className ?? ""}`} {...icon} />}
-      {size === "xlarge" &&
-        <img className={`${styles.xlarge} ${className ?? ""}`} {...icon} />}
-    </>
-  );
-}
+}): ReactElement => (() => {
+  const inClasses = className ?? ""
+  switch (size) {
+    case "medium":
+      return <img className={`${styles.medium} ${inClasses}`} {...icon} />
+    case "large":
+      return <img className={`${styles.large} ${inClasses}`} {...icon} />
+    case "xlarge":
+      return <img className={`${styles.xlarge} ${inClasses}`} {...icon} />
+    case "small":
+    default:
+      return <img className={`${inClasses}`} {...icon} />
+  }})();
