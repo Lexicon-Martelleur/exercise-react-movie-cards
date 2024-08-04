@@ -55,6 +55,11 @@
     pointer-events: auto;
 }
 
+.clear-button:disabled {
+    background-color: var(--LIGHT_T_BG);
+    cursor: not-allowed;
+}
+
 form:invalid .submit-button {
     background-color: var(--DARK_T_BG);
     cursor: not-allowed;
@@ -63,6 +68,7 @@ form:invalid .submit-button {
 
 .submit-button:disabled {
     background-color: var(--DARK_T_BG);
+    cursor: not-allowed;
 }
 
 .column-ctr {

@@ -55,6 +55,7 @@ export const useAddMovie = () => {
                 setIsFormOpen(false);
                 setCloseFormOnSubmit(false);
                 dispatchMovieCardAction(updateNewMovieCardAction(getEmptyMovieCard()));
+                setSubmitResult(null);
             }
         }, 2000);
     }

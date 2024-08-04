@@ -51,6 +51,7 @@ export const AddMovieForm: React.FC<Props> = ({
 				<div className={styles.rowCtrCenter}>
 					<button className={styles.clearButton}
 						onClick={_ => handleClear()}
+						disabled={isLoading}
 						data-testid="clear-button">
 						Clear all fields
 						<Icon icon={icons.backspace}/>

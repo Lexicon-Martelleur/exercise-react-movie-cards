@@ -1,4 +1,3 @@
-import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import '@testing-library/jest-dom';
 import { AddMovieForm } from './AddMovieForm';
@@ -62,6 +61,13 @@ describe("AddMovieForm", () => {
         expect(mockOnSubmit).toHaveBeenCalledTimes(1);
     });
 
+    it("disable clear button when form is loading", () => {
+        const isLoading = true;
+        renderAddMovieForm(isLoading);
+        const clearFormButton = screen.getByTestId("clear-button") as unknown as HTMLButtonElement;
+        expect(clearFormButton.disabled).toBe(true);
+    });
+
     it("clear the form when clear is selected", () => {
         renderAddMovieForm();
         const clearButton = screen.getByTestId("clear-button");
@@ -76,7 +82,7 @@ describe("AddMovieForm", () => {
         const submitButton = screen.getByTestId("submit-btn") as unknown as HTMLButtonElement;
         const submitAndCloseButton = screen.getByTestId("submit-btn-with-close") as unknown as HTMLButtonElement;
         expect(submitButton.disabled).toBeTruthy();
-        expect(submitAndCloseButton.disabled).toBeTruthy();
+        expect(submitAndCloseButton.disabled).toBe(true);
     });
 
     it(`display submit result
