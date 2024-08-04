@@ -18,7 +18,7 @@ describe("MovieCardDialog", () => {
 	});
 
 	it(`calls confirm
-				when the confirm is selected`, () => {
+		when the confirm is selected`, () => {
 		renderMovieCardDialog();
 		fireEvent.click(screen.getByTestId("confirm-btn"));
 		expect(confirmMock).toHaveBeenCalledTimes(1);

@@ -1,4 +1,4 @@
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, useCallback, useEffect, useRef, useState } from "react";
 
 import { useMovieCardContext } from "../../context";
 import { createMovieCardObject, getEmptyMovieCard } from "../../../../service";
@@ -10,6 +10,28 @@ export const useAddMovie = () => {
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [closeFormOnSubmit, setCloseFormOnSubmit] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [submitResult, setSubmitResult] = useState<string | null>(null);
+    const loadingTimeout = useRef<NodeJS.Timeout | null>(null);
+    const submitResultTimeout = useRef<NodeJS.Timeout | null>(null);
+
+    const clearLoadingTimout = useCallback(() => {
+        if (loadingTimeout.current != null) {
+            clearTimeout(loadingTimeout.current);
+        }
+    }, [])
+
+    const clearSubmitResultTimout = useCallback(() => {
+        if (submitResultTimeout.current != null) {
+            clearTimeout(submitResultTimeout.current);
+        }
+    }, [])
+
+    useEffect(() => {
+        return () => {
+            clearLoadingTimout();
+            clearSubmitResultTimout();
+        }
+    }, [])
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
         event.preventDefault();
@@ -20,21 +42,29 @@ export const useAddMovie = () => {
             genre: getInputValue(event.currentTarget.elements.namedItem(movieFormInputNames.genre)),
             description: getInputValue(event.currentTarget.elements.namedItem(movieFormInputNames.description)),
         });
-        
         fakeLoading();
         dispatchMovieCardAction(addMovieCardAction(movieCard));
     }
 
     const fakeLoading = () => {
-        const timeout = setTimeout(() => {
+        clearLoadingTimout();
+        loadingTimeout.current = setTimeout(() => {
             setIsLoading(false);
+            manageSubmitResult("Success ✅");
             if (closeFormOnSubmit) {
                 setIsFormOpen(false);
                 setCloseFormOnSubmit(false);
                 dispatchMovieCardAction(updateNewMovieCardAction(getEmptyMovieCard()));
             }
-            clearTimeout(timeout);
         }, 2000);
+    }
+
+    const manageSubmitResult = (result: string) => {
+        setSubmitResult(result)
+        clearSubmitResultTimout();
+        submitResultTimeout.current = setTimeout(() => {
+            setSubmitResult(null);
+        }, 5000);
     }
 
     const handleChange = (formElement: HTMLFormElement | null) => {
@@ -50,6 +80,7 @@ export const useAddMovie = () => {
 
     const handleClearForm = () => {
         dispatchMovieCardAction(updateNewMovieCardAction(getEmptyMovieCard()));
+        setSubmitResult(null);
     }
 
     const handlePreSubmit = (close: boolean) => {
@@ -68,14 +99,20 @@ export const useAddMovie = () => {
         setIsFormOpen(preValue => !preValue);
     }
 
+    const updateSubmitResult = (result: string | null) => {
+        setSubmitResult(result);
+    }
+
     return {
         isFormOpen,
         isLoading,
         movieCardState,
+        submitResult,
         toggleForm,
         handleClearForm,
         handleChange,
         handleSubmit,
-        handlePreSubmit
+        handlePreSubmit,
+        updateSubmitResult
     }
 }

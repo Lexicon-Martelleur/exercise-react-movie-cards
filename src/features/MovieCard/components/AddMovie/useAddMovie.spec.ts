@@ -129,6 +129,22 @@ describe("useAddMovie", () => {
             expect(result.current.isFormOpen).toBe(true);
         })
     })
+
+    describe("updateSubmitResult", () => {
+        it("update submit result", () => {
+            const { result } = renderMovieAddHook();
+            const mockResult = "mockResult";
+            act(() => {
+                result.current.updateSubmitResult(mockResult);
+            });
+            expect(result.current.submitResult).toBe(mockResult);            
+        })
+
+        it("submit result is set to null", () => {
+            const { result } = renderMovieAddHook();
+            expect(result.current.submitResult).toBe(null);
+        })
+    })
 })
 
 function renderMovieAddHook () {

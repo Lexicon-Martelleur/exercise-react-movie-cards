@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-
+import '@testing-library/jest-dom';
 import { AddMovieForm } from './AddMovieForm';
 import * as service from "../../../../service";
 import { movieFormInputNames } from "../constants";
@@ -79,11 +79,22 @@ describe("AddMovieForm", () => {
         expect(submitAndCloseButton.disabled).toBeTruthy();
     });
 
-    function renderAddMovieForm(isLoading = false) {
+    it(`display submit result
+        when form is not longer loading`, () => {
+        const isLoading = false;
+        renderAddMovieForm(isLoading, "result");
+        const submitResult = screen.getByTestId("submit-result");
+        expect(submitResult).toBeInTheDocument();
+    });
+
+    function renderAddMovieForm(
+        isLoading = false,
+        submitResult: string | null = null) {
         return render(
             <AddMovieForm
                 formInputState={mockFormInputState}
                 isLoading={isLoading}
+                submitResult={submitResult}
                 onClear={mockOnClear}
                 onChange={mockOnChange}
                 onSubmit={mockOnSubmit}
