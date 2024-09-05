@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import '@testing-library/jest-dom';
 import { AddMovieForm } from './AddMovieForm';
-import * as service from "../../../../service";
+import * as Type from "../../../../types";
 import { movieFormInputNames } from "../constants";
 
 jest.mock('../../../../service');
@@ -18,7 +18,7 @@ jest.mock('../StarRating', () => ({
 }));
 
 describe("AddMovieForm", () => {
-    const mockFormInputState: service.IMovieCard = {
+    const mockFormInputState: Type.IMovieCard = {
         title: "mock",
         rating: 2,
         genre: "Action",

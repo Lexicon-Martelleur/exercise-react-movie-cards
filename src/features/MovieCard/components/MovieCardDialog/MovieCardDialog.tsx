@@ -1,6 +1,6 @@
 import React, { ReactElement, useRef } from "react";
 
-import { IMovieCardEntity } from "../../../../service";
+import { IMovieCardEntity } from "../../../../types";
 import { selectTitle } from "../../state";
 import { useMovieCardDialog } from "./useMovieCardDialog"; 
 import styles from "./MovieCardDialog.module.css";

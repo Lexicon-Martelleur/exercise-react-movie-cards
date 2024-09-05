@@ -1,4 +1,4 @@
-import { IMovieCard, IMovieCardEntity } from "../../../service";
+import { IMovieCard, IMovieCardEntity } from "../../../types";
 import { movieCardActions } from "./constants";
 
 export type IMovieCardState = Readonly<{

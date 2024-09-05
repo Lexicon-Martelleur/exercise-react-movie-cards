@@ -1,7 +1,7 @@
 import {
     IMovieCardEntity,
     MovieGenreType
-} from "../../../service";
+} from "../../../types";
 
 export function selectTitle(movieCardEntity: IMovieCardEntity): string {
     return movieCardEntity.moviecard.title;

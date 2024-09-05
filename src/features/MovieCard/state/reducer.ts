@@ -1,21 +1,18 @@
 import { v4 as uuid } from 'uuid';
 
-import {
-    getAllMovieCards,
-    getEmptyMovieCard,
-    IMovieCardEntity
-} from "../../../service";
+import { getAllMovieCards, getEmptyMovieCard } from "../../../service";
+import { IMovieCardEntity } from '../../../types';
 import { movieCardActions } from "./constants";
-import * as type from "./types";
+import * as MovieStateType from "./types";
 
-export const movieCardInitData: type.IMovieCardState = {
+export const movieCardInitData: MovieStateType.IMovieCardState = {
     newMovieCard: getEmptyMovieCard(),
     movieCards: getAllMovieCards() 
 } as const;
 
 export const movieCardReducer = (
-    state: type.IMovieCardState,
-    action: type.MovieCardActionType
+    state: MovieStateType.IMovieCardState,
+    action: MovieStateType.MovieCardActionType
 ) => {
     switch (action.type) {
         case movieCardActions.updateNewMovieCard:
@@ -30,16 +27,16 @@ export const movieCardReducer = (
 }
 
 function handleUpdateNewMovieCard(
-    state: type.IMovieCardState,
-    action: type.UpdateNewMovieCardAction
-): type.IMovieCardState {
+    state: MovieStateType.IMovieCardState,
+    action: MovieStateType.UpdateNewMovieCardAction
+): MovieStateType.IMovieCardState {
     return { ...state,  newMovieCard: action.payload };
 }
 
 function handleAddMovieCard(
-    state: type.IMovieCardState,
-    action: type.AddMovieCardAction
-): type.IMovieCardState {
+    state: MovieStateType.IMovieCardState,
+    action: MovieStateType.AddMovieCardAction
+): MovieStateType.IMovieCardState {
     const newMovieCardEntity: IMovieCardEntity = {
         id: uuid(),
         moviecard: action.payload
@@ -52,9 +49,9 @@ function handleAddMovieCard(
 }
 
 function handleRemoveMovieCard(
-    state: type.IMovieCardState,
-    action: type.RemoveMovieCardAction
-): type.IMovieCardState {
+    state: MovieStateType.IMovieCardState,
+    action: MovieStateType.RemoveMovieCardAction
+): MovieStateType.IMovieCardState {
     return {
         ...state,
         movieCards: state.movieCards.filter(card => card.id !== action.payload

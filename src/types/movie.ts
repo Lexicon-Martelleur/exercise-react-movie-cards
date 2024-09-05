@@ -1,4 +1,4 @@
-import { movieGenre } from "./constants";
+import { movieGenre } from "../constants";
 
 export type MovieGenreType = typeof movieGenre[
     keyof typeof movieGenre

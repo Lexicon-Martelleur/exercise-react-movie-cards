@@ -3,7 +3,7 @@ import { renderHook, act } from "@testing-library/react";
 import { useMovieList } from "./useMovieList";
 import { mockMovieCardEntity } from "../../__test__/mock";
 import { useMovieCardContext } from "../../context";
-import { IMovieCardEntity } from "../../../../service";
+import { IMovieCardEntity } from "../../../../types";
 
 jest.mock("../../context");
 

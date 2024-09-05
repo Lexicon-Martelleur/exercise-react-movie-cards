@@ -1,4 +1,5 @@
-import { IMovieCard, IMovieCardEntity, minRating, movieGenre } from "../../../service";
+import { IMovieCard, IMovieCardEntity } from "../../../types";
+import { minRating, movieGenre } from "../../../constants";
 import { IMovieCardState } from "../state";
 
 export const mockMovieCardEntity: IMovieCardEntity = {

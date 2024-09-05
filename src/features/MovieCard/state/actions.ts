@@ -1,4 +1,4 @@
-import { IMovieCard } from "../../../service";
+import { IMovieCard } from "../../../types";
 import { movieCardActions } from "./constants";
 import {
     AddMovieCardAction,

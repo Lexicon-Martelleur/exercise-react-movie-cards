@@ -1,9 +1,10 @@
 import React, { ReactElement } from "react";
 import { v4 as uuid } from 'uuid';
 
-import { maxRating } from "../../../../service";
+import { maxRating } from "../../../../constants";
 import { icons } from "../../../../assets";
 import { Icon, IconSizeType } from "../../../../components";
+
 import { useStarRating } from "./useStarRating";
 import styles from "./StarRating.module.css";
 
