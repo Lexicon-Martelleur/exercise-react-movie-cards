@@ -1,1 +1,3 @@
-export * from "./MovieCardContainer";
+export { AddMovie } from "./AddMovie";
+export { MovieList } from "./MovieList";
+

@@ -1,9 +1,9 @@
-import { MovieCardLayout } from "../layouts";
+import * as Feature from "../features";
 
 export function App() {
   return (
     <>
-      <MovieCardLayout />
+      <Feature.MovieCard />
     </>
   );
 }
