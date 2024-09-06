@@ -2,8 +2,7 @@ import { maxRating, minRating, movieGenre } from "../constants";
 import {
     IMovieCard,
     IMovieCardEntity,
-    MovieGenreType,
-    RatingType
+    isMovieCard
 } from "../types";
 
 export function getEmptyMovieCard (): IMovieCard {
@@ -54,23 +53,5 @@ export function createMovieCardObject(obj: unknown): IMovieCard {
         return defaultMovieCard;
     }
 
-    const input = obj as IMovieCard;
-
-    return {
-        title: typeof input.title === "string" ? input.title : defaultMovieCard.title,
-        description: typeof input.description === "string" ? input.description : defaultMovieCard.description,
-        genre: isValidGenre(input.genre) ? input.genre : defaultMovieCard.genre,
-        rating: isValidMovieRating(input.rating) ? input.rating : defaultMovieCard.rating,
-    };
-}
-
-export function isValidGenre (genre: string): genre is MovieGenreType {
-    return (
-        typeof genre === "string" &&
-        Object.keys(movieGenre).includes(genre as MovieGenreType)
-    );
-}
-
-export function isValidMovieRating (rating: number): rating is RatingType {
-    return rating >= minRating && rating <= maxRating;
+    return isMovieCard(obj) ? obj : defaultMovieCard;
 }
