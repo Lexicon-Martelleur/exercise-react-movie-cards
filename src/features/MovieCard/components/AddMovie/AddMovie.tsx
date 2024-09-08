@@ -25,7 +25,7 @@ export const AddMovie = (): ReactElement => {
             <FormExpander title={"Movie Card Form"}
                 isFormOpen={hook.isFormOpen}
                 toggleForm={hook.toggleForm}/>
-            {hook.isFormOpen || !hook.isFormOpen && <AddMovieForm />}
+            {hook.isFormOpen && <AddMovieForm />}
         </section>
     );
 }
