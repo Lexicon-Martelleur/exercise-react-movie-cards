@@ -39,8 +39,6 @@ export function createNewMovieCardObject(obj: unknown): Model.INewMovieCard {
         return defaultNewMovieCard;
     }
 
-    console.log('obj', obj)
-
     return Model.isNewMovieCard(obj) ? obj : defaultNewMovieCard;
 }
 

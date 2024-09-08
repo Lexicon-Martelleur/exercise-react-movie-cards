@@ -32,7 +32,6 @@ function handleUpdateNewMovieCard (
     state: Type.IMovieCardState,
     action: Type.UpdateNewMovieCardAction
 ): Type.IMovieCardState {
-    console.log('action', action)
     return { ...state,  newMovieCard: action.payload };
 }
 

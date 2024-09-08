@@ -31,41 +31,32 @@ export const AddMovieForm = (): ReactElement => {
 	const actorsInput = useRef<HTMLInputElement | null>(null);
 	const genresInput = useRef<HTMLInputElement | null>(null);
 	const form = useRef<HTMLFormElement | null>(null);
-	// const [rating, setRating] = useState(movieState.newMovieCard.rating);
-	// const [actorIds, setActorIds] = useState(movieState.newMovieCard.actors.join(","));
-	// const [directorId, setDirectorId] = useState(movieState.newMovieCard.director);
-	// const [genres, setGenres] = useState(movieState.newMovieCard.genres.join(","));
 
 	const updateSelectedRating = (value: number) => {
 		if (ratingInput.current == null) { return; }
-		// setRating(value);
 		ratingInput.current.value = `${value}`;
 		addMovieFormHook.handleChange(form.current);
 	}
 
 	const updateSelectedActors = (value: string) => {
 		if (actorsInput.current == null) { return; }
-		// setActorIds(pre => `${pre},${value}`);
 		actorsInput.current.value = value;
 		addMovieFormHook.handleChange(form.current);
 	}
 
 	const updateSelectedDirector = (value: string) => {
 		if (directorInput.current == null) { return; }
-		// setDirectorId(value);
 		directorInput.current.value = `${value}`;
 		addMovieFormHook.handleChange(form.current);
 	}
 
 	const updateSelectedGenres = (value: string) => {
 		if (genresInput.current == null) { return; }
-		// setGenres(pre => `${pre},${value}`);
 		genresInput.current.value = `${value}`;
 		addMovieFormHook.handleChange(form.current);
 	}
 
 	const handleClear = () => {
-		// setRating(Constant.minRating);
 		addMovieFormHook.handleClearForm();
 	}
 
@@ -81,7 +72,8 @@ export const AddMovieForm = (): ReactElement => {
 			<fieldset className={styles.addMovieFieldset}>
 				<legend>Create movie card</legend>
 				<div className={styles.rowCtrCenter}>
-					<button className={styles.clearButton}
+					<button type="button" 
+						className={styles.clearButton}
 						onClick={_ => handleClear()}
 						disabled={addMovieFormHook.isLoading}
 						data-testid="clear-button">
@@ -187,14 +179,14 @@ export const AddMovieForm = (): ReactElement => {
 				</div>
 				<button className={styles.submitButton}
 					type="submit"
-					disabled={addMovieFormHook.isLoading}
+					disabled={addMovieFormHook.isLoading || form.current?.checkValidity() == null}
 					onMouseDown={_ => addMovieFormHook.handlePreSubmit(false)} 
 					data-testid="submit-btn">
 					Create Card
 				</button>
 				<button className={styles.submitButton}
 					type="submit"
-					disabled={addMovieFormHook.isLoading}
+					disabled={addMovieFormHook.isLoading || form.current?.checkValidity() == false}
 					onMouseDown={_ => addMovieFormHook.handlePreSubmit(true)} 
 					data-testid="submit-btn-with-close">
 					Create Card And Close Form

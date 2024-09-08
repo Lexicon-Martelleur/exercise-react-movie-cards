@@ -48,7 +48,7 @@ export function useMovieQuery (
                 const actors = await movieAPi.getActors();
                 dispatchMovieAction(State.updateSelectableActorsAction(actors));
             } catch (err) {
-                handleError(err, `Failed fetching todos from from ${apiEndPoint}`);
+                handleError(err, `Failed fetching available actors from from ${apiEndPoint}`);
             } finally {
                 setPending(false);
             }
@@ -62,7 +62,7 @@ export function useMovieQuery (
                 const directors = await movieAPi.getDirectors();
                 dispatchMovieAction(State.updateSelectableDirectorsAction(directors));
             } catch (err) {
-                handleError(err, `Failed fetching todos from from ${apiEndPoint}`);
+                handleError(err, `Failed fetching available directors from from ${apiEndPoint}`);
             } finally {
                 setPending(false);
             }

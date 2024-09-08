@@ -62,7 +62,6 @@ export const useAddMovieForm = () => {
             rating: Number(getInputValue(formElement.elements.namedItem(movieFormInputNames.rating))),
             genres: getInputValue(formElement.elements.namedItem(movieFormInputNames.genres)).split(",")
         });
-        console.log('newMovieCard', newMovieCard)
         dispatchMovieAction(updateNewMovieCardAction(newMovieCard));
     }
 
