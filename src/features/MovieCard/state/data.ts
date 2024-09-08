@@ -1,9 +1,11 @@
-import { getEmptyMovieCard } from "../../../service";
+import { getNewEmptyMovieCard } from "../../../service";
 import { IMovieCardState } from "./types";
 
 export const movieCardInitData: IMovieCardState = {
-    newMovieCard: getEmptyMovieCard(),
+    newMovieCard: getNewEmptyMovieCard(),
     movieCards: [],
+    selectableActors: [],
+    selectableDirectors: [],
     isError: false,
     errorMsg: ""
 } as const;

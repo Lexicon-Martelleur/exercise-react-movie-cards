@@ -17,6 +17,10 @@ export const movieCardReducer = (
             return handleAddMovieCardEntities(state, action);
         case movieCardActions.removeMovieCard:
             return handleRemoveMovieCard(state, action);
+        case movieCardActions.updateSelectableActors:
+            return handleUpdateSelectableActors(state, action);
+        case movieCardActions.updateSelectableDirectors:
+            return handleUpdateSelectableDirectors(state, action);
         case movieCardActions.updateErrorState:
             return handleUpdateErrorState(state, action);
         default: 
@@ -28,6 +32,7 @@ function handleUpdateNewMovieCard (
     state: Type.IMovieCardState,
     action: Type.UpdateNewMovieCardAction
 ): Type.IMovieCardState {
+    console.log('action', action)
     return { ...state,  newMovieCard: action.payload };
 }
 
@@ -64,6 +69,26 @@ function handleRemoveMovieCard (
         ...state,
         movieCards: state.movieCards.filter(card => card.id !== action.payload
         ),
+    };
+}
+
+function handleUpdateSelectableActors (
+    state: Type.IMovieCardState,
+    action: Type.UpdateSelectableActorsAction
+): Type.IMovieCardState {
+    return {
+        ...state,
+        selectableActors: action.payload
+    };
+}
+
+function handleUpdateSelectableDirectors (
+    state: Type.IMovieCardState,
+    action: Type.UpdateSelectableDirectorsAction
+): Type.IMovieCardState {
+    return {
+        ...state,
+        selectableDirectors: action.payload
     };
 }
 

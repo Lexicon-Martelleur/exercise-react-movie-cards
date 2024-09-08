@@ -11,7 +11,7 @@
     margin-bottom: 2rem;
     justify-content: space-between;
     color: var(--DARK_COLOR);
-    overflow: auto;
+    overflow: hidden;
 }
 
 .add-movie-fieldset label,

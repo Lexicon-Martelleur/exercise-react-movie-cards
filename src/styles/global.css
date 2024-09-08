@@ -4,10 +4,11 @@
     --DARK_T_BG: rgb(23, 107, 135, 0.5);
     --MEDIUM_BG: #86B6F6;
     --LIGHT_BG: #B4D4FF;
-    --LIGHT_T_BG: rgb(180, 212, 255, 0.5);
     --XLIGHT_BG: #EEF5FF;
+    --LIGHT_T_BG: rgb(180, 212, 255, 0.5);
     --WARNING_BG: #a31818;
     
+    --LIGHT_BORDER_X: #EEF5FF;
     --LIGHT_BORDER: #B4D4FF;
     --MEDIUM_BORDER: #86B6F6;
     --DARK_BORDER: #0c3947;
@@ -18,7 +19,9 @@
 
     --BORDER_MEDIUM: 1px solid var(--MEDIUM_BORDER);
     --BORDER_LIGHT: 1px solid var(--LIGHT_BORDER);
+    --BORDER_DARK: 1px solid var(--DARK_BORDER);
     --BORDER_LIGHT_FAT: 3px solid var(--LIGHT_BORDER);
+    --BORDER_LIGHT_X_FAT: 3px solid var(--LIGHT_BORDER_X);
     --BORDER_MEDIUM_FAT: 3px solid var(--MEDIUM_BORDER);
     --BORDER_DARK_FAT: 3px solid var(--DARK_BORDER);
     --BORDER_DARK_X_FAT: 3px solid var(--DARK_BORDER_X);

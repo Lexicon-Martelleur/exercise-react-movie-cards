@@ -1,6 +1,8 @@
 export const movieFormInputNames = {
     title: "title",
+    description: "description",
     rating: "rating",
-    genre: "genre",
-    description: "description"
+    director: "director",
+    actors: "actors",
+    genres: "genres"
 } as const;

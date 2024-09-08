@@ -12,11 +12,11 @@ export function isMovieCard (obj: unknown): obj is IMovieCard {
         return false;
     }
 
-    const todoObj = obj as IMovieCard;
+    const castObj = obj as IMovieCard;
     return (
-        typeof todoObj.title === "string" &&
-        typeof todoObj.description ===  "string" &&
-        typeof todoObj.timeStamp ===  "number" &&
-        isValidMovieRating(todoObj.rating)
+        typeof castObj.title === "string" &&
+        typeof castObj.description ===  "string" &&
+        typeof castObj.timeStamp ===  "number" &&
+        isValidMovieRating(castObj.rating)
     );
 }

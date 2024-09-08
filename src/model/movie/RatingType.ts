@@ -1,4 +1,4 @@
-import { maxRating, minRating, movieGenre } from "../../constants";
+import { maxRating, minRating } from "../../constants";
 
 export type RatingType = number;
 

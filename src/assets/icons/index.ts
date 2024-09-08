@@ -4,6 +4,8 @@ import gradeChecked from "./grade_checked.svg";
 import gradeUnchecked from "./grade_unchecked.svg";
 import backspace from "./backspace.svg";
 import close from "./close.svg";
+import arrowDown from "./arrow_down.svg";
+
 
 export const icons = {
   expandContent: {
@@ -35,5 +37,10 @@ export const icons = {
     src: backspace,
     alt: "Check grade",
     title: "Check grade"
+  },
+  arrowDown: {
+    src: arrowDown,
+    alt: "Arrow Down",
+    title: ""
   }
 } as const;

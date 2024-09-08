@@ -20,6 +20,29 @@ export function createMovieCardObject(obj: unknown): Model.IMovieCard {
     return Model.isMovieCard(obj) ? obj : defaultMovieCard;
 }
 
+export function getNewEmptyMovieCard (): Model.INewMovieCard {
+    return {
+        title: "",
+        timeStamp: getUNIXTimestampInSeconds(),
+        description: "",
+        director: "",
+        actors: [],
+        rating: minRating,
+        genres: []
+    };
+}
+
+export function createNewMovieCardObject(obj: unknown): Model.INewMovieCard {
+    const defaultNewMovieCard = getNewEmptyMovieCard();
+    
+    if (typeof obj !== "object" || obj === null) {
+        return defaultNewMovieCard;
+    }
+
+    return Model.isNewMovieCard(obj) ? obj : defaultNewMovieCard;
+}
+
+
 export function getUNIXTimestampInSeconds (): number {
     return Math.floor(Date.now() / 1000);
 }

@@ -41,6 +41,34 @@ export function useMovieQuery (
         })()
     }, [apiEndPoint, dispatchMovieAction, handleError]);
 
+    const getActors = useCallback(() => {
+        setPending(true);
+        (async () => {
+            try {
+                const actors = await movieAPi.getActors();
+                dispatchMovieAction(State.updateSelectableActorsAction(actors));
+            } catch (err) {
+                handleError(err, `Failed fetching todos from from ${apiEndPoint}`);
+            } finally {
+                setPending(false);
+            }
+        })()
+    }, [apiEndPoint, dispatchMovieAction, handleError]);
+
+    const getDirectors = useCallback(() => {
+        setPending(true);
+        (async () => {
+            try {
+                const directors = await movieAPi.getDirectors();
+                dispatchMovieAction(State.updateSelectableDirectorsAction(directors));
+            } catch (err) {
+                handleError(err, `Failed fetching todos from from ${apiEndPoint}`);
+            } finally {
+                setPending(false);
+            }
+        })()
+    }, [apiEndPoint, dispatchMovieAction, handleError]);
+
     const clearErrorState = useCallback(() => {
         dispatchMovieAction(State.clearErrorStateAction());
     }, [dispatchMovieAction]);
@@ -52,6 +80,8 @@ export function useMovieQuery (
     return {
         isPending,
         getTodos,
+        getActors,
+        getDirectors,
         clearErrorState
     };
 }

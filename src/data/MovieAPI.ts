@@ -31,4 +31,11 @@ export class MovieAPI implements IMovieAPI {
         const movieDTOs = resJSON as Type.MovieDTO[];
         return movieDTOs.map(mapMovieDTOToMovieCardEntity);
     }
+
+    getActors(): Promise<Type.IActor[]> {
+        throw new APIError("Method not implemented.");
+    }
+    getDirectors(): Promise<Type.IDirector[]> {
+        throw new APIError("Method not implemented.");
+    }
 }

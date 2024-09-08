@@ -1,0 +1,83 @@
+.select-article {
+    background-color: var(--XLIGHT_BG);
+    border-radius: 8px;
+}
+
+.select-button {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--XLIGHT_BG);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.select-open {
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.select-label{
+    align-self: center;
+    font-size: 1rem;
+    color: #000F1F;
+}
+
+.option-ctr {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--XLIGHT_BG);
+    padding-inline: 4px;
+    padding-block: 4px;
+    border-radius: 0 0 0.5rem 0.5rem;
+    z-index: var(--Z_INDEX_LEVEL_1);
+}
+
+.option-item {
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    padding: 1rem;
+    font-size: 1rem;
+    width: 100%;
+    background-color: inherit;
+    border: none;
+}
+
+.option-item:hover {
+    background-color: var(--LIGHT_BG);
+}
+
+.option-item:hover > .option-mark {
+    background-color: var(--DARK_BG);
+}
+
+.option-label {
+    align-self: center;
+    font-size: 1rem;
+    color: #000F1F;
+}
+
+.option-mark {
+    color: #000F1F;
+    width: 1.4rem;
+    height: 1.4rem;
+    border: var(--BORDER_LIGHT_X_FAT);
+    outline: var(--BORDER_DARK);
+    background-color: var(--XLIGHT_BG);
+}
+
+.option-mark:hover {
+    background-color: var(--DARK_BG);
+}
+
+.option-selected {
+    background-color: var(--DARK_BG);
+}

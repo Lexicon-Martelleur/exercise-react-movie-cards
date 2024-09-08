@@ -1,31 +1,44 @@
-import { IMovieCard, IMovieCardEntity } from "../../../model";
+import * as Model from "../../../model";
+import { IActor, IDirector } from "../../../model";
 import { movieCardActions } from "./constants";
 
 export type IMovieCardState = Readonly<{
-    newMovieCard: IMovieCard;
-    movieCards: IMovieCardEntity[];
+    newMovieCard: Model.INewMovieCard;
+    movieCards: Model.IMovieCardEntity[];
+    selectableActors: IActor[];
+    selectableDirectors: IDirector[];
     isError: boolean,
     errorMsg: string
 }>
 
 export interface UpdateNewMovieCardAction {
     type: typeof movieCardActions.updateNewMovieCard;
-    payload: IMovieCard;
+    payload: Model.INewMovieCard;
 }
 
 export interface AddMovieCardAction {
     type: typeof movieCardActions.addMovieCard;
-    payload: IMovieCard;
+    payload: Model.IMovieCard;
 }
 
 export interface AddMovieCardEntitiesAction {
     type: typeof movieCardActions.addMovieCardEntities;
-    payload: IMovieCardEntity[];
+    payload: Model.IMovieCardEntity[];
 }
 
 export interface RemoveMovieCardAction {
     type: typeof movieCardActions.removeMovieCard;
     payload: string;
+}
+
+export interface UpdateSelectableActorsAction {
+    type: typeof movieCardActions.updateSelectableActors;
+    payload: IActor[];
+}
+
+export interface UpdateSelectableDirectorsAction {
+    type: typeof movieCardActions.updateSelectableDirectors;
+    payload: IDirector[];
 }
 
 export interface UpdateErrorStateAction {
@@ -39,5 +52,7 @@ export type MovieCardActionType = (
     AddMovieCardAction |
     AddMovieCardEntitiesAction |
     RemoveMovieCardAction |
+    UpdateSelectableActorsAction |
+    UpdateSelectableDirectorsAction |
     UpdateErrorStateAction
 );
