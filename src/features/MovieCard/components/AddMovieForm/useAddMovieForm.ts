@@ -13,7 +13,6 @@ export const useAddMovieForm = () => {
     const movieQueryHook = useMovieQuery(dispatchMovieAction)
     const [closeFormOnSubmit, setCloseFormOnSubmit] = useState(false);
     const [submitResult, setSubmitResult] = useState<string | null>(null);
-    const loadingTimeout = useRef<NodeJS.Timeout | null>(null);
     const submitResultTimeout = useRef<NodeJS.Timeout | null>(null);
     const isLoading = false;
 
@@ -25,12 +24,6 @@ export const useAddMovieForm = () => {
         movieQueryHook.getDirectors();
     }, [movieQueryHook.getDirectors]);
 
-    const clearLoadingTimout = useCallback(() => {
-        if (loadingTimeout.current != null) {
-            clearTimeout(loadingTimeout.current);
-        }
-    }, [])
-
     const clearSubmitResultTimout = useCallback(() => {
         if (submitResultTimeout.current != null) {
             clearTimeout(submitResultTimeout.current);
@@ -39,7 +32,6 @@ export const useAddMovieForm = () => {
 
     useEffect(() => {
         return () => {
-            clearLoadingTimout();
             clearSubmitResultTimout();
         }
     }, [])
@@ -70,6 +62,7 @@ export const useAddMovieForm = () => {
             rating: Number(getInputValue(formElement.elements.namedItem(movieFormInputNames.rating))),
             genres: getInputValue(formElement.elements.namedItem(movieFormInputNames.genres)).split(",")
         });
+        console.log('newMovieCard', newMovieCard)
         dispatchMovieAction(updateNewMovieCardAction(newMovieCard));
     }
 

@@ -1,4 +1,4 @@
-import { minRating } from "../constants";
+import { minRating, movieGenre } from "../constants";
 import * as Model from "../model";
 
 export function getEmptyMovieCard (): Model.IMovieCard {
@@ -28,7 +28,7 @@ export function getNewEmptyMovieCard (): Model.INewMovieCard {
         director: "",
         actors: [],
         rating: minRating,
-        genres: []
+        genres: [movieGenre.unknown]
     };
 }
 
@@ -38,6 +38,8 @@ export function createNewMovieCardObject(obj: unknown): Model.INewMovieCard {
     if (typeof obj !== "object" || obj === null) {
         return defaultNewMovieCard;
     }
+
+    console.log('obj', obj)
 
     return Model.isNewMovieCard(obj) ? obj : defaultNewMovieCard;
 }

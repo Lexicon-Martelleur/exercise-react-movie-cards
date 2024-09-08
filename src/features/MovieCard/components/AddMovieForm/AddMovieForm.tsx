@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useRef, useState } from "react";
+import { ReactElement, useCallback, useRef } from "react";
 
 import * as Constant from "../../../../constants";
 import { INameObject } from "../../../../model";
@@ -6,7 +6,6 @@ import { StarRating } from "../StarRating";
 import { icons } from "../../../../assets";
 import { Icon, SelectMenu } from "../../../../components";
 import { movieFormInputNames } from "../constants";
-import { movieGenre } from "../../../../constants";
 import { useMovieCardContext } from "../../context";
 
 import { useAddMovieForm } from "./useAddMovieForm";
@@ -32,55 +31,50 @@ export const AddMovieForm = (): ReactElement => {
 	const actorsInput = useRef<HTMLInputElement | null>(null);
 	const genresInput = useRef<HTMLInputElement | null>(null);
 	const form = useRef<HTMLFormElement | null>(null);
-	const initRating = movieState.newMovieCard.rating;
-	const [rating, setRating] = useState(initRating);
-	const [actorIds, setActorIds] = useState("");
-	const [directorId, setDirectorId] = useState("");
-	const [genres, setGenres] = useState(`${movieGenre.unknown}`);
-
-	useEffect(() => {
-		console.log("rendering")
-	})
+	// const [rating, setRating] = useState(movieState.newMovieCard.rating);
+	// const [actorIds, setActorIds] = useState(movieState.newMovieCard.actors.join(","));
+	// const [directorId, setDirectorId] = useState(movieState.newMovieCard.director);
+	// const [genres, setGenres] = useState(movieState.newMovieCard.genres.join(","));
 
 	const updateSelectedRating = (value: number) => {
 		if (ratingInput.current == null) { return; }
-		setRating(value);
+		// setRating(value);
 		ratingInput.current.value = `${value}`;
 		addMovieFormHook.handleChange(form.current);
 	}
 
 	const updateSelectedActors = (value: string) => {
 		if (actorsInput.current == null) { return; }
-		setActorIds(pre => `${pre},${value}`);
+		// setActorIds(pre => `${pre},${value}`);
 		actorsInput.current.value = value;
 		addMovieFormHook.handleChange(form.current);
 	}
 
 	const updateSelectedDirector = (value: string) => {
 		if (directorInput.current == null) { return; }
-		setDirectorId(value);
+		// setDirectorId(value);
 		directorInput.current.value = `${value}`;
 		addMovieFormHook.handleChange(form.current);
 	}
 
 	const updateSelectedGenres = (value: string) => {
 		if (genresInput.current == null) { return; }
-		setGenres(pre => `${pre},${value}`);
+		// setGenres(pre => `${pre},${value}`);
 		genresInput.current.value = `${value}`;
 		addMovieFormHook.handleChange(form.current);
 	}
 
 	const handleClear = () => {
-		setRating(Constant.minRating);
+		// setRating(Constant.minRating);
 		addMovieFormHook.handleClearForm();
 	}
 
-	const mapGenresToNamedGenresType = (): INameObject[] => {
+	const mapGenresToNamedGenresType = useCallback((): INameObject[] => {
 		return [...Object.values(Constant.movieGenre)].map(item => ({
 			name: item,
 			id: item
 		}))
-	}
+	}, [Constant.movieGenre])
 
 	return (
 		<form onSubmit={addMovieFormHook.handleSubmit} ref={form}>
@@ -102,7 +96,7 @@ export const AddMovieForm = (): ReactElement => {
 						autoFocus
 						minLength={Constant.minLengthTitle}
 						maxLength={Constant.maxLengthTitle}
-						name={movieFormInputNames.title}
+						name={movieState.newMovieCard.title}
 						id={movieFormInputNames.title}
 						value={movieState.newMovieCard.title}
 						onChange={_ => addMovieFormHook.handleChange(form.current)}
@@ -111,13 +105,13 @@ export const AddMovieForm = (): ReactElement => {
 				<div className={styles.rowCtr}>    
 					<label htmlFor={movieFormInputNames.rating}>Rating</label>
 					<StarRating
-						rating={rating} updateRating={updateSelectedRating}
+						rating={movieState.newMovieCard.rating} updateRating={updateSelectedRating}
 						data-testid="star-rating"/>
 					<input type="range"
 						required
 						hidden
 						ref={ratingInput}
-						value={rating}
+						value={movieState.newMovieCard.rating}
 						min={Constant.minRating}
 						max={Constant.maxRating}
 						name={movieFormInputNames.rating}
@@ -130,13 +124,13 @@ export const AddMovieForm = (): ReactElement => {
 					<input ref={directorInput}
 						required
 						hidden
-						value={directorId}
+						value={movieState.newMovieCard.director}
 						name={movieFormInputNames.director}
 						id={movieFormInputNames.director}
 						onChange={_ => addMovieFormHook.handleChange(form.current)} />
 					<SelectMenu
 						options={new Set(movieState.selectableDirectors)}
-						selectedOptionIds={new Set([directorId])}
+						selectedOptionIds={new Set([movieState.newMovieCard.director])}
 						title="Directors"
 						onSelect={updateSelectedDirector}/>
 				</div>
@@ -145,13 +139,13 @@ export const AddMovieForm = (): ReactElement => {
 					<input ref={actorsInput}
 						required
 						hidden
-						value={actorIds}
+						value={movieState.newMovieCard.actors.join(",")}
 						name={movieFormInputNames.actors}
 						id={movieFormInputNames.actors}
 						onChange={_ => addMovieFormHook.handleChange(form.current)} />
 					<SelectMenu
 						options={new Set(movieState.selectableDirectors)}
-						selectedOptionIds={new Set(actorIds.split(","))} 
+						selectedOptionIds={new Set(movieState.newMovieCard.actors)} 
 						title="Select Actors"
 						onSelect={updateSelectedActors}/>
 				</div>
@@ -160,7 +154,7 @@ export const AddMovieForm = (): ReactElement => {
 					<input ref={genresInput}
 						required
 						hidden
-						value={genres}
+						value={movieState.newMovieCard.genres.join(",")}
 						name={movieFormInputNames.genres}
 						id={movieFormInputNames.genres}
 						onChange={_ => addMovieFormHook.handleChange(form.current)} />
