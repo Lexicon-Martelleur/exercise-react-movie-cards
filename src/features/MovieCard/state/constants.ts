@@ -3,4 +3,5 @@ export const movieCardActions = {
     addMovieCard: "ADD_MOVIE_CARD",
     addMovieCardEntities: "ADD_MOVIE_CARD_ENTITIES",
     removeMovieCard: "REMOVIE_MOVIE_CARD",
+    updateErrorState: "UPDATE_ERROR_SATE",
 } as const;

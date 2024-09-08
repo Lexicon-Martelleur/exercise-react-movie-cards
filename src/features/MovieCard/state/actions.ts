@@ -4,6 +4,7 @@ import {
     AddMovieCardAction,
     AddMovieCardEntitiesAction,
     RemoveMovieCardAction,
+    UpdateErrorStateAction,
     UpdateNewMovieCardAction
 } from "./types";
 
@@ -40,5 +41,22 @@ export const removeMovieCardAction = (
     return {
         type: movieCardActions.removeMovieCard,
         payload: movieCardId
+    };
+}
+
+export const updateErrorStateAction = (
+    isError: boolean,
+    msg: string
+): UpdateErrorStateAction => {
+    return {
+        type: movieCardActions.updateErrorState,
+        payload: { isError, msg }
+    };
+}
+
+export const clearErrorStateAction = (): UpdateErrorStateAction => {
+    return {
+        type: movieCardActions.updateErrorState,
+        payload: { isError: false, msg: "" }
     };
 }

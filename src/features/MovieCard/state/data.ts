@@ -3,5 +3,7 @@ import { IMovieCardState } from "./types";
 
 export const movieCardInitData: IMovieCardState = {
     newMovieCard: getEmptyMovieCard(),
-    movieCards: []
+    movieCards: [],
+    isError: false,
+    errorMsg: ""
 } as const;

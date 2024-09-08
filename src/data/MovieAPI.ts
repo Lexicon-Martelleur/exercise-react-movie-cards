@@ -27,7 +27,6 @@ export class MovieAPI implements IMovieAPI {
         const resJSON: unknown = await res.json();
 
         if (!(resJSON instanceof Array)) { throw new APIError(); }
-        console.log('resJSON', resJSON)
         if (!resJSON.every(Type.isMovieDTO)) { throw new APIError(); }
         const movieDTOs = resJSON as Type.MovieDTO[];
         return movieDTOs.map(mapMovieDTOToMovieCardEntity);

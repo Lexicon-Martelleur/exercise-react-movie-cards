@@ -3,7 +3,9 @@ import { movieCardActions } from "./constants";
 
 export type IMovieCardState = Readonly<{
     newMovieCard: IMovieCard;
-    movieCards: IMovieCardEntity[]; 
+    movieCards: IMovieCardEntity[];
+    isError: boolean,
+    errorMsg: string
 }>
 
 export interface UpdateNewMovieCardAction {
@@ -26,9 +28,16 @@ export interface RemoveMovieCardAction {
     payload: string;
 }
 
+export interface UpdateErrorStateAction {
+    type: typeof movieCardActions.updateErrorState;
+    payload: { isError: boolean, msg: string };
+}
+
+
 export type MovieCardActionType = (
     UpdateNewMovieCardAction |
     AddMovieCardAction |
     AddMovieCardEntitiesAction |
-    RemoveMovieCardAction
+    RemoveMovieCardAction |
+    UpdateErrorStateAction
 );

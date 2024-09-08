@@ -26,15 +26,10 @@ export const useMovieList = () => {
         setSelectedMovieCard(null);
     }
 
-    const getMovieCards = () => {
-        return movieCardState.movieCards 
-    }
-
     return {
         isMovieCardDialogOen,
         movieCardState,
         selectedMovieCard,
-        getMovieCards,
         handleSelectMovieCard,
         handleCloseMovieCardDialog,
         handleConfirm

@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 
 import { createMovieAPI } from "../../../data";
 import * as State from "../state";
@@ -21,10 +21,11 @@ export function useMovieQuery (
 
     const handleError = useCallback((
         err: unknown,
-        errorMsg: string
+        msg: string
     ) => {
         isDevelopment() && console.log(err);
-    }, [dispatchMovieAction])
+        dispatchMovieAction(State.updateErrorStateAction(true, msg))
+    }, [dispatchMovieAction]);
 
     const getTodos = useCallback(() => {
         setPending(true);
@@ -38,10 +39,19 @@ export function useMovieQuery (
                 setPending(false);
             }
         })()
-    }, [apiEndPoint, dispatchMovieAction, handleError])
+    }, [apiEndPoint, dispatchMovieAction, handleError]);
 
-    return useRef({
-        pending,
-        getTodos
-    }).current;
+    const clearErrorState = useCallback(() => {
+        dispatchMovieAction(State.clearErrorStateAction());
+    }, [dispatchMovieAction]);
+
+    const isPending = useCallback(() => {
+        return pending
+    }, [dispatchMovieAction, pending]);
+
+    return {
+        isPending,
+        getTodos,
+        clearErrorState
+    };
 }

@@ -1,0 +1,6 @@
+.submit-button {
+    background-color: var(--DARK_BG_X);
+    padding: 1rem;
+    border: none;
+    cursor: pointer;
+}

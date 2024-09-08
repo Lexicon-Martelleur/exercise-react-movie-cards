@@ -17,19 +17,21 @@ export const movieCardReducer = (
             return handleAddMovieCardEntities(state, action);
         case movieCardActions.removeMovieCard:
             return handleRemoveMovieCard(state, action);
+        case movieCardActions.updateErrorState:
+            return handleUpdateErrorState(state, action);
         default: 
             return state;
     }
 }
 
-function handleUpdateNewMovieCard(
+function handleUpdateNewMovieCard (
     state: Type.IMovieCardState,
     action: Type.UpdateNewMovieCardAction
 ): Type.IMovieCardState {
     return { ...state,  newMovieCard: action.payload };
 }
 
-function handleAddMovieCard(
+function handleAddMovieCard (
     state: Type.IMovieCardState,
     action: Type.AddMovieCardAction
 ): Type.IMovieCardState {
@@ -44,7 +46,7 @@ function handleAddMovieCard(
     };
 }
 
-function handleAddMovieCardEntities(
+function handleAddMovieCardEntities (
     state: Type.IMovieCardState,
     action: Type.AddMovieCardEntitiesAction
 ): Type.IMovieCardState {
@@ -54,7 +56,7 @@ function handleAddMovieCardEntities(
     };
 }
 
-function handleRemoveMovieCard(
+function handleRemoveMovieCard (
     state: Type.IMovieCardState,
     action: Type.RemoveMovieCardAction
 ): Type.IMovieCardState {
@@ -62,5 +64,16 @@ function handleRemoveMovieCard(
         ...state,
         movieCards: state.movieCards.filter(card => card.id !== action.payload
         ),
+    };
+}
+
+function handleUpdateErrorState (
+    state: Type.IMovieCardState,
+    action: Type.UpdateErrorStateAction
+): Type.IMovieCardState {
+    return {
+        ...state,
+        isError: action.payload.isError,
+        errorMsg: action.payload.msg
     };
 }

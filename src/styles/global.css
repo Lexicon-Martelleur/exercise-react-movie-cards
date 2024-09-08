@@ -1,14 +1,33 @@
 :root {
+    --DARK_BG_X: #000F1F;
     --DARK_BG: #176B87;
     --DARK_T_BG: rgb(23, 107, 135, 0.5);
     --MEDIUM_BG: #86B6F6;
     --LIGHT_BG: #B4D4FF;
     --LIGHT_T_BG: rgb(180, 212, 255, 0.5);
     --XLIGHT_BG: #EEF5FF;
+    --WARNING_BG: #a31818;
+    
     --LIGHT_BORDER: #B4D4FF;
+    --MEDIUM_BORDER: #86B6F6;
     --DARK_BORDER: #0c3947;
+    --DARK_BORDER_X: #000F1F;
+
     --LIGHT_COLOR: #EEF5FF;
     --DARK_COLOR: #0c3947;
+
+    --BORDER_MEDIUM: 1px solid var(--MEDIUM_BORDER);
+    --BORDER_LIGHT: 1px solid var(--LIGHT_BORDER);
+    --BORDER_LIGHT_FAT: 3px solid var(--LIGHT_BORDER);
+    --BORDER_MEDIUM_FAT: 3px solid var(--MEDIUM_BORDER);
+    --BORDER_DARK_FAT: 3px solid var(--DARK_BORDER);
+    --BORDER_DARK_X_FAT: 3px solid var(--DARK_BORDER_X);
+
+    --Z_INDEX_LEVEL_1: 100;
+    --Z_INDEX_LEVEL_2: 200;
+    --Z_INDEX_LEVEL_3: 300;
+    --Z_INDEX_LEVEL_MAX: 1000;
+    
     --PRIMARY_FONT: "Roboto", sans-serif;
 }
 
