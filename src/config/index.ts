@@ -1,11 +1,11 @@
-export function getMovieAPI () {
-    return import.meta.env.VITE_API
+export function getMovieAPI (): string {
+    return import.meta.env.VITE_MOVIE_API
 }
 
-export function isDevelopment () {
+export function isDevelopment (): boolean {
     return import.meta.env.DEV
 }
 
 export function getTodoAPIMaxTimeMilliSeconds (): number {
-    return Number(import.meta.env.VITE_TODO_API_MAX_TIME) * 1000;
+    return Number(import.meta.env.VITE_MOVIE_API_MAX_TIME) * 1000;
 }

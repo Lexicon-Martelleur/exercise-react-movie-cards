@@ -2,7 +2,7 @@ import { FormEventHandler, ReactElement, useRef, useState } from "react";
 import { v4 as uuid } from 'uuid';
 
 import * as Constant from "../../../../constants";
-import { IMovieCard } from "../../../../types";
+import { IMovieCard } from "../../../../model";
 import { StarRating } from "../StarRating";
 import { icons } from "../../../../assets";
 import { Icon } from "../../../../components";

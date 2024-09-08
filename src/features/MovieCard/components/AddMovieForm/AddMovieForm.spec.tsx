@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import '@testing-library/jest-dom';
 import { AddMovieForm } from './AddMovieForm';
-import * as Type from "../../../../types";
+import * as Type from "../../../../model";
 import { movieFormInputNames } from "../constants";
 
 jest.mock('../../../../service');

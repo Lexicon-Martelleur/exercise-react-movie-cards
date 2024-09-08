@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { useMovieCardContext } from "../../context";
-import { IMovieCardEntity } from "../../../../types";
+import { IMovieCardEntity } from "../../../../model";
 import { removeMovieCardAction } from "../../state";
 
 export const useMovieList = () => {

@@ -1,2 +1,2 @@
 export * from "./IMovieAPI";
-export * from "./MovieAPI";
+export * from "./APIFactory";

@@ -1,57 +1,35 @@
-import { maxRating, minRating, movieGenre } from "../constants";
-import {
-    IMovieCard,
-    IMovieCardEntity,
-    isMovieCard
-} from "../types";
+import { minRating } from "../constants";
+import * as Model from "../model";
 
-export function getEmptyMovieCard (): IMovieCard {
+export function getEmptyMovieCard (): Model.IMovieCard {
     return {
         title: "",
         description: "",
         rating: minRating,
-        genre: movieGenre.unknown,
+        timeStamp: getUNIXTimestampInSeconds(),
     };
 }
 
-export const getAllMovieCards = (): IMovieCardEntity[] => {
-    return [
-        {
-            id: "1",
-            moviecard: {
-                title: "The Maze Runner",
-                description: "A group of boys with no memory of the outside must escape a massive maze",
-                rating: 4,
-                genre: movieGenre.fantasy,
-            }
-        },
-        {
-            id: "2",
-            moviecard: {
-                title: "Idiocracy",
-                description: "When a less-than-average guy awakens in the year 2515, he finds he is now the smartest man on earth",
-                rating: 3,
-                genre: movieGenre.comedy,
-            }
-        },
-        {
-            id: "3",
-            moviecard: {
-                title: "The Bourne Ultimatum",
-                description: "The third installment in the \"Bourne\" series finds Matt Damon as the rouge CIA agent who is still in search of his true identity",
-                rating: maxRating,
-                genre: movieGenre.action,
-            }
-        },
-    ]
-};
-
-export function createMovieCardObject(obj: unknown): IMovieCard {
+export function createMovieCardObject(obj: unknown): Model.IMovieCard {
     const defaultMovieCard = getEmptyMovieCard();
     
     if (typeof obj !== "object" || obj === null) {
         return defaultMovieCard;
     }
 
-    return isMovieCard(obj) ? obj : defaultMovieCard;
+    return Model.isMovieCard(obj) ? obj : defaultMovieCard;
+}
+
+export function getUNIXTimestampInSeconds (): number {
+    return Math.floor(Date.now() / 1000);
+}
+
+export function convertUNIXTimestapToDateTime(timestampInSeconds: number): string {
+    const date = new Date(timestampInSeconds * 1000);
+    return date.toLocaleString(); 
+}
+
+export function convertUNIXTimestapToDate(timestampInSeconds: number): string {
+    const date = new Date(timestampInSeconds * 1000);
+    return date.toLocaleDateString(); 
 }

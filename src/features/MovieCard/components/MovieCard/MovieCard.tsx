@@ -1,14 +1,9 @@
 import React, { ReactElement } from "react";
 
-import { IMovieCardEntity } from "../../../../types";
+import { IMovieCardEntity } from "../../../../model";
 import styles from "./MovieCard.module.css";
 import { StarRating } from "../StarRating";
-import {
-    selectDescription,
-    selectGenre,
-    selectRating,
-    selectTitle
-} from "../../state";
+import * as State from "../../state";
 
 interface Props {
     movieCardEntity: IMovieCardEntity;
@@ -23,9 +18,10 @@ export const MovieCard: React.FC<Props> = ({
         <article className={styles.movieCardArticle}
             onClick={_ => onSelect(movieCardEntity)}
             data-testid="movie-card">
-            <h3>{selectTitle(movieCardEntity)} | {selectGenre(movieCardEntity)}</h3>
-            <StarRating rating={selectRating(movieCardEntity)} size="small"/>
-            <p>{selectDescription(movieCardEntity)}</p>
+            <h3>{State.selectTitle(movieCardEntity)}</h3>
+            <StarRating rating={State.selectRating(movieCardEntity)} size="small"/>
+            <time>Created at: {State.selectDateTime(movieCardEntity)}</time>
+            <p>{State.selectDescription(movieCardEntity)}</p>          
         </article>
     );
 }

@@ -5,7 +5,6 @@ import {
     removeMovieCardAction,
     updateNewMovieCardAction,
     selectTitle,
-    selectGenre,
     selectDescription,
     selectRating
 } from "../state";
@@ -68,13 +67,6 @@ describe("MovieCard state", () => {
         it("return title for movie card", () => {
             const statePart = selectRating(mockMovieCardEntity);
             expect(statePart).toBe(mockMovieCardEntity.moviecard.rating);
-        })
-    })
-
-    describe("selectGenre", () => {
-        it("return title for movie card", () => {
-            const statePart = selectGenre(mockMovieCardEntity);
-            expect(statePart).toBe(mockMovieCardEntity.moviecard.genre);
         })
     })
 

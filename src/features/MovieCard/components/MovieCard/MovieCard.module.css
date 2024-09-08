@@ -13,6 +13,7 @@
 }
 
 .movie-card-article > p,
+.movie-card-article > time,
 .movie-card-article > h3 {
     color: var(--DARK_COLOR);
     font-size: 1.1rem;

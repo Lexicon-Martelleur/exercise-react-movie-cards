@@ -1,4 +1,4 @@
-import { IMovieCard, IMovieCardEntity } from "../../../types";
+import { IMovieCard, IMovieCardEntity } from "../../../model";
 import { movieCardActions } from "./constants";
 
 export type IMovieCardState = Readonly<{
@@ -16,6 +16,11 @@ export interface AddMovieCardAction {
     payload: IMovieCard;
 }
 
+export interface AddMovieCardEntitiesAction {
+    type: typeof movieCardActions.addMovieCardEntities;
+    payload: IMovieCardEntity[];
+}
+
 export interface RemoveMovieCardAction {
     type: typeof movieCardActions.removeMovieCard;
     payload: string;
@@ -24,5 +29,6 @@ export interface RemoveMovieCardAction {
 export type MovieCardActionType = (
     UpdateNewMovieCardAction |
     AddMovieCardAction |
+    AddMovieCardEntitiesAction |
     RemoveMovieCardAction
 );

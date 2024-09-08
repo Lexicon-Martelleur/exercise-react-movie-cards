@@ -1,13 +1,11 @@
-import { getMovieAPI } from "../config";
 import { IMovieAPI } from "./IMovieAPI";
 import { APIError } from "./APIError";
-import { IMovieCardEntity, isMovieCardEntity } from "../types";
-import { createAPIProxy } from "./APIProxy";
-import { isMovieDTO, mapMovieDTOToMovieCardEntity, MovieDTO } from "../dtos";
+import * as Type from "../model";
+import { mapMovieDTOToMovieCardEntity } from "../utility";
 
-class MovieAPI implements IMovieAPI {
-    private readonly API = getMovieAPI();
-    
+export class MovieAPI implements IMovieAPI {
+    constructor (private readonly API: string) {}
+
     private readonly defaultHeader = {
         "Content-Type": "application/json",
     };
@@ -18,7 +16,7 @@ class MovieAPI implements IMovieAPI {
      */
     async getMovies (
         signal?: AbortSignal
-    ): Promise<IMovieCardEntity[]> {
+    ): Promise<Type.IMovieCardEntity[]> {
         const url = `${this.API}/movies`;
         const res = await fetch(url, {
             headers: this.defaultHeader,
@@ -26,23 +24,12 @@ class MovieAPI implements IMovieAPI {
         });
 
         if(!res.ok) { throw new APIError(res.statusText); }
-        const movieDTOs = await res.json();
+        const resJSON: unknown = await res.json();
 
-        if (movieDTOs.every(isMovieDTO)) {
-            throw new APIError();
-        }
-
-        const movieList = (
-            movieDTOs as MovieDTO[]
-        ).map(mapMovieDTOToMovieCardEntity);
-               
-        if (movieList.every(isMovieCardEntity)) {
-            return movieList;
-        } else {
-            throw new APIError();
-        }
+        if (!(resJSON instanceof Array)) { throw new APIError(); }
+        console.log('resJSON', resJSON)
+        if (!resJSON.every(Type.isMovieDTO)) { throw new APIError(); }
+        const movieDTOs = resJSON as Type.MovieDTO[];
+        return movieDTOs.map(mapMovieDTOToMovieCardEntity);
     }
 }
-
-const defaultMovieApi: IMovieAPI = new MovieAPI();
-export const todoApi = createAPIProxy(defaultMovieApi);

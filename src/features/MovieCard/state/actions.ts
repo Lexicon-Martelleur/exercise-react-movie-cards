@@ -1,7 +1,8 @@
-import { IMovieCard } from "../../../types";
+import { IMovieCard, IMovieCardEntity } from "../../../model";
 import { movieCardActions } from "./constants";
 import {
     AddMovieCardAction,
+    AddMovieCardEntitiesAction,
     RemoveMovieCardAction,
     UpdateNewMovieCardAction
 } from "./types";
@@ -20,6 +21,15 @@ export const addMovieCardAction = (
 ): AddMovieCardAction => {
     return {
         type: movieCardActions.addMovieCard,
+        payload: movieCard
+    };
+}
+
+export const addMovieCardEntitiesAction = (
+    movieCard: IMovieCardEntity[]
+): AddMovieCardEntitiesAction => {
+    return {
+        type: movieCardActions.addMovieCardEntities,
         payload: movieCard
     };
 }

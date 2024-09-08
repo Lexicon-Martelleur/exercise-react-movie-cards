@@ -1,20 +1,19 @@
-import { getMovieAPI, getTodoAPIMaxTimeMilliSeconds } from "../config";
+import { getTodoAPIMaxTimeMilliSeconds } from "../config";
 import { APIError, APIErrorCode } from "./APIError";
-
-const API = getMovieAPI();
 
 /**
  * A generic proxy used to wrap api calls with a common
  * abort and error managment strategy.
  */
 export function createAPIProxy<ApiTarget extends object>(
-    target: ApiTarget
+    target: ApiTarget,
+    endpoint: string
 ): ApiTarget { 
     return new Proxy(target, {
         get(target: ApiTarget, property: PropertyKey, receiver: unknown): unknown {
             const targetProperty = Reflect.get(target, property, receiver);
 
-            if (typeof targetProperty !== 'function') {
+            if (typeof targetProperty !== "function") {
                 return targetProperty;
             }
 
@@ -28,9 +27,9 @@ export function createAPIProxy<ApiTarget extends object>(
                 } catch (err) {
                     clearTimeout(timeoutId)
                     if (err instanceof APIError && err.errorCode === APIErrorCode.ABORTED) {
-                        throw new APIError(`The request was aborted from ${API}`, err);
+                        throw new APIError(`The request was aborted from ${endpoint}`, err);
                     } else if (err instanceof Error) {
-                        throw new APIError(`Api error when requesting data from ${API}`, err);
+                        throw new APIError(`Api error when requesting data from ${endpoint}`, err);
                     } else {
                         throw new  APIError();
                     };
