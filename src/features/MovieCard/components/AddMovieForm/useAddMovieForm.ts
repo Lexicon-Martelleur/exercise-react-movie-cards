@@ -10,19 +10,16 @@ export type AddMovieFormHook = ReturnType<typeof useAddMovieForm>
 
 export const useAddMovieForm = () => {
     const [dispatchMovieAction] = useMovieCardContext();
-    const movieQueryHook = useMovieQuery(dispatchMovieAction)
+    const movieQueryHook = useMovieQuery(dispatchMovieAction);
+    const isPending = movieQueryHook.isPending()
     const [closeFormOnSubmit, setCloseFormOnSubmit] = useState(false);
     const [submitResult, setSubmitResult] = useState<string | null>(null);
     const submitResultTimeout = useRef<NodeJS.Timeout | null>(null);
-    const isLoading = false;
 
     useEffect(() => {
         movieQueryHook.getActors();
-    }, [movieQueryHook.getActors]);
-
-    useEffect(() => {
         movieQueryHook.getDirectors();
-    }, [movieQueryHook.getDirectors]);
+    }, [movieQueryHook.getActors, movieQueryHook.getDirectors]);
 
     const clearSubmitResultTimout = useCallback(() => {
         if (submitResultTimeout.current != null) {
@@ -104,7 +101,7 @@ export const useAddMovieForm = () => {
     }
 
     return {
-        isLoading,
+        isPending,
         submitResult,
         handleClearForm,
         handleSubmit,

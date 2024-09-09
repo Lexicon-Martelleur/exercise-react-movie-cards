@@ -1,7 +1,7 @@
 import { IMovieAPI } from "./IMovieAPI";
 import { APIError } from "./APIError";
-import * as Type from "../model";
-import { mapMovieDTOToMovieCardEntity } from "../utility";
+import * as Model from "../model";
+import * as Utlity from "../utility";
 
 export class MovieAPI implements IMovieAPI {
     constructor (private readonly API: string) {}
@@ -10,13 +10,7 @@ export class MovieAPI implements IMovieAPI {
         "Content-Type": "application/json",
     };
 
-    /**
-     * @TODO Need to fetch genre from api
-     * to be able to map.
-     */
-    async getMovies (
-        signal?: AbortSignal
-    ): Promise<Type.IMovieCardEntity[]> {
+    async getMovies (signal?: AbortSignal): Promise<Model.IMovieCardEntity[]> {
         const url = `${this.API}/movies`;
         const res = await fetch(url, {
             headers: this.defaultHeader,
@@ -27,15 +21,40 @@ export class MovieAPI implements IMovieAPI {
         const resJSON: unknown = await res.json();
 
         if (!(resJSON instanceof Array)) { throw new APIError(); }
-        if (!resJSON.every(Type.isMovieDTO)) { throw new APIError(); }
-        const movieDTOs = resJSON as Type.MovieDTO[];
-        return movieDTOs.map(mapMovieDTOToMovieCardEntity);
+        if (!resJSON.every(Model.isMovieDTO)) { throw new APIError(); }
+        const movieDTOs = resJSON as Model.MovieDTO[];
+        return movieDTOs.map(Utlity.mapMovieDTOToMovieCardEntity);
     }
 
-    getActors(): Promise<Type.IActor[]> {
-        throw new APIError("Method not implemented.");
+    async getActors(signal?: AbortSignal): Promise<Model.IActor[]> {
+        const url = `${this.API}/actors`;
+        const res = await fetch(url, {
+            headers: this.defaultHeader,
+            signal,
+        });
+
+        if(!res.ok) { throw new APIError(res.statusText); }
+        const resJSON: unknown = await res.json();
+
+        if (!(resJSON instanceof Array)) { throw new APIError(); }
+        if (!resJSON.every(Model.isActorDTO)) { throw new APIError(); }
+        const actorDTOs = resJSON as Model.ActorDTO[];
+        return actorDTOs.map(Utlity.mapActorDTOToActorEntity);
     }
-    getDirectors(): Promise<Type.IDirector[]> {
-        throw new APIError("Method not implemented.");
+
+    async getDirectors(signal?: AbortSignal): Promise<Model.IDirector[]> {
+        const url = `${this.API}/directors`;
+        const res = await fetch(url, {
+            headers: this.defaultHeader,
+            signal,
+        });
+
+        if(!res.ok) { throw new APIError(res.statusText); }
+        const resJSON: unknown = await res.json();
+
+        if (!(resJSON instanceof Array)) { throw new APIError(); }
+        if (!resJSON.every(Model.isDirectorDTO)) { throw new APIError(); }
+        const directorDTOs = resJSON as Model.DirectorDTO[];
+        return directorDTOs.map(Utlity.mapDirectorDTOToDirectorEntity);
     }
 }

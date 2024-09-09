@@ -2,8 +2,9 @@ import { ReactElement } from "react";
 
 import { FormExpander } from "../FormExpander";
 import { AddMovieForm } from "../AddMovieForm";
-import { useAddMovie } from "./useAddMovie";
-import styles from "./AddMovie.module.css";
+
+import { useAddMovieSection } from "./useAddMovieSection";
+import styles from "./AddMovieSection.module.css";
 
 /**
  * @TODO 
@@ -17,15 +18,15 @@ import styles from "./AddMovie.module.css";
  * 
  * Also Create react compnents for INput/TextArea etc
  */
-export const AddMovie = (): ReactElement => {
-    const hook = useAddMovie();
+export const AddMovieSection = (): ReactElement => {
+    const addMovieSectionHook = useAddMovieSection();
 
     return (
         <section className={styles.addMovieSection}>
             <FormExpander title={"Movie Card Form"}
-                isFormOpen={hook.isFormOpen}
-                toggleForm={hook.toggleForm}/>
-            {hook.isFormOpen && <AddMovieForm />}
+                isFormOpen={addMovieSectionHook.isFormOpen}
+                toggleForm={addMovieSectionHook.toggleForm}/>
+            <AddMovieForm />
         </section>
     );
 }

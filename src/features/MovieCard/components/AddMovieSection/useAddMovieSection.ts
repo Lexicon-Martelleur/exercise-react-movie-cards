@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-export type AddMovieHook = ReturnType<typeof useAddMovie>
+export type AddMovieHook = ReturnType<typeof useAddMovieSection>
 
-export const useAddMovie = () => {
+export const useAddMovieSection = () => {
     const [isFormOpen, setIsFormOpen] = useState(false);
 
     const toggleForm = () => {

@@ -4,7 +4,7 @@ import * as Constant from "../../../../constants";
 import { INameObject } from "../../../../model";
 import { StarRating } from "../StarRating";
 import { icons } from "../../../../assets";
-import { Icon, SelectMenu } from "../../../../components";
+import { Icon, Loader, SelectMenu } from "../../../../components";
 import { movieFormInputNames } from "../constants";
 import { useMovieCardContext } from "../../context";
 
@@ -68,18 +68,23 @@ export const AddMovieForm = (): ReactElement => {
 	}, [Constant.movieGenre])
 
 	return (
-		<form onSubmit={addMovieFormHook.handleSubmit} ref={form}>
+		<form ref={form}
+			className={styles.addMovieForm}
+			onSubmit={addMovieFormHook.handleSubmit}>
 			<fieldset className={styles.addMovieFieldset}>
 				<legend>Create movie card</legend>
 				<div className={styles.rowCtrCenter}>
-					<button type="button" 
-						className={styles.clearButton}
-						onClick={_ => handleClear()}
-						disabled={addMovieFormHook.isLoading}
-						data-testid="clear-button">
-						Clear all fields
-						<Icon icon={icons.backspace}/>
-					</button>
+					{addMovieFormHook.isPending
+						? <Loader /> 
+						: <button type="button" 
+							className={styles.clearButton}
+							onClick={_ => handleClear()}
+							disabled={addMovieFormHook.isPending}
+							data-testid="clear-button">
+							Clear all fields
+							<Icon icon={icons.backspace}/>
+						</button>
+					}
 				</div>
 				<div className={styles.columnCtr}>
 					<label htmlFor={movieFormInputNames.title}>Title</label>
@@ -169,9 +174,9 @@ export const AddMovieForm = (): ReactElement => {
 						data-testid={movieFormInputNames.description} />
 				</div>
 				<div className={`${styles.formStatusCtr}`}>
-					{addMovieFormHook.isLoading && <div className={`${styles.loader}`}></div>}
+					{addMovieFormHook.isPending && <Loader />}
 					{addMovieFormHook.submitResult != null &&
-					!addMovieFormHook.isLoading &&
+					!addMovieFormHook.isPending &&
 					<p className={styles.submitResult}
 						data-testid="submit-result">
 						{addMovieFormHook.submitResult}
@@ -179,14 +184,14 @@ export const AddMovieForm = (): ReactElement => {
 				</div>
 				<button className={styles.submitButton}
 					type="submit"
-					disabled={addMovieFormHook.isLoading || form.current?.checkValidity() == null}
+					disabled={addMovieFormHook.isPending || form.current?.checkValidity() == null}
 					onMouseDown={_ => addMovieFormHook.handlePreSubmit(false)} 
 					data-testid="submit-btn">
 					Create Card
 				</button>
 				<button className={styles.submitButton}
 					type="submit"
-					disabled={addMovieFormHook.isLoading || form.current?.checkValidity() == false}
+					disabled={addMovieFormHook.isPending || form.current?.checkValidity() == false}
 					onMouseDown={_ => addMovieFormHook.handlePreSubmit(true)} 
 					data-testid="submit-btn-with-close">
 					Create Card And Close Form
