@@ -33,8 +33,8 @@ export const HiddenInput = forwardRef<HTMLInputElement | null, Props>(({
 
     const getOrientationStyle = () => {
         return orientation === "column" || orientation == null
-            ? styles.columnCtr
-            : styles.rowCtr;
+            ? `${styles.columnCtr} ${styles.input}`
+            : `${styles.rowCtr} ${styles.input}`
     };
 
     return (

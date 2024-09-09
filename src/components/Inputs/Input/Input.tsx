@@ -35,9 +35,9 @@ export const Input: React.FC<Props> = ({
 
     const getOrientationStyle = () => {
         return orientation === "column" || orientation == null
-            ? styles.columnCtr
-            : styles.rowCtr
-    }
+            ? `${styles.columnCtr} ${styles.input}`
+            : `${styles.rowCtr} ${styles.input}`
+    };
 
     return (
         <div className={getOrientationStyle()}>

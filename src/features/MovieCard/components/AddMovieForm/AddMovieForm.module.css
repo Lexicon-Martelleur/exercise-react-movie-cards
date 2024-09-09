@@ -14,27 +14,11 @@
     min-height: 75vh;
     margin-bottom: 2rem;
     justify-content: space-between;
-    color: var(--DARK_COLOR);
     overflow: hidden;
 }
 
-.add-movie-fieldset label,
-.add-movie-fieldset legend,
-.add-movie-fieldset input,
-.add-movie-fieldset textarea,
-.add-movie-fieldset select,
-.add-movie-fieldset option {
+.add-movie-fieldset > legend {
     color: var(--DARK_COLOR);
-    font-size: 1.1rem;
-}
-
-.add-movie-fieldset input,
-.add-movie-fieldset textarea,
-.add-movie-fieldset select {
-    padding: 1rem;
-    border: none;
-    border-radius: 0.5rem;
-    background-color: var(--XLIGHT_BG);
 }
 
 .submit-button {
