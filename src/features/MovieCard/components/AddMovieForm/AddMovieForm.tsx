@@ -4,11 +4,15 @@ import * as Constant from "../../../../constants";
 import * as Model from "../../../../model";
 import { StarRating } from "../StarRating";
 import { icons } from "../../../../assets";
-import { Icon, Loader, SelectMenu } from "../../../../components";
+import { HiddenInput, Icon, Input, Loader, SelectMenu } from "../../../../components";
 import { movieFormInputNames } from "../constants";
 
 import { useAddMovieForm } from "./useAddMovieForm";
 import styles from "./AddMovieForm.module.css";
+
+/**
+ * @TODO Clean up.
+ */
 
 interface Props {
 	newMovieCard: Model.INewMovieCard;
@@ -28,9 +32,6 @@ type SelectMenuTitleType = typeof selectMenuTitles[
 	keyof typeof selectMenuTitles
 ]
 
-/**
- * @TODO Clean up.
- */
 export const AddMovieForm: React.FC<Props> = ({
 	newMovieCard,
 	selectableActors,
@@ -108,45 +109,23 @@ export const AddMovieForm: React.FC<Props> = ({
 						</button>
 					}
 				</div>
-				<div className={styles.columnCtr}>
-					<label htmlFor={movieFormInputNames.title}>Title</label>
-					<input type="text"
-						required
-						autoFocus
-						minLength={Constant.minLengthTitle}
-						maxLength={Constant.maxLengthTitle}
-						name={newMovieCard.title}
-						id={movieFormInputNames.title}
-						value={newMovieCard.title}
-						onChange={_ => addMovieFormHook.handleChange(form.current)}
-						data-testid={movieFormInputNames.title} />
-				</div>
-				<div className={styles.rowCtr}>    
-					<label htmlFor={movieFormInputNames.rating}>Rating</label>
+				<Input title={movieFormInputNames.title}
+					value={newMovieCard.title}
+					minLength={Constant.minLengthTitle}
+					maxLength={Constant.maxLengthTitle}
+					onChange={() => { addMovieFormHook.handleChange(form.current) }} />
+				<HiddenInput ref={ratingInput}
+					title={movieFormInputNames.rating}
+					value={`${newMovieCard.rating}`}
+					minLength={Constant.minRating}
+					maxLength={Constant.maxRating}>
 					<StarRating
 						rating={newMovieCard.rating} updateRating={updateSelectedRating}
 						data-testid="star-rating"/>
-					<input type="range"
-						required
-						hidden
-						ref={ratingInput}
-						value={newMovieCard.rating}
-						min={Constant.minRating}
-						max={Constant.maxRating}
-						name={movieFormInputNames.rating}
-						id={movieFormInputNames.rating}
-						onChange={_ => addMovieFormHook.handleChange(form.current)}
-						data-testid={movieFormInputNames.rating} />
-				</div>
-				<div className={styles.columnCtr}>
-					<label htmlFor={movieFormInputNames.director}>Select Director</label>
-					<input ref={directorInput}
-						required
-						hidden
-						value={newMovieCard.director}
-						name={movieFormInputNames.director}
-						id={movieFormInputNames.director}
-						onChange={_ => addMovieFormHook.handleChange(form.current)} />
+				</HiddenInput>
+				<HiddenInput ref={directorInput}
+					title={movieFormInputNames.director}
+					value={newMovieCard.director}>
 					<SelectMenu
 						open={currentSelectMenu === selectMenuTitles.directors}
 						options={new Set(selectableDirectors)}
@@ -154,16 +133,10 @@ export const AddMovieForm: React.FC<Props> = ({
 						title={selectMenuTitles.directors}
 						onOpenMenu={handleOpenSelectMenu}
 						onSelectOption={updateSelectedDirector}/>
-				</div>
-				<div className={styles.columnCtr}>
-					<label htmlFor={movieFormInputNames.actors}>Select Actors</label>
-					<input ref={actorsInput}
-						required
-						hidden
-						value={newMovieCard.actors.join(",")}
-						name={movieFormInputNames.actors}
-						id={movieFormInputNames.actors}
-						onChange={_ => addMovieFormHook.handleChange(form.current)} />
+				</HiddenInput>
+				<HiddenInput ref={actorsInput}
+					title={movieFormInputNames.actors}
+					value={newMovieCard.actors.join(",")}>
 					<SelectMenu
 						open={currentSelectMenu === selectMenuTitles.actors}
 						options={new Set(selectableActors)}
@@ -171,16 +144,10 @@ export const AddMovieForm: React.FC<Props> = ({
 						title={selectMenuTitles.actors}
 						onOpenMenu={handleOpenSelectMenu}
 						onSelectOption={updateSelectedActors}/>
-				</div>
-				<div className={styles.columnCtr}>
-					<label htmlFor={movieFormInputNames.genres}>Select Genres</label>
-					<input ref={genresInput}
-						required
-						hidden
-						value={newMovieCard.genres.join(",")}
-						name={movieFormInputNames.genres}
-						id={movieFormInputNames.genres}
-						onChange={_ => addMovieFormHook.handleChange(form.current)} />
+				</HiddenInput>
+				<HiddenInput ref={genresInput}
+					title={movieFormInputNames.genres}
+					value={newMovieCard.genres.join(",")}>
 					<SelectMenu
 						open={currentSelectMenu === selectMenuTitles.genres}
 						options={new Set(selectableGenres)}
@@ -188,19 +155,13 @@ export const AddMovieForm: React.FC<Props> = ({
 						title={selectMenuTitles.genres}
 						onOpenMenu={handleOpenSelectMenu}
 						onSelectOption={updateSelectedGenres}/>
-				</div>
-				<div className={styles.columnCtr}>
-					<label htmlFor={movieFormInputNames.description}>Description</label>
-					<textarea rows={5}
-						required
-						minLength={Constant.minLengthDescription}
-						maxLength={Constant.maxLengthDescription}
-						name={movieFormInputNames.description}
-						id={movieFormInputNames.description}
-						value={newMovieCard.description}
-						onChange={_ => addMovieFormHook.handleChange(form.current)}
-						data-testid={movieFormInputNames.description} />
-				</div>
+				</HiddenInput>
+				<Input textArea={true} 
+					title={movieFormInputNames.description}
+					value={newMovieCard.description}
+					minLength={Constant.minLengthDescription}
+					maxLength={Constant.maxLengthDescription}
+					onChange={() => { addMovieFormHook.handleChange(form.current) }} />
 				<div className={`${styles.formStatusCtr}`}>
 					{addMovieFormHook.isPending && <Loader />}
 				</div>

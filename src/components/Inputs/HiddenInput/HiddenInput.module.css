@@ -1,0 +1,29 @@
+.add-movie-fieldset label,
+.add-movie-fieldset input,
+.add-movie-fieldset textarea {
+    color: var(--DARK_COLOR);
+    font-size: 1.1rem;
+}
+
+.add-movie-fieldset input,
+.add-movie-fieldset textarea {
+    padding: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: var(--XLIGHT_BG);
+}
+
+.column-ctr {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.row-ctr {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
