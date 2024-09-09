@@ -1,16 +1,17 @@
 import { ReactElement } from "react";
 
 import { MovieCardProvider } from "../providers";
-import { MovieList, AddMovieSection } from "../components";
+import { MovieListSection, AddMovieSection } from "../components";
+
 import { MovieCardLayout } from "../layouts";
 
 export const MovieCard = (): ReactElement => {
     return (
-        <MovieCardProvider>
-            <MovieCardLayout>
+        <MovieCardLayout>
+            <MovieCardProvider>
                 <AddMovieSection />
-                <MovieList />
-            </MovieCardLayout>
-        </MovieCardProvider>
+            </MovieCardProvider>
+            <MovieListSection />
+        </MovieCardLayout>
     );
 }

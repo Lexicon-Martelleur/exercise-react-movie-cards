@@ -1,23 +1,35 @@
-import React, { ReactElement, useReducer } from "react";
+import React, { ReactElement, useCallback, useReducer } from "react";
 
 import { MovieCardContext } from "../context";
-import { movieCardReducer, movieCardInitData } from "../state";
+import * as State from "../state";
+import { ErrorModal } from "../../../components";
 
 interface Props {
   children?: React.ReactNode;
 }
 
 export const MovieCardProvider: React.FC<Props> = ({
-    children
+	children
 }): ReactElement => {
-  const [
-    movieCardState,
-    dispatchMovieCardAction
-  ] = useReducer(movieCardReducer, movieCardInitData);
+	const [
+		movieState,
+		dispatchMovieAction
+	] = useReducer(State.movieCardReducer, State.movieCardInitData);
 
-  return (
-    <MovieCardContext.Provider value={[dispatchMovieCardAction, movieCardState]}>
-      {children}
-    </MovieCardContext.Provider>
-  );
+	const clearErrorState = useCallback(() => {
+		dispatchMovieAction(State.clearErrorStateAction());
+	}, [dispatchMovieAction]);
+
+	if (movieState.isError) {
+		return <ErrorModal
+			title={"Error"}
+			message={movieState.errorMsg}
+			onClose={clearErrorState} />;
+	}
+
+	return (
+		<MovieCardContext.Provider value={[dispatchMovieAction, movieState]}>
+			{children}
+		</MovieCardContext.Provider>
+	);
 }

@@ -10,6 +10,7 @@
     padding-inline: 0.5rem;
     background-color: var(--EEF5FF);
     max-width: 900px;
+    width: 100%;
     margin: 0 auto;
 }
   
@@ -18,3 +19,10 @@
     padding: 1rem;
     text-align: center;
 }
+
+@media (min-width: 700px) {
+    .main {
+        width: 80%;
+    }    
+}
+

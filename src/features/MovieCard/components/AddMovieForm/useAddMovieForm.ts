@@ -5,6 +5,7 @@ import * as Service from "../../../../service";
 import { addMovieCardAction, updateNewMovieCardAction } from "../../state";
 import { movieFormInputNames } from "../constants";
 import { useMovieQuery } from "../../hooks";
+import { getMovieAPI } from "../../../../config";
 
 export type AddMovieFormHook = ReturnType<typeof useAddMovieForm>
 
@@ -17,8 +18,9 @@ export const useAddMovieForm = () => {
     const submitResultTimeout = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
-        movieQueryHook.getActors();
-        movieQueryHook.getDirectors();
+        const errorMsg = `Could not load form data from ${getMovieAPI()}`
+        movieQueryHook.getActors(errorMsg);
+        movieQueryHook.getDirectors(errorMsg);
     }, [movieQueryHook.getActors, movieQueryHook.getDirectors]);
 
     const clearSubmitResultTimout = useCallback(() => {
@@ -48,7 +50,7 @@ export const useAddMovieForm = () => {
         dispatchMovieAction(addMovieCardAction(newMovieCard));
     }
 
-    const handleChange = (formElement: HTMLFormElement | null) => {
+    const handleChange = useCallback((formElement: HTMLFormElement | null) => {
         if (formElement == null) { return; }
         const newMovieCard = Service.createNewMovieCardObject({
             title: getInputValue(formElement.elements.namedItem(movieFormInputNames.title)),
@@ -60,7 +62,7 @@ export const useAddMovieForm = () => {
             genres: getInputValue(formElement.elements.namedItem(movieFormInputNames.genres)).split(",")
         });
         dispatchMovieAction(updateNewMovieCardAction(newMovieCard));
-    }
+    }, [Service.createNewMovieCardObject, dispatchMovieAction, updateNewMovieCardAction])
 
     const submit = () => {
         manageSubmitResult("Success ✅");

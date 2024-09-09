@@ -1,30 +1,26 @@
-import { ReactElement, useCallback, useRef } from "react";
+import React, { ReactElement, useCallback, useRef } from "react";
 
 import * as Constant from "../../../../constants";
-import { INameObject } from "../../../../model";
+import * as Model from "../../../../model";
 import { StarRating } from "../StarRating";
 import { icons } from "../../../../assets";
 import { Icon, Loader, SelectMenu } from "../../../../components";
 import { movieFormInputNames } from "../constants";
-import { useMovieCardContext } from "../../context";
 
 import { useAddMovieForm } from "./useAddMovieForm";
 import styles from "./AddMovieForm.module.css";
-/**
- * @TODO 
- * 
- * Create MovieDetail type and add to movie state
- * that should reflect creating a MovieCard DTO
- * and requesting a MovieCard Detail DTO from API.
- * 
- * See backend API; User need to select available
- * genres, actors and a unique director. 
- * 
- * Also Create react compnents for INput/TextArea etc.
- */
 
-export const AddMovieForm = (): ReactElement => {
-	const [_, movieState] = useMovieCardContext();
+interface Props {
+	newMovieCard: Model.INewMovieCard;
+	selectableActors: Model.IActor[];
+	selectableDirectors: Model.IDirector[];
+}
+
+export const AddMovieForm: React.FC<Props> = ({
+	newMovieCard,
+	selectableActors,
+	selectableDirectors
+}): ReactElement => {
 	const addMovieFormHook = useAddMovieForm();
 	const ratingInput = useRef<HTMLInputElement | null>(null);
 	const directorInput = useRef<HTMLInputElement | null>(null);
@@ -60,7 +56,7 @@ export const AddMovieForm = (): ReactElement => {
 		addMovieFormHook.handleClearForm();
 	}
 
-	const mapGenresToNamedGenresType = useCallback((): INameObject[] => {
+	const mapGenresToNamedGenresType = useCallback((): Model.INameObject[] => {
 		return [...Object.values(Constant.movieGenre)].map(item => ({
 			name: item,
 			id: item
@@ -93,22 +89,22 @@ export const AddMovieForm = (): ReactElement => {
 						autoFocus
 						minLength={Constant.minLengthTitle}
 						maxLength={Constant.maxLengthTitle}
-						name={movieState.newMovieCard.title}
+						name={newMovieCard.title}
 						id={movieFormInputNames.title}
-						value={movieState.newMovieCard.title}
+						value={newMovieCard.title}
 						onChange={_ => addMovieFormHook.handleChange(form.current)}
 						data-testid={movieFormInputNames.title} />
 				</div>
 				<div className={styles.rowCtr}>    
 					<label htmlFor={movieFormInputNames.rating}>Rating</label>
 					<StarRating
-						rating={movieState.newMovieCard.rating} updateRating={updateSelectedRating}
+						rating={newMovieCard.rating} updateRating={updateSelectedRating}
 						data-testid="star-rating"/>
 					<input type="range"
 						required
 						hidden
 						ref={ratingInput}
-						value={movieState.newMovieCard.rating}
+						value={newMovieCard.rating}
 						min={Constant.minRating}
 						max={Constant.maxRating}
 						name={movieFormInputNames.rating}
@@ -121,13 +117,13 @@ export const AddMovieForm = (): ReactElement => {
 					<input ref={directorInput}
 						required
 						hidden
-						value={movieState.newMovieCard.director}
+						value={newMovieCard.director}
 						name={movieFormInputNames.director}
 						id={movieFormInputNames.director}
 						onChange={_ => addMovieFormHook.handleChange(form.current)} />
 					<SelectMenu
-						options={new Set(movieState.selectableDirectors)}
-						selectedOptionIds={new Set([movieState.newMovieCard.director])}
+						options={new Set(selectableDirectors)}
+						selectedOptionIds={new Set([newMovieCard.director])}
 						title="Directors"
 						onSelect={updateSelectedDirector}/>
 				</div>
@@ -136,13 +132,13 @@ export const AddMovieForm = (): ReactElement => {
 					<input ref={actorsInput}
 						required
 						hidden
-						value={movieState.newMovieCard.actors.join(",")}
+						value={newMovieCard.actors.join(",")}
 						name={movieFormInputNames.actors}
 						id={movieFormInputNames.actors}
 						onChange={_ => addMovieFormHook.handleChange(form.current)} />
 					<SelectMenu
-						options={new Set(movieState.selectableDirectors)}
-						selectedOptionIds={new Set(movieState.newMovieCard.actors)} 
+						options={new Set(selectableActors)}
+						selectedOptionIds={new Set(newMovieCard.actors)} 
 						title="Select Actors"
 						onSelect={updateSelectedActors}/>
 				</div>
@@ -151,7 +147,7 @@ export const AddMovieForm = (): ReactElement => {
 					<input ref={genresInput}
 						required
 						hidden
-						value={movieState.newMovieCard.genres.join(",")}
+						value={newMovieCard.genres.join(",")}
 						name={movieFormInputNames.genres}
 						id={movieFormInputNames.genres}
 						onChange={_ => addMovieFormHook.handleChange(form.current)} />
@@ -169,7 +165,7 @@ export const AddMovieForm = (): ReactElement => {
 						maxLength={Constant.maxLengthDescription}
 						name={movieFormInputNames.description}
 						id={movieFormInputNames.description}
-						value={movieState.newMovieCard.description}
+						value={newMovieCard.description}
 						onChange={_ => addMovieFormHook.handleChange(form.current)}
 						data-testid={movieFormInputNames.description} />
 				</div>

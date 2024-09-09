@@ -1,3 +1,3 @@
 export { AddMovieSection } from "./AddMovieSection";
-export { MovieList } from "./MovieList";
+export { MovieListSection } from "./MovieListSection";
 

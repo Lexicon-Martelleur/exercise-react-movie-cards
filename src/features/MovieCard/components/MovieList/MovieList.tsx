@@ -1,36 +1,25 @@
-import { ReactElement, useEffect } from "react";
+import React, { ReactElement } from "react";
 
 import { MovieCard } from "../MovieCard";
 import { MovieCardDialog } from "../MovieCardDialog";
+import { IMovieCardEntity } from "../../../../model";
 
-import { useMovieList } from "./useMovieList";
 import styles from "./MovieList.module.css";
-import { useMovieCardContext } from "../../context";
-import { useMovieQuery } from "../../hooks";
-import { ErrorModal, Loader } from "../../../../components";
+import { useMovieList } from "./useMovieList";
 
-export const MovieList = (): ReactElement => {
+interface Props {
+    movieCards: IMovieCardEntity[]
+}
+
+export const MovieList: React.FC<Props> = ({
+    movieCards
+}): ReactElement => {
     const movieListHook = useMovieList();
-    const [dispatchMovieAction, movieState] = useMovieCardContext();
-    const movieQueryHook = useMovieQuery(dispatchMovieAction)
-
-    useEffect(() => {
-        movieQueryHook.getTodos();
-    }, [movieQueryHook.getTodos]);
-
-    if (movieState.isError) {
-        return <ErrorModal
-            title={"Error"}
-            message={movieState.errorMsg}
-            onClose={movieQueryHook.clearErrorState} />
-    }
 
     return (
         <section className={styles.movielistSection}>
             <h2 className={styles.movielistTitle}>Available Movie Cards</h2>
-            {movieQueryHook.isPending()
-                ? <Loader />
-                : movieState.movieCards.map(movieCardEnity =>
+            {movieCards.map(movieCardEnity =>
                 <MovieCard
                     key={movieCardEnity.id}
                     movieCardEntity={movieCardEnity}
