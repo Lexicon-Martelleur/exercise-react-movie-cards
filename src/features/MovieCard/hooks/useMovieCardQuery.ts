@@ -16,7 +16,7 @@ export function useMovieQuery (
     dispatchMovieAction?: React.Dispatch<State.MovieCardActionType>
 ) {
     const [pending, setPending] = useState(false);
-    const isDispatchable = dispatchMovieAction != null
+    const isDispatchable = dispatchMovieAction != null;
     const apiEndPoint = getMovieAPI();
     const movieAPi = createMovieAPI(apiEndPoint);
 

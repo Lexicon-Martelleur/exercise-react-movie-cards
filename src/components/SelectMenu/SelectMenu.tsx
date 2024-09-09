@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 
 import styles from "./SelectMenu.module.css";
 import { icons } from "../../assets";
@@ -9,16 +9,24 @@ interface Props<OptionType extends INameObject> {
     title: string;
     options: Set<OptionType>;
     selectedOptionIds: Set<string>;
-    onSelect: (optionId: string) => void;
+    open: boolean;
+    onSelectOption: (optionId: string) => void;
+    onOpenMenu: (title: string) => void;
 }
 
 export const SelectMenu: React.FC<Props<INameObject>> = ({
     title,
     options,
     selectedOptionIds,
-    onSelect
+    open,
+    onSelectOption,
+    onOpenMenu
 }): ReactElement => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(open);
+
+    useEffect(() => {
+        setIsOpen(open)
+    }, [open])
 
     const getSelectButtonClassNames = () => {
         return `${styles.selectButton} ${isOpen ? styles.selectOpen : ""}`
@@ -31,6 +39,9 @@ export const SelectMenu: React.FC<Props<INameObject>> = ({
 
     const toggleOpen: React.MouseEventHandler<HTMLButtonElement> = (_) => {
         setIsOpen(!isOpen);
+        if (!isOpen) {
+            onOpenMenu(title);
+        }
     }
 
     const handleSelect = (
@@ -38,7 +49,7 @@ export const SelectMenu: React.FC<Props<INameObject>> = ({
         option: INameObject
     ) => {
         event.stopPropagation();
-        onSelect(option.id);
+        onSelectOption(option.id);
     }
 
     return (

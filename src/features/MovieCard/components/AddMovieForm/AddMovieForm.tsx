@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from "react";
+import React, { ReactElement, useRef, useState } from "react";
 
 import * as Constant from "../../../../constants";
 import * as Model from "../../../../model";
@@ -17,6 +17,17 @@ interface Props {
 	selectableGenres: Model.IGenre[];
 }
 
+const selectMenuTitles = {
+	actors: "Actors",
+	directors: "Directors",
+	genres: "Genres",
+	none: ""
+} as const
+
+type SelectMenuTitleType = typeof selectMenuTitles[
+	keyof typeof selectMenuTitles
+]
+
 /**
  * @TODO Clean up.
  */
@@ -32,6 +43,10 @@ export const AddMovieForm: React.FC<Props> = ({
 	const actorsInput = useRef<HTMLInputElement | null>(null);
 	const genresInput = useRef<HTMLInputElement | null>(null);
 	const form = useRef<HTMLFormElement | null>(null);
+	const [
+		currentSelectMenu,
+		setCurrentSelectMenu
+	] = useState<SelectMenuTitleType>("");
 
 	const updateSelectedRating = (value: number) => {
 		if (ratingInput.current == null) { return; }
@@ -61,6 +76,13 @@ export const AddMovieForm: React.FC<Props> = ({
 			: newMovieCard.genres.filter(item => item !== value);
 		genresInput.current.value = updatedList.join(",");
 		addMovieFormHook.handleChange(form.current);
+	}
+
+	const handleOpenSelectMenu = (title: string) => {
+		if (Object.values(selectMenuTitles).includes(title as SelectMenuTitleType)) {
+			const selectTitle = title as SelectMenuTitleType;
+			setCurrentSelectMenu(selectTitle);
+		}
 	}
 
 	const handleClear = () => {
@@ -126,10 +148,12 @@ export const AddMovieForm: React.FC<Props> = ({
 						id={movieFormInputNames.director}
 						onChange={_ => addMovieFormHook.handleChange(form.current)} />
 					<SelectMenu
+						open={currentSelectMenu === selectMenuTitles.directors}
 						options={new Set(selectableDirectors)}
 						selectedOptionIds={new Set([newMovieCard.director])}
-						title="Directors"
-						onSelect={updateSelectedDirector}/>
+						title={selectMenuTitles.directors}
+						onOpenMenu={handleOpenSelectMenu}
+						onSelectOption={updateSelectedDirector}/>
 				</div>
 				<div className={styles.columnCtr}>
 					<label htmlFor={movieFormInputNames.actors}>Select Actors</label>
@@ -141,10 +165,12 @@ export const AddMovieForm: React.FC<Props> = ({
 						id={movieFormInputNames.actors}
 						onChange={_ => addMovieFormHook.handleChange(form.current)} />
 					<SelectMenu
+						open={currentSelectMenu === selectMenuTitles.actors}
 						options={new Set(selectableActors)}
 						selectedOptionIds={new Set(newMovieCard.actors)} 
-						title="Select Actors"
-						onSelect={updateSelectedActors}/>
+						title={selectMenuTitles.actors}
+						onOpenMenu={handleOpenSelectMenu}
+						onSelectOption={updateSelectedActors}/>
 				</div>
 				<div className={styles.columnCtr}>
 					<label htmlFor={movieFormInputNames.genres}>Select Genres</label>
@@ -156,10 +182,12 @@ export const AddMovieForm: React.FC<Props> = ({
 						id={movieFormInputNames.genres}
 						onChange={_ => addMovieFormHook.handleChange(form.current)} />
 					<SelectMenu
+						open={currentSelectMenu === selectMenuTitles.genres}
 						options={new Set(selectableGenres)}
 						selectedOptionIds={new Set(newMovieCard.genres)} 
-						title="Genres"
-						onSelect={updateSelectedGenres}/>
+						title={selectMenuTitles.genres}
+						onOpenMenu={handleOpenSelectMenu}
+						onSelectOption={updateSelectedGenres}/>
 				</div>
 				<div className={styles.columnCtr}>
 					<label htmlFor={movieFormInputNames.description}>Description</label>

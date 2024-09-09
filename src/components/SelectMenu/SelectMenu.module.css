@@ -17,9 +17,12 @@
 
 .select-open {
     border-radius: 0.5rem 0.5rem 0 0;
+    border-left: var(--BORDER_DARK_FAT);
+    border-right: var(--BORDER_DARK_FAT);
+    border-top: var(--BORDER_DARK_FAT);
 }
 
-.select-label{
+.select-label {
     align-self: center;
     font-size: 1rem;
     color: #000F1F;
@@ -29,14 +32,20 @@
     position: absolute;
     display: flex;
     flex-direction: column;
+    height: 300px;
     top: 100%;
-    left: 0;
-    right: 0;
+    left: -3px;
+    right: -3px;
+    
     background-color: var(--XLIGHT_BG);
     padding-inline: 4px;
     padding-block: 4px;
+    border-left: var(--BORDER_DARK_FAT);
+    border-right: var(--BORDER_DARK_FAT);
+    border-bottom: var(--BORDER_DARK_FAT);
     border-radius: 0 0 0.5rem 0.5rem;
     z-index: var(--Z_INDEX_LEVEL_1);
+    overflow-y: scroll;
 }
 
 .option-item {

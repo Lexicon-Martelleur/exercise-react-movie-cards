@@ -11,7 +11,7 @@ export function mapMovieDTOToMovieCardEntity (
             description: movieDTO.description,
             timeStamp: movieDTO.timeStamp
         }
-    }
+    };
 }
 
 export function mapActorDTOToActorEntity (
@@ -21,7 +21,7 @@ export function mapActorDTOToActorEntity (
         id: `${actor.id}`,
         name: actor.name,
         dateOfBirth: actor.dateOfBirth
-    }
+    };
 }
 
 export function mapDirectorDTOToDirectorEntity (
@@ -31,7 +31,7 @@ export function mapDirectorDTOToDirectorEntity (
         id: `${director.id}`,
         name: director.name,
         dateOfBirth: director.dateOfBirth
-    }
+    };
 }
 
 export function mapNewMoviCardEntityToNewMOvieCardDTO (
@@ -45,7 +45,7 @@ export function mapNewMoviCardEntityToNewMOvieCardDTO (
         directorId: Number(movieCard.director),
         actorIds: movieCard.actors.map(item => Number(item)),
         genreIds: movieCard.genres.map(item => Number(item))
-    }
+    };
 }
 
 export function mapGenreDTOToGenreEntity (
