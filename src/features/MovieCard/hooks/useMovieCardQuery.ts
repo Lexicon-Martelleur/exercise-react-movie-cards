@@ -6,12 +6,11 @@ import { getMovieAPI, isDevelopment } from "../../../config";
 import { IMovieCardEntity, INewMovieCard } from "../../../model";
 import { mapNewMoviCardEntityToNewMOvieCardDTO } from "../../../utility";
 
-export type MovieAPIHook = ReturnType<typeof useMovieQuery>
+export type MovieAPIHook = ReturnType<typeof useMovieQuery>;
 
 /**
  * A custom hook used as a wrapper for
- * Todo API and a data synchronizer bewteen
- * remote and local data.
+ * Movie API.
  */
 export function useMovieQuery (
     dispatchMovieAction?: React.Dispatch<State.MovieCardActionType>
@@ -79,6 +78,23 @@ export function useMovieQuery (
         })()
     }, [apiEndPoint, dispatchMovieAction, handleError]);
 
+    const getGenres = useCallback((errorMsg?: string) => {
+        setPending(true);
+        const constructedErrosMsg = errorMsg != null
+            ? errorMsg
+            : `Failed fetching available directors from ${apiEndPoint}`;
+        (async () => {
+            try {
+                const genres = await movieAPi.getGenres();
+                isDispatchable && dispatchMovieAction(State.updateSelectableGenresAction(genres));
+            } catch (err) {
+                handleError(err, constructedErrosMsg);
+            } finally {
+                setPending(false);
+            }
+        })()
+    }, [apiEndPoint, dispatchMovieAction, handleError]);
+
     const createMovieCard = useCallback((
         movieCard: INewMovieCard,
         errorMsg?: string) => {
@@ -106,6 +122,7 @@ export function useMovieQuery (
         isPending,
         getTodos,
         getActors,
+        getGenres,
         getDirectors,
         createMovieCard
     };

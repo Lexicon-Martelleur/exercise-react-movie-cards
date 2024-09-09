@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useRef } from "react";
+import React, { ReactElement, useRef } from "react";
 
 import * as Constant from "../../../../constants";
 import * as Model from "../../../../model";
@@ -14,6 +14,7 @@ interface Props {
 	newMovieCard: Model.INewMovieCard;
 	selectableActors: Model.IActor[];
 	selectableDirectors: Model.IDirector[];
+	selectableGenres: Model.IGenre[];
 }
 
 /**
@@ -22,7 +23,8 @@ interface Props {
 export const AddMovieForm: React.FC<Props> = ({
 	newMovieCard,
 	selectableActors,
-	selectableDirectors
+	selectableDirectors,
+	selectableGenres
 }): ReactElement => {
 	const addMovieFormHook = useAddMovieForm();
 	const ratingInput = useRef<HTMLInputElement | null>(null);
@@ -53,15 +55,10 @@ export const AddMovieForm: React.FC<Props> = ({
 	}
 
 	const updateSelectedGenres = (value: string) => {
-		if (genresInput.current == null ||
-			!Model.isValidGenre(value)
-		) { return; }
+		if (genresInput.current == null) { return; }
 		const updatedList = newMovieCard.genres.find(item => item === value) == null
-			? newMovieCard.genres = [
-				...newMovieCard.genres, value
-			].filter(item => item !== Constant.movieGenre.unknown)
+			? newMovieCard.genres = [...newMovieCard.genres, value]
 			: newMovieCard.genres.filter(item => item !== value);
-		updatedList.length === 0 && updatedList.push(Constant.movieGenre.unknown);
 		genresInput.current.value = updatedList.join(",");
 		addMovieFormHook.handleChange(form.current);
 	}
@@ -69,13 +66,6 @@ export const AddMovieForm: React.FC<Props> = ({
 	const handleClear = () => {
 		addMovieFormHook.handleClearForm();
 	}
-
-	const mapGenresToNamedGenresType = useCallback((): Model.INameObject[] => {
-		return [...Object.values(Constant.movieGenre)].map(item => ({
-			name: item,
-			id: item
-		}))
-	}, [Constant.movieGenre])
 
 	return (
 		<form ref={form}
@@ -166,7 +156,7 @@ export const AddMovieForm: React.FC<Props> = ({
 						id={movieFormInputNames.genres}
 						onChange={_ => addMovieFormHook.handleChange(form.current)} />
 					<SelectMenu
-						options={new Set(mapGenresToNamedGenresType())}
+						options={new Set(selectableGenres)}
 						selectedOptionIds={new Set(newMovieCard.genres)} 
 						title="Genres"
 						onSelect={updateSelectedGenres}/>

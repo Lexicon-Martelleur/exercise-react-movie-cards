@@ -12,6 +12,8 @@ export const movieCardReducer = (
             return handleUpdateSelectableActors(state, action);
         case movieCardActions.updateSelectableDirectors:
             return handleUpdateSelectableDirectors(state, action);
+        case movieCardActions.updateSelectableGenres:
+            return handleUpdateSelectableGenres(state, action);
         case movieCardActions.updateErrorState:
             return handleUpdateErrorState(state, action);
         default: 
@@ -43,6 +45,16 @@ function handleUpdateSelectableDirectors (
     return {
         ...state,
         selectableDirectors: action.payload
+    };
+}
+
+function handleUpdateSelectableGenres (
+    state: Type.IMovieCardState,
+    action: Type.UpdateSelectableGenresAction
+): Type.IMovieCardState {
+    return {
+        ...state,
+        selectableGenres: action.payload
     };
 }
 

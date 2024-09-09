@@ -1,4 +1,3 @@
-import { movieGenre } from "../constants";
 import * as Model from "../model";
 
 export function mapMovieDTOToMovieCardEntity (
@@ -45,16 +44,16 @@ export function mapNewMoviCardEntityToNewMOvieCardDTO (
         rating: movieCard.rating,
         directorId: Number(movieCard.director),
         actorIds: movieCard.actors.map(item => Number(item)),
-        genreIds: movieCard.genres.map(mapGenreToNumbers)
+        genreIds: movieCard.genres.map(item => Number(item))
     }
 }
 
-/**
- * @TODO Refactor frontend to only rely on server defined genres.
- * Currently solution genres constant on frontend is not insync with api
- * defined genres. 
- */
-export function mapGenreToNumbers (genre: string) {
-    const findGenreIndex = Object.values(movieGenre).findIndex(item => item === genre);
-    return findGenreIndex == null ? 1 : findGenreIndex + 1
+export function mapGenreDTOToGenreEntity (
+    genre: Model.GenreDTO
+): Model.IGenre {
+    return {
+        id: `${genre.id}`,
+        name: genre.nameAsString,
+        nameAsNumber: genre.nameAsNumber
+    };
 }

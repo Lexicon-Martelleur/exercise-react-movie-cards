@@ -58,6 +58,22 @@ export class MovieAPI implements IMovieAPI {
         return directorDTOs.map(Utlity.mapDirectorDTOToDirectorEntity);
     }
 
+    async getGenres(signal?: AbortSignal): Promise<Model.IGenre[]> {
+        const url = `${this.API}/genres`;
+        const res = await fetch(url, {
+            headers: this.defaultHeader,
+            signal,
+        });
+
+        if(!res.ok) { throw new APIError(res.statusText); }
+        const resJSON: unknown = await res.json();
+
+        if (!(resJSON instanceof Array)) { throw new APIError(); }
+        if (!resJSON.every(Model.isGenreDTO)) { throw new APIError(); }
+        const directorDTOs = resJSON as Model.GenreDTO[];
+        return directorDTOs.map(Utlity.mapGenreDTOToGenreEntity);
+    }
+
     async createMovieCard(
         movieCard: Model.NewMovieCardDTO,
         signal?: AbortSignal): Promise<Model.IMovieCardEntity> {

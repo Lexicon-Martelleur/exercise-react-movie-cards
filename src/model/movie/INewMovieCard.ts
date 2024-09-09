@@ -1,5 +1,4 @@
 import { isValidMovieRating, RatingType } from "./RatingType";
-import { isValidGenre, MovieGenreType } from "./MovieGenreType";
 
 export interface INewMovieCard {
     title: string;
@@ -8,7 +7,7 @@ export interface INewMovieCard {
     director: string
     actors: string[]
     rating: RatingType;
-    genres: MovieGenreType[]
+    genres: string[]
 }
 
 export function isNewMovieCard (obj: unknown): obj is INewMovieCard {
@@ -26,6 +25,6 @@ export function isNewMovieCard (obj: unknown): obj is INewMovieCard {
         castObj.actors.every(item => typeof item === "string") &&
         isValidMovieRating(castObj.rating) &&
         Array.isArray(castObj.genres) && 
-        castObj.genres.every(isValidGenre)
+        castObj.genres.every(item => typeof item === "string")
     );
 }

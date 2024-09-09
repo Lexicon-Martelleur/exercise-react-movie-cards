@@ -19,7 +19,8 @@ export const AddMovieSection = (): ReactElement => {
             {<AddMovieForm 
                 newMovieCard={movieState.newMovieCard}
                 selectableActors={movieState.selectableActors}
-                selectableDirectors={movieState.selectableDirectors}/>}
+                selectableDirectors={movieState.selectableDirectors}
+                selectableGenres={movieState.selectableGenres}/>}
         </section>
     );
 }

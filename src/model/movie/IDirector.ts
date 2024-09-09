@@ -4,7 +4,7 @@ export interface IDirector extends INameObject {
     dateOfBirth: number;
 }
 
-export function isActor (obj: unknown): obj is IDirector{
+export function isDirector (obj: unknown): obj is IDirector{
     if (obj == null || typeof obj !== "object" || !isNameObject(obj)) {
         return false;
     }

@@ -1,4 +1,4 @@
-import { minRating, movieGenre } from "../constants";
+import { minRating } from "../constants";
 import * as Model from "../model";
 
 export function getEmptyMovieCard (): Model.IMovieCard {
@@ -28,7 +28,7 @@ export function getNewEmptyMovieCard (): Model.INewMovieCard {
         director: "",
         actors: [],
         rating: minRating,
-        genres: [movieGenre.unknown]
+        genres: []
     };
 }
 

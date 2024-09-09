@@ -1,16 +1,16 @@
 import {
     IActor,
     IDirector,
-    IMovieCardEntity,
+    IGenre,
     INewMovieCard
 } from "../../../model";
 import { movieCardActions } from "./constants";
 import {
-    AddMovieCardEntitiesAction,
     UpdateErrorStateAction,
     UpdateNewMovieCardAction,
     UpdateSelectableActorsAction,
-    UpdateSelectableDirectorsAction
+    UpdateSelectableDirectorsAction,
+    UpdateSelectableGenresAction
 } from "./types";
 
 export const updateNewMovieCardAction = (
@@ -18,15 +18,6 @@ export const updateNewMovieCardAction = (
 ): UpdateNewMovieCardAction => {
     return {
         type: movieCardActions.updateNewMovieCard,
-        payload: movieCard
-    };
-}
-
-export const addMovieCardEntitiesAction = (
-    movieCard: IMovieCardEntity[]
-): AddMovieCardEntitiesAction => {
-    return {
-        type: movieCardActions.addMovieCardEntities,
         payload: movieCard
     };
 }
@@ -46,6 +37,15 @@ export const updateSelectableDirectorsAction = (
     return {
         type: movieCardActions.updateSelectableDirectors,
         payload: directors
+    };
+}
+
+export const updateSelectableGenresAction = (
+    genres: IGenre[]
+): UpdateSelectableGenresAction => {
+    return {
+        type: movieCardActions.updateSelectableGenres,
+        payload: genres
     };
 }
 

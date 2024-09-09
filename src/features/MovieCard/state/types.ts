@@ -1,11 +1,11 @@
 import * as Model from "../../../model";
-import { IActor, IDirector } from "../../../model";
 import { movieCardActions } from "./constants";
 
 export type IMovieCardState = Readonly<{
     newMovieCard: Model.INewMovieCard;
-    selectableActors: IActor[];
-    selectableDirectors: IDirector[];
+    selectableActors: Model.IActor[];
+    selectableDirectors: Model.IDirector[];
+    selectableGenres: Model.IGenre[];
     isError: boolean,
     errorMsg: string
 }>
@@ -17,12 +17,17 @@ export interface UpdateNewMovieCardAction {
 
 export interface UpdateSelectableActorsAction {
     type: typeof movieCardActions.updateSelectableActors;
-    payload: IActor[];
+    payload: Model.IActor[];
 }
 
 export interface UpdateSelectableDirectorsAction {
     type: typeof movieCardActions.updateSelectableDirectors;
-    payload: IDirector[];
+    payload: Model.IDirector[];
+}
+
+export interface UpdateSelectableGenresAction {
+    type: typeof movieCardActions.updateSelectableGenres;
+    payload: Model.IGenre[];
 }
 
 export interface UpdateErrorStateAction {
@@ -35,5 +40,6 @@ export type MovieCardActionType = (
     UpdateNewMovieCardAction |
     UpdateSelectableActorsAction |
     UpdateSelectableDirectorsAction |
+    UpdateSelectableGenresAction |
     UpdateErrorStateAction
 );

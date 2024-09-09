@@ -21,6 +21,7 @@ export const useAddMovieForm = () => {
         const errorMsg = `Could not load form data from ${getMovieAPI()}`
         movieQueryHook.getActors(errorMsg);
         movieQueryHook.getDirectors(errorMsg);
+        movieQueryHook.getGenres(errorMsg);
     }, [movieQueryHook.getActors, movieQueryHook.getDirectors]);
 
     const clearSubmitResultTimout = useCallback(() => {
@@ -62,14 +63,17 @@ export const useAddMovieForm = () => {
         const actors = getInputValue(formElement.elements.namedItem(movieFormInputNames.actors)) !== ""
             ? getInputValue(formElement.elements.namedItem(movieFormInputNames.actors)).split(",")
             : [];
+        const genres = getInputValue(formElement.elements.namedItem(movieFormInputNames.genres)) !== ""
+            ? getInputValue(formElement.elements.namedItem(movieFormInputNames.genres)).split(",")
+            : [];
         const newMovieCard = Service.createNewMovieCardObject({
             title: getInputValue(formElement.elements.namedItem(movieFormInputNames.title)),
             timeStamp: Service.getUNIXTimestampInSeconds(),
             description: getInputValue(formElement.elements.namedItem(movieFormInputNames.description)),
             director: getInputValue(formElement.elements.namedItem(movieFormInputNames.director)),
             actors,
+            genres,
             rating: Number(getInputValue(formElement.elements.namedItem(movieFormInputNames.rating))),
-            genres: getInputValue(formElement.elements.namedItem(movieFormInputNames.genres)).split(",")
         });
         dispatchMovieAction(updateNewMovieCardAction(newMovieCard));
     }, [Service.createNewMovieCardObject, dispatchMovieAction, updateNewMovieCardAction])
