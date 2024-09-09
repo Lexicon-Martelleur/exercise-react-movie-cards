@@ -5,7 +5,7 @@ import { MovieListSection, AddMovieSection } from "../components";
 
 import { MovieCardLayout } from "../layouts";
 
-export const MovieCard = (): ReactElement => {
+export const MovieCardFeature = (): ReactElement => {
     return (
         <MovieCardLayout>
             <MovieCardProvider>

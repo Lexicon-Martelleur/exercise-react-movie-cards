@@ -1,5 +1,4 @@
 .select-article {
-    background-color: var(--XLIGHT_BG);
     border-radius: 8px;
 }
 
@@ -53,10 +52,6 @@
 
 .option-item:hover {
     background-color: var(--LIGHT_BG);
-}
-
-.option-item:hover > .option-mark {
-    background-color: var(--DARK_BG);
 }
 
 .option-label {

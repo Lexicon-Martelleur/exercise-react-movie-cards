@@ -1,3 +1,9 @@
+/**
+ * @TODO Refactor frontend to only rely on server defined genres.
+ * Currently solution genres constant on frontend is not insync with api
+ * defined genres. 
+ */
+
 export const movieGenre = { 
     action: "Action",
     animation: "Animation",

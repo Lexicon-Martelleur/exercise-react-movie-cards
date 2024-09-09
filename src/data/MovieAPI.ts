@@ -57,4 +57,23 @@ export class MovieAPI implements IMovieAPI {
         const directorDTOs = resJSON as Model.DirectorDTO[];
         return directorDTOs.map(Utlity.mapDirectorDTOToDirectorEntity);
     }
+
+    async createMovieCard(
+        movieCard: Model.NewMovieCardDTO,
+        signal?: AbortSignal): Promise<Model.IMovieCardEntity> {
+        const url = `${this.API}/movies`;
+        const res = await fetch(url, {
+            method: "POST",
+            headers: this.defaultHeader,
+            signal,
+            body: JSON.stringify(movieCard)
+        });
+
+        if(!res.ok) { throw new APIError(res.statusText); }
+        const resJSON: unknown = await res.json();
+
+        if (!Model.isMovieDTO(resJSON)) { throw new APIError(); }
+        const movieDTO = resJSON as Model.MovieDTO;
+        return Utlity.mapMovieDTOToMovieCardEntity(movieDTO);
+    }
 }

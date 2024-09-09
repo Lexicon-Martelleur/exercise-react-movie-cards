@@ -1,9 +1,12 @@
-import { IActor, IDirector, IMovieCard, IMovieCardEntity, INewMovieCard } from "../../../model";
+import {
+    IActor,
+    IDirector,
+    IMovieCardEntity,
+    INewMovieCard
+} from "../../../model";
 import { movieCardActions } from "./constants";
 import {
-    AddMovieCardAction,
     AddMovieCardEntitiesAction,
-    RemoveMovieCardAction,
     UpdateErrorStateAction,
     UpdateNewMovieCardAction,
     UpdateSelectableActorsAction,
@@ -19,30 +22,12 @@ export const updateNewMovieCardAction = (
     };
 }
 
-export const addMovieCardAction = (
-    movieCard: IMovieCard
-): AddMovieCardAction => {
-    return {
-        type: movieCardActions.addMovieCard,
-        payload: movieCard
-    };
-}
-
 export const addMovieCardEntitiesAction = (
     movieCard: IMovieCardEntity[]
 ): AddMovieCardEntitiesAction => {
     return {
         type: movieCardActions.addMovieCardEntities,
         payload: movieCard
-    };
-}
-
-export const removeMovieCardAction = (
-    movieCardId: string
-): RemoveMovieCardAction => {
-    return {
-        type: movieCardActions.removeMovieCard,
-        payload: movieCardId
     };
 }
 

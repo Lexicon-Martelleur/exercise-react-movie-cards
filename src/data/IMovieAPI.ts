@@ -1,7 +1,13 @@
-import { IActor, IDirector, IMovieCardEntity } from "../model";
+import * as Model from "../model";
 
 export interface IMovieAPI {
-    getActors(signal?: AbortSignal): Promise<IActor[]>;
-    getDirectors(signal?: AbortSignal): Promise<IDirector[]>;
-    getMovies: (signal?: AbortSignal) => Promise<IMovieCardEntity[]>;
+    getActors(signal?: AbortSignal): Promise<Model.IActor[]>;
+    
+    getDirectors(signal?: AbortSignal): Promise<Model.IDirector[]>;
+    
+    getMovies: (signal?: AbortSignal) => Promise<Model.IMovieCardEntity[]>;
+
+    createMovieCard(
+        movieCard: Model.NewMovieCardDTO,
+        signal?: AbortSignal): Promise<Model.IMovieCardEntity>;
 }

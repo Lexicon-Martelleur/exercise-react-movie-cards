@@ -1,7 +1,7 @@
 import { IMovieCard, IMovieCardEntity } from "../../../model";
 import { maxRating, minRating } from "../../../constants";
 import { IMovieCardState } from "../state";
-import { getUNIXTimestampInSeconds } from "../../../service";
+import { getNewEmptyMovieCard, getUNIXTimestampInSeconds } from "../../../service";
 
 export const mockMovieCardEntity: IMovieCardEntity = {
     id: "1",
@@ -27,10 +27,14 @@ export const mockMovieCardTwo: IMovieCard = {
     timeStamp: getUNIXTimestampInSeconds(),
 } as const;
 
-export const mocMovieCardState: IMovieCardState = {
-    movieCards: [mockMovieCardEntity],
-    newMovieCard: mockMovieCardOne
-}
+export const mockMovieCardState: IMovieCardState = {
+    newMovieCard: getNewEmptyMovieCard(),
+    selectableActors: [],
+    selectableDirectors: [],
+    isError: false,
+    errorMsg: ""
+} as const;
+
 
 export const getAllMovieCardsMock = (): IMovieCardEntity[] => {
     return [

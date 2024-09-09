@@ -3,7 +3,8 @@ import { useCallback, useState } from "react";
 import { createMovieAPI } from "../../../data";
 import * as State from "../state";
 import { getMovieAPI, isDevelopment } from "../../../config";
-import { IMovieCardEntity } from "../../../model";
+import { IMovieCardEntity, INewMovieCard } from "../../../model";
+import { mapNewMoviCardEntityToNewMOvieCardDTO } from "../../../utility";
 
 export type MovieAPIHook = ReturnType<typeof useMovieQuery>
 
@@ -32,7 +33,7 @@ export function useMovieQuery (
         setPending(true);
         const constructedErrosMsg = errorMsg != null
             ? errorMsg
-            : `Failed fetching available movie cards from from ${apiEndPoint}`;
+            : `Failed fetching available movie cards from ${apiEndPoint}`;
         let movieCards: IMovieCardEntity[] | null = null;
         try {
             movieCards = await movieAPi.getMovies();
@@ -48,7 +49,7 @@ export function useMovieQuery (
         setPending(true);
         const constructedErrosMsg = errorMsg != null
             ? errorMsg
-            : `Failed fetching available actors from from ${apiEndPoint}`;
+            : `Failed fetching available actors from ${apiEndPoint}`;
         (async () => {
             try {
                 const actors = await movieAPi.getActors();
@@ -65,7 +66,7 @@ export function useMovieQuery (
         setPending(true);
         const constructedErrosMsg = errorMsg != null
             ? errorMsg
-            : `Failed fetching available directors from from ${apiEndPoint}`;
+            : `Failed fetching available directors from ${apiEndPoint}`;
         (async () => {
             try {
                 const directors = await movieAPi.getDirectors();
@@ -78,14 +79,34 @@ export function useMovieQuery (
         })()
     }, [apiEndPoint, dispatchMovieAction, handleError]);
 
-    const isPending = useCallback(() => {
+    const createMovieCard = useCallback((
+        movieCard: INewMovieCard,
+        errorMsg?: string) => {
+        setPending(true);
+        const constructedErrosMsg = errorMsg != null
+            ? errorMsg
+            : `Failed creating movie card at ${apiEndPoint}`;
+        (async () => {
+            try {
+                const moviCardDTO = mapNewMoviCardEntityToNewMOvieCardDTO(movieCard)
+                const createdMovieCard: IMovieCardEntity = await movieAPi.createMovieCard(moviCardDTO);
+            } catch (err) {
+                handleError(err, constructedErrosMsg);
+            } finally {
+                setPending(false);
+            }
+        })()
+    }, [apiEndPoint, dispatchMovieAction, handleError]);
+
+    const isPending = () => {
         return pending
-    }, [dispatchMovieAction, pending]);
+    };
 
     return {
         isPending,
         getTodos,
         getActors,
-        getDirectors
+        getDirectors,
+        createMovieCard
     };
 }

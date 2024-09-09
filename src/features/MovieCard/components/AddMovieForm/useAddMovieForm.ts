@@ -2,10 +2,11 @@ import { FormEventHandler, useCallback, useEffect, useRef, useState } from "reac
 
 import { useMovieCardContext } from "../../context";
 import * as Service from "../../../../service";
-import { addMovieCardAction, updateNewMovieCardAction } from "../../state";
+import { updateNewMovieCardAction } from "../../state";
 import { movieFormInputNames } from "../constants";
 import { useMovieQuery } from "../../hooks";
 import { getMovieAPI } from "../../../../config";
+import { INewMovieCard } from "../../../../model";
 
 export type AddMovieFormHook = ReturnType<typeof useAddMovieForm>
 
@@ -14,7 +15,6 @@ export const useAddMovieForm = () => {
     const movieQueryHook = useMovieQuery(dispatchMovieAction);
     const isPending = movieQueryHook.isPending()
     const [closeFormOnSubmit, setCloseFormOnSubmit] = useState(false);
-    const [submitResult, setSubmitResult] = useState<string | null>(null);
     const submitResultTimeout = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
@@ -46,44 +46,36 @@ export const useAddMovieForm = () => {
             rating: Number(getInputValue(event.currentTarget.elements.namedItem(movieFormInputNames.rating))),
             genres: getInputValue(event.currentTarget.elements.namedItem(movieFormInputNames.genres)).split(","),
         });
-        submit();
-        dispatchMovieAction(addMovieCardAction(newMovieCard));
+        submit(newMovieCard)
+    }
+
+    const submit = (newMovieCard: INewMovieCard) => {
+        movieQueryHook.createMovieCard(newMovieCard);
+        if (closeFormOnSubmit) {
+            setCloseFormOnSubmit(false);
+            dispatchMovieAction(updateNewMovieCardAction(Service.getNewEmptyMovieCard()));
+        }
     }
 
     const handleChange = useCallback((formElement: HTMLFormElement | null) => {
         if (formElement == null) { return; }
+        const actors = getInputValue(formElement.elements.namedItem(movieFormInputNames.actors)) !== ""
+            ? getInputValue(formElement.elements.namedItem(movieFormInputNames.actors)).split(",")
+            : [];
         const newMovieCard = Service.createNewMovieCardObject({
             title: getInputValue(formElement.elements.namedItem(movieFormInputNames.title)),
             timeStamp: Service.getUNIXTimestampInSeconds(),
             description: getInputValue(formElement.elements.namedItem(movieFormInputNames.description)),
             director: getInputValue(formElement.elements.namedItem(movieFormInputNames.director)),
-            actors: getInputValue(formElement.elements.namedItem(movieFormInputNames.actors)).split(","),
+            actors,
             rating: Number(getInputValue(formElement.elements.namedItem(movieFormInputNames.rating))),
             genres: getInputValue(formElement.elements.namedItem(movieFormInputNames.genres)).split(",")
         });
         dispatchMovieAction(updateNewMovieCardAction(newMovieCard));
     }, [Service.createNewMovieCardObject, dispatchMovieAction, updateNewMovieCardAction])
 
-    const submit = () => {
-        manageSubmitResult("Success ✅");
-        if (closeFormOnSubmit) {
-            setCloseFormOnSubmit(false);
-            dispatchMovieAction(updateNewMovieCardAction(Service.getNewEmptyMovieCard()));
-            setSubmitResult(null);
-        }
-    }
-
-    const manageSubmitResult = (result: string) => {
-        setSubmitResult(result)
-        clearSubmitResultTimout();
-        submitResultTimeout.current = setTimeout(() => {
-            setSubmitResult(null);
-        }, 5000);
-    }
-
     const handleClearForm = () => {
         dispatchMovieAction(updateNewMovieCardAction(Service.getNewEmptyMovieCard()));
-        setSubmitResult(null);
     }
 
     const handlePreSubmit = (close: boolean) => {
@@ -98,17 +90,11 @@ export const useAddMovieForm = () => {
             : "";
     }
 
-    const updateSubmitResult = (result: string | null) => {
-        setSubmitResult(result);
-    }
-
     return {
         isPending,
-        submitResult,
         handleClearForm,
         handleSubmit,
         handleChange,
-        handlePreSubmit,
-        updateSubmitResult
+        handlePreSubmit
     }
 }

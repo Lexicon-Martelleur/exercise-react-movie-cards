@@ -20,10 +20,6 @@ export const SelectMenu: React.FC<Props<INameObject>> = ({
 }): ReactElement => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleSelect = (option: INameObject) => {
-        onSelect(option.id);
-    }
-
     const getSelectButtonClassNames = () => {
         return `${styles.selectButton} ${isOpen ? styles.selectOpen : ""}`
     }
@@ -35,6 +31,14 @@ export const SelectMenu: React.FC<Props<INameObject>> = ({
 
     const toggleOpen: React.MouseEventHandler<HTMLButtonElement> = (_) => {
         setIsOpen(!isOpen);
+    }
+
+    const handleSelect = (
+        event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+        option: INameObject
+    ) => {
+        event.stopPropagation();
+        onSelect(option.id);
     }
 
     return (
@@ -51,7 +55,7 @@ export const SelectMenu: React.FC<Props<INameObject>> = ({
                         <div
                             key={option.id}
                             className={styles.optionItem}
-                            onClick={() => handleSelect(option)}
+                            onClick={(event) => { handleSelect(event, option); } }
                         >
                             <p className={styles.optionLabel}>
                                 {option.name}

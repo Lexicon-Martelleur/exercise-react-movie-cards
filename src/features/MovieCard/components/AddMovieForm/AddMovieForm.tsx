@@ -16,6 +16,9 @@ interface Props {
 	selectableDirectors: Model.IDirector[];
 }
 
+/**
+ * @TODO Clean up.
+ */
 export const AddMovieForm: React.FC<Props> = ({
 	newMovieCard,
 	selectableActors,
@@ -36,7 +39,10 @@ export const AddMovieForm: React.FC<Props> = ({
 
 	const updateSelectedActors = (value: string) => {
 		if (actorsInput.current == null) { return; }
-		actorsInput.current.value = value;
+		const updatedList = newMovieCard.actors.find(item => item === value) == null
+			? newMovieCard.actors = [...newMovieCard.actors, value]
+			: newMovieCard.actors.filter(item => item !== value);
+		actorsInput.current.value = updatedList.join(",");
 		addMovieFormHook.handleChange(form.current);
 	}
 
@@ -47,8 +53,16 @@ export const AddMovieForm: React.FC<Props> = ({
 	}
 
 	const updateSelectedGenres = (value: string) => {
-		if (genresInput.current == null) { return; }
-		genresInput.current.value = `${value}`;
+		if (genresInput.current == null ||
+			!Model.isValidGenre(value)
+		) { return; }
+		const updatedList = newMovieCard.genres.find(item => item === value) == null
+			? newMovieCard.genres = [
+				...newMovieCard.genres, value
+			].filter(item => item !== Constant.movieGenre.unknown)
+			: newMovieCard.genres.filter(item => item !== value);
+		updatedList.length === 0 && updatedList.push(Constant.movieGenre.unknown);
+		genresInput.current.value = updatedList.join(",");
 		addMovieFormHook.handleChange(form.current);
 	}
 
@@ -153,7 +167,7 @@ export const AddMovieForm: React.FC<Props> = ({
 						onChange={_ => addMovieFormHook.handleChange(form.current)} />
 					<SelectMenu
 						options={new Set(mapGenresToNamedGenresType())}
-						selectedOptionIds={new Set()} 
+						selectedOptionIds={new Set(newMovieCard.genres)} 
 						title="Genres"
 						onSelect={updateSelectedGenres}/>
 				</div>
@@ -171,23 +185,17 @@ export const AddMovieForm: React.FC<Props> = ({
 				</div>
 				<div className={`${styles.formStatusCtr}`}>
 					{addMovieFormHook.isPending && <Loader />}
-					{addMovieFormHook.submitResult != null &&
-					!addMovieFormHook.isPending &&
-					<p className={styles.submitResult}
-						data-testid="submit-result">
-						{addMovieFormHook.submitResult}
-					</p>}	
 				</div>
 				<button className={styles.submitButton}
 					type="submit"
-					disabled={addMovieFormHook.isPending || form.current?.checkValidity() == null}
+					disabled={addMovieFormHook.isPending}
 					onMouseDown={_ => addMovieFormHook.handlePreSubmit(false)} 
 					data-testid="submit-btn">
 					Create Card
 				</button>
 				<button className={styles.submitButton}
 					type="submit"
-					disabled={addMovieFormHook.isPending || form.current?.checkValidity() == false}
+					disabled={addMovieFormHook.isPending}
 					onMouseDown={_ => addMovieFormHook.handlePreSubmit(true)} 
 					data-testid="submit-btn-with-close">
 					Create Card And Close Form
