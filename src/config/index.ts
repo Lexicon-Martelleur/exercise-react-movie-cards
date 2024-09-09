@@ -1,9 +1,13 @@
 export function getMovieAPI (): string {
-    return import.meta.env.VITE_MOVIE_API
+    return import.meta.env.VITE_MOVIE_API;
 }
 
 export function isDevelopment (): boolean {
-    return import.meta.env.DEV
+    return !isProduction();
+}
+
+export function isProduction (): boolean {
+    return import.meta.env.PROD;
 }
 
 export function getTodoAPIMaxTimeMilliSeconds (): number {

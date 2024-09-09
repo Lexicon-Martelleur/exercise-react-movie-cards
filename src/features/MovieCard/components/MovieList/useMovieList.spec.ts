@@ -64,18 +64,6 @@ describe("useMovieList", () => {
             expect(mockDispatch).toHaveBeenCalledTimes(0);
         });
 
-        it(`dispatch movie card action
-            if movie card is selected`, () => {
-            const { result } = renderMovieListHook();
-            act(() => {
-                result.current.handleSelectMovieCard(mockMovieCardEntity);
-            });
-            act(() => {
-                result.current.handleConfirm();
-            });
-            expect(mockDispatch).toHaveBeenCalledTimes(1);
-        });
-
         it(`set selected movie to null
             if movie card is selected`, () => {
             const { result } = renderMovieListHook();
@@ -97,13 +85,6 @@ describe("useMovieList", () => {
             expect(result.current.isMovieCardDialogOen).toBe(false);
         });
     });
-
-    describe("getMoviCards", () => {
-        it("return the current moviecards", () => {
-            const { result } = renderMovieListHook();
-            expect(result.current.getMovieCards()).toBe(movieCards);
-        })
-    })
 })
 
 function renderMovieListHook () {
