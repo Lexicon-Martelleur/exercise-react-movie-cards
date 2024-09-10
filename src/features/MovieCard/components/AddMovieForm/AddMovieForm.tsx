@@ -109,13 +109,13 @@ export const AddMovieForm: React.FC<Props> = ({
 						</button>
 					}
 				</div>
-				<Input title={movieFormInputNames.title}
+				<Input id={movieFormInputNames.title}
 					value={newMovieCard.title}
 					minLength={Constant.minLengthTitle}
 					maxLength={Constant.maxLengthTitle}
 					onChange={() => { addMovieFormHook.handleChange(form.current) }} />
 				<HiddenInput ref={ratingInput}
-					title={movieFormInputNames.rating}
+					id={movieFormInputNames.rating}
 					value={`${newMovieCard.rating}`}
 					minLength={Constant.minRating}
 					maxLength={Constant.maxRating}>
@@ -124,7 +124,8 @@ export const AddMovieForm: React.FC<Props> = ({
 						data-testid="star-rating"/>
 				</HiddenInput>
 				<HiddenInput ref={directorInput}
-					title={movieFormInputNames.director}
+					id={movieFormInputNames.director}
+					title={`Select ${movieFormInputNames.director}`}
 					value={newMovieCard.director}>
 					<SelectMenu
 						open={currentSelectMenu === selectMenuTitles.directors}
@@ -135,7 +136,8 @@ export const AddMovieForm: React.FC<Props> = ({
 						onSelectOption={updateSelectedDirector}/>
 				</HiddenInput>
 				<HiddenInput ref={actorsInput}
-					title={movieFormInputNames.actors}
+					id={movieFormInputNames.actors}
+					title={`Select ${movieFormInputNames.actors}`}
 					value={newMovieCard.actors.join(",")}>
 					<SelectMenu
 						open={currentSelectMenu === selectMenuTitles.actors}
@@ -146,7 +148,8 @@ export const AddMovieForm: React.FC<Props> = ({
 						onSelectOption={updateSelectedActors}/>
 				</HiddenInput>
 				<HiddenInput ref={genresInput}
-					title={movieFormInputNames.genres}
+					id={movieFormInputNames.genres}
+					title={`Select ${movieFormInputNames.genres}`}
 					value={newMovieCard.genres.join(",")}>
 					<SelectMenu
 						open={currentSelectMenu === selectMenuTitles.genres}
@@ -157,7 +160,7 @@ export const AddMovieForm: React.FC<Props> = ({
 						onSelectOption={updateSelectedGenres}/>
 				</HiddenInput>
 				<Input textArea={true} 
-					title={movieFormInputNames.description}
+					id={movieFormInputNames.description}
 					value={newMovieCard.description}
 					minLength={Constant.minLengthDescription}
 					maxLength={Constant.maxLengthDescription}

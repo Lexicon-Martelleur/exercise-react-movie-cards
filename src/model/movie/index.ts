@@ -6,3 +6,4 @@ export * from "./IActor";
 export * from "./IDirector";
 export * from "./INameObject";
 export * from "./IGenre";
+export* from "./IPaginationMeta";

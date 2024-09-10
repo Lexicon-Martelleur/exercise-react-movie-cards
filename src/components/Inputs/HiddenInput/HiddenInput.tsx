@@ -3,8 +3,9 @@ import { forwardRef, ReactElement, ReactNode } from "react";
 import styles from "./HiddenInput.module.css";
 
 interface Props {
-    title: string;
+    id: string;
     value: string;
+    title?: string;
     minLength?: number;
     maxLength?: number;
     orientation?: "row" | "column";
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export const HiddenInput = forwardRef<HTMLInputElement | null, Props>(({
+    id,
     title,
     value,
     minLength,
@@ -31,15 +33,15 @@ export const HiddenInput = forwardRef<HTMLInputElement | null, Props>(({
             .join(' ');
     };
 
-    const getOrientationStyle = () => {
+    const constructContainerStyle = () => {
         return orientation === "column" || orientation == null
             ? `${styles.columnCtr} ${styles.input}`
-            : `${styles.rowCtr} ${styles.input}`
+            : `${styles.rowCtr} ${styles.input}`;
     };
 
     return (
-        <div className={getOrientationStyle()}>
-            <label htmlFor={getLowerCaseTitle(title)}>{getPascalCase(title)}</label>
+        <div className={constructContainerStyle()}>
+            <label htmlFor={getLowerCaseTitle(id)}>{getPascalCase(title ?? id)}</label>
             <input
                 ref={ref}
                 type="text"
@@ -47,8 +49,8 @@ export const HiddenInput = forwardRef<HTMLInputElement | null, Props>(({
                 required
                 minLength={minLength}
                 maxLength={maxLength}
-                name={getLowerCaseTitle(title)}
-                id={getLowerCaseTitle(title)}
+                name={getLowerCaseTitle(id)}
+                id={getLowerCaseTitle(id)}
                 value={value}
                 onChange={_ => {}}
             />

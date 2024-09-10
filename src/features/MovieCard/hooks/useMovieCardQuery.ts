@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import { createMovieAPI } from "../../../data";
 import * as State from "../state";
 import { getMovieAPI, isDevelopment } from "../../../config";
-import { IMovieCardEntity, INewMovieCard } from "../../../model";
+import * as Model from "../../../model";
 import { mapNewMoviCardEntityToNewMOvieCardDTO } from "../../../utility";
 
 export type MovieAPIHook = ReturnType<typeof useMovieQuery>;
@@ -28,19 +28,23 @@ export function useMovieQuery (
         isDispatchable && dispatchMovieAction(State.updateErrorStateAction(true, msg))
     }, [dispatchMovieAction]);
 
-    const getTodos = useCallback(async (errorMsg?: string): Promise<IMovieCardEntity[] | null> => {
+    const getMovieCards = useCallback(async (
+        page: number,
+        errorMsg?: string
+    ): Promise<[Model.IMovieCardEntity[], Model.IPaginationMeta | null]> => {
         setPending(true);
         const constructedErrosMsg = errorMsg != null
             ? errorMsg
             : `Failed fetching available movie cards from ${apiEndPoint}`;
-        let movieCards: IMovieCardEntity[] | null = null;
+        let movieCards: Model.IMovieCardEntity[] = [];
+        let pagination: Model.IPaginationMeta | null = null;
         try {
-            movieCards = await movieAPi.getMovies();
+            [movieCards, pagination] = await movieAPi.getMovies(page);
         } catch (err) {
             handleError(err, constructedErrosMsg);
         } finally {
             setPending(false);
-            return movieCards;
+            return [movieCards, pagination];
         }
     }, [apiEndPoint, handleError]);
 
@@ -96,7 +100,7 @@ export function useMovieQuery (
     }, [apiEndPoint, dispatchMovieAction, handleError]);
 
     const createMovieCard = useCallback((
-        movieCard: INewMovieCard,
+        movieCard: Model.INewMovieCard,
         errorMsg?: string) => {
         setPending(true);
         const constructedErrosMsg = errorMsg != null
@@ -105,7 +109,7 @@ export function useMovieQuery (
         (async () => {
             try {
                 const moviCardDTO = mapNewMoviCardEntityToNewMOvieCardDTO(movieCard)
-                const createdMovieCard: IMovieCardEntity = await movieAPi.createMovieCard(moviCardDTO);
+                const createdMovieCard: Model.IMovieCardEntity = await movieAPi.createMovieCard(moviCardDTO);
             } catch (err) {
                 handleError(err, constructedErrosMsg);
             } finally {
@@ -120,7 +124,7 @@ export function useMovieQuery (
 
     return {
         isPending,
-        getTodos,
+        getMovieCards,
         getActors,
         getGenres,
         getDirectors,

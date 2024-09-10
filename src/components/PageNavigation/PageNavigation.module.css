@@ -1,0 +1,36 @@
+.page-navigation-article {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-navigation-article > p {
+    color: var(--DARK_COLOR);
+}
+
+.page-navigation-article > button {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--DARK_BG);
+    cursor: pointer;
+    text-align: center;
+}
+
+.page-navigation-article > button:hover {
+    background-color: var(--MEDIUM_BG);
+}
+
+.page-navigation-article > button:disabled {
+    cursor: not-allowed;
+    color: rgb(255, 255, 255, 0.4);
+}
+
+.page-navigation-article > button:disabled:hover {
+    background-color: var(--DARK_BG);
+}

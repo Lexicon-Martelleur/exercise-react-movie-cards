@@ -5,11 +5,15 @@ export interface IMovieAPI {
     
     getDirectors: (signal?: AbortSignal) => Promise<Model.IDirector[]>;
     
-    getMovies: (signal?: AbortSignal) => Promise<Model.IMovieCardEntity[]>;
+    getMovies: (
+        page: number,
+        signal?: AbortSignal
+    ) => Promise<[Model.IMovieCardEntity[], Model.IPaginationMeta]>;
 
     getGenres: (signal?: AbortSignal) => Promise<Model.IGenre[]>;
 
-    createMovieCard(
+    createMovieCard: (
         movieCard: Model.NewMovieCardDTO,
-        signal?: AbortSignal): Promise<Model.IMovieCardEntity>;
+        signal?: AbortSignal
+    ) => Promise<Model.IMovieCardEntity>;
 }

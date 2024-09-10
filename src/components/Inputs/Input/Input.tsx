@@ -3,8 +3,9 @@ import { ReactElement } from "react";
 import styles from "./Input.module.css";
 
 interface Props {
-    title: string;
+    id: string;
     value: string;
+    title?: string;
     minLength?: number;
     maxLength?: number;
     orientation?: "row" | "column";
@@ -13,8 +14,9 @@ interface Props {
 }
 
 export const Input: React.FC<Props> = ({
-    title,
+    id,
     value,
+    title,
     minLength,
     maxLength,
     orientation,
@@ -33,30 +35,30 @@ export const Input: React.FC<Props> = ({
             .join(' ');
     }
 
-    const getOrientationStyle = () => {
+    const constructContainerStyle = () => {
         return orientation === "column" || orientation == null
             ? `${styles.columnCtr} ${styles.input}`
             : `${styles.rowCtr} ${styles.input}`
     };
 
     return (
-        <div className={getOrientationStyle()}>
-            <label htmlFor={getLowerCaseTitle(title)}>{getPascalCase(title)}</label>
+        <div className={constructContainerStyle()}>
+            <label htmlFor={getLowerCaseTitle(id)}>{getPascalCase(title ?? id)}</label>
             {textArea == null || !textArea
                 ? <input type="text"
                     required
                     minLength={minLength}
                     maxLength={maxLength}
-                    name={getLowerCaseTitle(title)}
-                    id={getLowerCaseTitle(title)}
+                    name={getLowerCaseTitle(id)}
+                    id={getLowerCaseTitle(id)}
                     value={value}
                     onChange={onChange} />
                 : <textarea rows={5}
                     required
                     minLength={minLength}
                     maxLength={maxLength}
-                    name={getLowerCaseTitle(title)}
-                    id={getLowerCaseTitle(title)}
+                    name={getLowerCaseTitle(id)}
+                    id={getLowerCaseTitle(id)}
                     value={value}
                     onChange={onChange} />
             }

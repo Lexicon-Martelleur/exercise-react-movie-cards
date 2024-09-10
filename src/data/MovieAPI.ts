@@ -10,8 +10,11 @@ export class MovieAPI implements IMovieAPI {
         "Content-Type": "application/json",
     };
 
-    async getMovies (signal?: AbortSignal): Promise<Model.IMovieCardEntity[]> {
-        const url = `${this.API}/movies`;
+    async getMovies (
+        page: number,
+        signal?: AbortSignal
+    ): Promise<[Model.IMovieCardEntity[], Model.IPaginationMeta]> {
+        const url = `${this.API}/movies?pageNr=${page}&pageSize=${10}`;
         const res = await fetch(url, {
             headers: this.defaultHeader,
             signal,
@@ -23,7 +26,13 @@ export class MovieAPI implements IMovieAPI {
         if (!(resJSON instanceof Array)) { throw new APIError(); }
         if (!resJSON.every(Model.isMovieDTO)) { throw new APIError(); }
         const movieDTOs = resJSON as Model.MovieDTO[];
-        return movieDTOs.map(Utlity.mapMovieDTOToMovieCardEntity);
+        const paginationData = JSON.parse(res.headers.get("X-Pagination") ?? "");
+        if (!Model.isPaginationMeta(paginationData)) { throw new APIError(); }
+
+        return [
+            movieDTOs.map(Utlity.mapMovieDTOToMovieCardEntity),
+            paginationData
+        ];
     }
 
     async getActors(signal?: AbortSignal): Promise<Model.IActor[]> {
