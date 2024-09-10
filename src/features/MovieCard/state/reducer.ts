@@ -8,6 +8,8 @@ export const movieCardReducer = (
     switch (action.type) {
         case movieCardActions.updateNewMovieCard:
             return handleUpdateNewMovieCard(state, action);
+        case movieCardActions.updateCreatedMovieCard:
+            return handleUpdateCreatedMovieCard(state, action);
         case movieCardActions.updateSelectableActors:
             return handleUpdateSelectableActors(state, action);
         case movieCardActions.updateSelectableDirectors:
@@ -26,6 +28,13 @@ function handleUpdateNewMovieCard (
     action: Type.UpdateNewMovieCardAction
 ): Type.IMovieCardState {
     return { ...state,  newMovieCard: action.payload };
+}
+
+function handleUpdateCreatedMovieCard (
+    state: Type.IMovieCardState,
+    action: Type.UpdateCreatedMovieCardAction
+): Type.IMovieCardState {
+    return { ...state,  createdMovieCard: action.payload };
 }
 
 function handleUpdateSelectableActors (

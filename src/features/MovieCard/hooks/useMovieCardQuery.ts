@@ -107,12 +107,14 @@ export function useMovieQuery (
             ? errorMsg
             : `Failed creating movie card at ${apiEndPoint}`;
         (async () => {
+            let createdMovieCard: Model.IMovieCardEntity | null = null
             try {
                 const moviCardDTO = mapNewMoviCardEntityToNewMOvieCardDTO(movieCard)
-                const createdMovieCard: Model.IMovieCardEntity = await movieAPi.createMovieCard(moviCardDTO);
+                createdMovieCard = await movieAPi.createMovieCard(moviCardDTO);
             } catch (err) {
                 handleError(err, constructedErrosMsg);
             } finally {
+                isDispatchable && dispatchMovieAction(State.updateCreatedMovieCardAction(createdMovieCard));
                 setPending(false);
             }
         })()

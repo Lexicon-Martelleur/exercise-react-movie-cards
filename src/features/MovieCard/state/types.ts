@@ -3,6 +3,7 @@ import { movieCardActions } from "./constants";
 
 export type IMovieCardState = Readonly<{
     newMovieCard: Model.INewMovieCard;
+    createdMovieCard?: Model.IMovieCardEntity | null;
     selectableActors: Model.IActor[];
     selectableDirectors: Model.IDirector[];
     selectableGenres: Model.IGenre[];
@@ -13,6 +14,11 @@ export type IMovieCardState = Readonly<{
 export interface UpdateNewMovieCardAction {
     type: typeof movieCardActions.updateNewMovieCard;
     payload: Model.INewMovieCard;
+}
+
+export interface UpdateCreatedMovieCardAction {
+    type: typeof movieCardActions.updateCreatedMovieCard;
+    payload: Model.IMovieCardEntity | null;
 }
 
 export interface UpdateSelectableActorsAction {
@@ -38,6 +44,7 @@ export interface UpdateErrorStateAction {
 
 export type MovieCardActionType = (
     UpdateNewMovieCardAction |
+    UpdateCreatedMovieCardAction |
     UpdateSelectableActorsAction |
     UpdateSelectableDirectorsAction |
     UpdateSelectableGenresAction |

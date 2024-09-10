@@ -82,10 +82,6 @@ export const useAddMovieForm = () => {
         dispatchMovieAction(updateNewMovieCardAction(Service.getNewEmptyMovieCard()));
     }
 
-    const handlePreSubmit = (close: boolean) => {
-        setCloseFormOnSubmit(close);
-    }
-
     const getInputValue = (item: unknown) => {
         return (item instanceof HTMLInputElement ||
             item instanceof HTMLTextAreaElement ||
@@ -98,7 +94,6 @@ export const useAddMovieForm = () => {
         isPending,
         handleClearForm,
         handleSubmit,
-        handleChange,
-        handlePreSubmit
+        handleChange
     }
 }

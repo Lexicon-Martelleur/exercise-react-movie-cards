@@ -2,10 +2,12 @@ import {
     IActor,
     IDirector,
     IGenre,
+    IMovieCardEntity,
     INewMovieCard
 } from "../../../model";
 import { movieCardActions } from "./constants";
 import {
+    UpdateCreatedMovieCardAction,
     UpdateErrorStateAction,
     UpdateNewMovieCardAction,
     UpdateSelectableActorsAction,
@@ -18,6 +20,15 @@ export const updateNewMovieCardAction = (
 ): UpdateNewMovieCardAction => {
     return {
         type: movieCardActions.updateNewMovieCard,
+        payload: movieCard
+    };
+}
+
+export const updateCreatedMovieCardAction = (
+    movieCard: IMovieCardEntity | null
+): UpdateCreatedMovieCardAction => {
+    return {
+        type: movieCardActions.updateCreatedMovieCard,
         payload: movieCard
     };
 }

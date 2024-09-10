@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 
 import * as Constant from "../../../../constants";
 import * as Model from "../../../../model";
@@ -19,6 +19,7 @@ interface Props {
 	selectableActors: Model.IActor[];
 	selectableDirectors: Model.IDirector[];
 	selectableGenres: Model.IGenre[];
+	updateFormOpen: (open: boolean) => void;
 }
 
 const selectMenuTitles = {
@@ -36,7 +37,8 @@ export const AddMovieForm: React.FC<Props> = ({
 	newMovieCard,
 	selectableActors,
 	selectableDirectors,
-	selectableGenres
+	selectableGenres,
+	updateFormOpen
 }): ReactElement => {
 	const addMovieFormHook = useAddMovieForm();
 	const ratingInput = useRef<HTMLInputElement | null>(null);
@@ -44,10 +46,21 @@ export const AddMovieForm: React.FC<Props> = ({
 	const actorsInput = useRef<HTMLInputElement | null>(null);
 	const genresInput = useRef<HTMLInputElement | null>(null);
 	const form = useRef<HTMLFormElement | null>(null);
+	const [keepFormOpen, setKeepFormOpen] = useState(true);
 	const [
 		currentSelectMenu,
 		setCurrentSelectMenu
 	] = useState<SelectMenuTitleType>("");
+
+	useEffect(() => {
+		if (!keepFormOpen) {
+			addMovieFormHook.handleClearForm();
+			updateFormOpen(keepFormOpen);
+			setKeepFormOpen(true);
+		} else {
+			updateFormOpen(keepFormOpen);
+		}
+	}, [addMovieFormHook.isPending]);
 
 	const updateSelectedRating = (value: number) => {
 		if (ratingInput.current == null) { return; }
@@ -86,8 +99,8 @@ export const AddMovieForm: React.FC<Props> = ({
 		}
 	}
 
-	const handleClear = () => {
-		addMovieFormHook.handleClearForm();
+	const handlePreSubmit = (keepFormOpen: boolean) => {
+		setKeepFormOpen(keepFormOpen);
 	}
 
 	return (
@@ -101,7 +114,7 @@ export const AddMovieForm: React.FC<Props> = ({
 						? <Loader /> 
 						: <button type="button" 
 							className={styles.clearButton}
-							onClick={_ => handleClear()}
+							onClick={_ => { addMovieFormHook.handleClearForm(); }}
 							disabled={addMovieFormHook.isPending}
 							data-testid="clear-button">
 							Clear all fields
@@ -171,14 +184,14 @@ export const AddMovieForm: React.FC<Props> = ({
 				<button className={styles.submitButton}
 					type="submit"
 					disabled={addMovieFormHook.isPending}
-					onMouseDown={_ => addMovieFormHook.handlePreSubmit(false)} 
+					onMouseDown={_ => { handlePreSubmit(true); }} 
 					data-testid="submit-btn">
 					Create Card
 				</button>
 				<button className={styles.submitButton}
 					type="submit"
 					disabled={addMovieFormHook.isPending}
-					onMouseDown={_ => addMovieFormHook.handlePreSubmit(true)} 
+					onMouseDown={_ => { handlePreSubmit(false); }} 
 					data-testid="submit-btn-with-close">
 					Create Card And Close Form
 				</button>
