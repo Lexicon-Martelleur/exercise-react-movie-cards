@@ -27,6 +27,7 @@ export class MovieAPI implements IMovieAPI {
         if (!resJSON.every(Model.isMovieDTO)) { throw new APIError(); }
         const movieDTOs = resJSON as Model.MovieDTO[];
         const paginationData = JSON.parse(res.headers.get("X-Pagination") ?? "");
+        
         if (!Model.isPaginationMeta(paginationData)) { throw new APIError(); }
 
         return [

@@ -24,6 +24,7 @@
 
 .page-navigation-article > button:hover {
     background-color: var(--MEDIUM_BG);
+    border: var(--BORDER_DARK_FAT)
 }
 
 .page-navigation-article > button:disabled {
@@ -33,4 +34,5 @@
 
 .page-navigation-article > button:disabled:hover {
     background-color: var(--DARK_BG);
+    border: none;
 }

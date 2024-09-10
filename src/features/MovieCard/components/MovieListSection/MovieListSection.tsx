@@ -10,7 +10,7 @@ import styles from "./MovieListSection.module.css";
 
 export const MovieListSection = (): ReactElement => {
     const movieQueryHook = useMovieQuery();
-    const [movieCards, setMovieCards ] = useState<IMovieCardEntity[]>([])
+    const [movieCards, setMovieCards ] = useState<IMovieCardEntity[]>([]);
     const emptyError = "";
     const [errorMsg, setErrorMsg ] = useState(emptyError);
     const isError = errorMsg !== emptyError;
@@ -26,31 +26,21 @@ export const MovieListSection = (): ReactElement => {
             setMovieCards(movieCards);
             setPagination(pagination);
         })
-    }, [movieQueryHook.getMovieCards, getMovieAPI, currentPage])
+    }, [
+        currentPage,
+        movieQueryHook.getMovieCards,
+        getMovieAPI
+    ]);
 
     useEffect(() => {
         getMovieCards();
     }, [getMovieCards]);
-
-    const clearErrorState = useCallback(() => {
-		setErrorMsg(emptyError);
-	}, [emptyError]);
-
-	
-    const handleNextPage = () => {
-        console.log('currentPage', currentPage)
-        setCurrentPage(prev => ++prev);
-    }
-
-    const handlePrevPage = () => {
-        setCurrentPage(prev => --prev);
-    }
     
     if (isError) {
 		return <ErrorModal
 			title={"Error"}
 			message={errorMsg}
-			onClose={clearErrorState} />;
+			onClose={() => { setErrorMsg(emptyError) }} />;
 	}
 
     return (
@@ -62,8 +52,8 @@ export const MovieListSection = (): ReactElement => {
                     <PageNavigation
                         page={currentPage}
                         nrOfPages={pagination.TotalPageCount}
-                        onPrev={handlePrevPage}
-                        onNext={handleNextPage}>
+                        onPrev={() => { setCurrentPage(prev => --prev); }}
+                        onNext={() => { setCurrentPage(prev => ++prev); }}>
                         <MovieList movieCards={movieCards} />
                     </ PageNavigation>}
                 </>
