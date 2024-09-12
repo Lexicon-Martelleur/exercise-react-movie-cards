@@ -5,6 +5,8 @@ import * as State from "../state";
 import { getMovieAPI, isDevelopment } from "../../../config";
 import * as Model from "../../../model";
 import { mapNewMoviCardEntityToNewMOvieCardDTO } from "../../../utility";
+import { useAuthContext } from "../../Auth/context";
+import { APIError } from "../../../data/APIError";
 
 export type MovieAPIHook = ReturnType<typeof useMovieQuery>;
 
@@ -15,10 +17,10 @@ export type MovieAPIHook = ReturnType<typeof useMovieQuery>;
 export function useMovieQuery (
     dispatchMovieAction?: React.Dispatch<State.MovieCardActionType>
 ) {
+    const { tokens } = useAuthContext();
     const [pending, setPending] = useState(false);
     const isDispatchable = dispatchMovieAction != null;
     const apiEndPoint = getMovieAPI();
-    const movieAPi = createMovieAPI(apiEndPoint);
 
     const handleError = useCallback((
         err: unknown,
@@ -27,6 +29,11 @@ export function useMovieQuery (
         isDevelopment() && console.log(err);
         isDispatchable && dispatchMovieAction(State.updateErrorStateAction(true, msg))
     }, [dispatchMovieAction]);
+
+    const constructMovieApi = () => {
+        if (tokens == null) { throw new APIError("Token is not set") }
+        return createMovieAPI(apiEndPoint, tokens);
+    }
 
     const getMovieCards = useCallback(async (
         page: number,
@@ -39,7 +46,7 @@ export function useMovieQuery (
         let movieCards: Model.IMovieCardEntity[] = [];
         let pagination: Model.IPaginationMeta | null = null;
         try {
-            [movieCards, pagination] = await movieAPi.getMovies(page);
+            [movieCards, pagination] = await constructMovieApi().getMovies(page);
         } catch (err) {
             handleError(err, constructedErrosMsg);
         } finally {
@@ -55,7 +62,7 @@ export function useMovieQuery (
             : `Failed fetching available actors from ${apiEndPoint}`;
         (async () => {
             try {
-                const actors = await movieAPi.getActors();
+                const actors = await constructMovieApi().getActors();
                 isDispatchable && dispatchMovieAction(State.updateSelectableActorsAction(actors));
             } catch (err) {
                 handleError(err, constructedErrosMsg);
@@ -72,7 +79,7 @@ export function useMovieQuery (
             : `Failed fetching available directors from ${apiEndPoint}`;
         (async () => {
             try {
-                const directors = await movieAPi.getDirectors();
+                const directors = await constructMovieApi().getDirectors();
                 isDispatchable && dispatchMovieAction(State.updateSelectableDirectorsAction(directors));
             } catch (err) {
                 handleError(err, constructedErrosMsg);
@@ -89,7 +96,7 @@ export function useMovieQuery (
             : `Failed fetching available directors from ${apiEndPoint}`;
         (async () => {
             try {
-                const genres = await movieAPi.getGenres();
+                const genres = await constructMovieApi().getGenres();
                 isDispatchable && dispatchMovieAction(State.updateSelectableGenresAction(genres));
             } catch (err) {
                 handleError(err, constructedErrosMsg);
@@ -110,7 +117,7 @@ export function useMovieQuery (
             let createdMovieCard: Model.IMovieCardEntity | null = null
             try {
                 const moviCardDTO = mapNewMoviCardEntityToNewMOvieCardDTO(movieCard)
-                createdMovieCard = await movieAPi.createMovieCard(moviCardDTO);
+                createdMovieCard = await constructMovieApi().createMovieCard(moviCardDTO);
             } catch (err) {
                 handleError(err, constructedErrosMsg);
             } finally {

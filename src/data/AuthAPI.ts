@@ -1,0 +1,31 @@
+import * as Model from "../model";
+import { APIError } from "./APIError";
+import { IAuthAPI } from "./IAuthAPI";
+
+export class AuthAPI implements IAuthAPI {
+    constructor (private readonly API: string) {}
+
+    private readonly defaultHeader = {
+        "Content-Type": "application/json",
+    };
+
+    async login (
+        user: Model.IUserAuth,
+        signal?: AbortSignal
+    ): Promise<Model.ITokenContainer> {
+
+        const url = `${this.API}/authenticate/login`;
+        const res = await fetch(url, {
+            method: "POST",
+            headers: this.defaultHeader,
+            signal,
+            body: JSON.stringify(user)
+        });
+
+        if(!res.ok) { throw new APIError(res.statusText); }
+        const resJSON: unknown = await res.json();
+
+        if (!Model.isTokenContainer(resJSON)) { throw new APIError(); }
+        return resJSON;
+    };
+}

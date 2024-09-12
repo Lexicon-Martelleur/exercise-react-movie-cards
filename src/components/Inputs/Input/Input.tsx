@@ -10,7 +10,10 @@ interface Props {
     maxLength?: number;
     orientation?: "row" | "column";
     textArea?: boolean;
-    onChange: () => void;
+    onChange: (
+        () => void) | 
+        (React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
+    );
 }
 
 export const Input: React.FC<Props> = ({

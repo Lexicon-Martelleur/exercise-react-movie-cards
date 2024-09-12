@@ -49,7 +49,7 @@
     cursor: not-allowed;
 }
 
-form:invalid .submit-button {
+.add-movie-form:invalid .submit-button {
     background-color: var(--DARK_T_BG);
     cursor: not-allowed;
 }

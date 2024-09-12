@@ -1,0 +1,42 @@
+.login-form {
+    width: 90%;
+}
+
+.login-fieldset {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    gap: 2rem;
+    background-color: var(--MEDIUM_BG);
+    border: 2px solid var(--DARK_BG);
+    padding: 2rem;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.login-fieldset > legend {
+    color: var(--DARK_COLOR);
+}
+
+.submit-button {
+    background-color: var(--DARK_BG);
+    padding: 1rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    border: 0;
+}
+
+.login-form:invalid .submit-button {
+    background-color: var(--DARK_T_BG);
+    cursor: not-allowed;
+}
+
+@media (min-width: 600px) {
+    .login-form {
+        width: 70%;
+        max-width: 1000px;
+    }
+} 

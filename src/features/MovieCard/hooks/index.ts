@@ -1,1 +1,1 @@
-export * from "./useMovieCardQuery";
+export * from "./useMovieQuery";

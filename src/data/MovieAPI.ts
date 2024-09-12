@@ -1,14 +1,20 @@
 import { IMovieAPI } from "./IMovieAPI";
 import { APIError } from "./APIError";
 import * as Model from "../model";
-import * as Utlity from "../utility";
+import * as Utility from "../utility";
 
 export class MovieAPI implements IMovieAPI {
-    constructor (private readonly API: string) {}
-
-    private readonly defaultHeader = {
-        "Content-Type": "application/json",
-    };
+    private readonly defaultHeader;
+    
+    constructor (
+        private readonly API: string,
+        private readonly tokens: Model.ITokenContainer
+    ) {
+        this.defaultHeader = {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${this.tokens.accessToken}`
+        };
+    }
 
     async getMovies (
         page: number,
@@ -31,7 +37,7 @@ export class MovieAPI implements IMovieAPI {
         if (!Model.isPaginationMeta(paginationData)) { throw new APIError(); }
 
         return [
-            movieDTOs.map(Utlity.mapMovieDTOToMovieCardEntity),
+            movieDTOs.map(Utility.mapMovieDTOToMovieCardEntity),
             paginationData
         ];
     }
@@ -49,7 +55,7 @@ export class MovieAPI implements IMovieAPI {
         if (!(resJSON instanceof Array)) { throw new APIError(); }
         if (!resJSON.every(Model.isActorDTO)) { throw new APIError(); }
         const actorDTOs = resJSON as Model.ActorDTO[];
-        return actorDTOs.map(Utlity.mapActorDTOToActorEntity);
+        return actorDTOs.map(Utility.mapActorDTOToActorEntity);
     }
 
     async getDirectors(signal?: AbortSignal): Promise<Model.IDirector[]> {
@@ -65,7 +71,7 @@ export class MovieAPI implements IMovieAPI {
         if (!(resJSON instanceof Array)) { throw new APIError(); }
         if (!resJSON.every(Model.isDirectorDTO)) { throw new APIError(); }
         const directorDTOs = resJSON as Model.DirectorDTO[];
-        return directorDTOs.map(Utlity.mapDirectorDTOToDirectorEntity);
+        return directorDTOs.map(Utility.mapDirectorDTOToDirectorEntity);
     }
 
     async getGenres(signal?: AbortSignal): Promise<Model.IGenre[]> {
@@ -81,7 +87,7 @@ export class MovieAPI implements IMovieAPI {
         if (!(resJSON instanceof Array)) { throw new APIError(); }
         if (!resJSON.every(Model.isGenreDTO)) { throw new APIError(); }
         const directorDTOs = resJSON as Model.GenreDTO[];
-        return directorDTOs.map(Utlity.mapGenreDTOToGenreEntity);
+        return directorDTOs.map(Utility.mapGenreDTOToGenreEntity);
     }
 
     async createMovieCard(
@@ -100,6 +106,6 @@ export class MovieAPI implements IMovieAPI {
 
         if (!Model.isMovieDTO(resJSON)) { throw new APIError(); }
         const movieDTO = resJSON as Model.MovieDTO;
-        return Utlity.mapMovieDTOToMovieCardEntity(movieDTO);
+        return Utility.mapMovieDTOToMovieCardEntity(movieDTO);
     }
 }

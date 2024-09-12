@@ -14,7 +14,6 @@ export const useAddMovieForm = () => {
     const [dispatchMovieAction] = useMovieCardContext();
     const movieQueryHook = useMovieQuery(dispatchMovieAction);
     const isPending = movieQueryHook.isPending()
-    const [closeFormOnSubmit, setCloseFormOnSubmit] = useState(false);
     const submitResultTimeout = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
@@ -47,15 +46,7 @@ export const useAddMovieForm = () => {
             rating: Number(getInputValue(event.currentTarget.elements.namedItem(movieFormInputNames.rating))),
             genres: getInputValue(event.currentTarget.elements.namedItem(movieFormInputNames.genres)).split(","),
         });
-        submit(newMovieCard)
-    }
-
-    const submit = (newMovieCard: INewMovieCard) => {
         movieQueryHook.createMovieCard(newMovieCard);
-        if (closeFormOnSubmit) {
-            setCloseFormOnSubmit(false);
-            dispatchMovieAction(updateNewMovieCardAction(Service.getNewEmptyMovieCard()));
-        }
     }
 
     const handleChange = useCallback((formElement: HTMLFormElement | null) => {
