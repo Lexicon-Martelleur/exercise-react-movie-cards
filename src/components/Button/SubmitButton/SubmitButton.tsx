@@ -16,4 +16,4 @@ export const SubmitButton: React.FC<Props> = ({
             {children ? children : "Submit"}
         </button>
     );
-}
+};

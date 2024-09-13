@@ -19,17 +19,16 @@ export const MovieListSection = (): ReactElement => {
 
     const getMovieCards = useCallback(() => {
         movieQueryHook.getMovieCards(currentPage).then(([movieCards, pagination]) => {
-            const errorMsg = `Could not fetch movie cards from ${getMovieAPI()}`
+            const errorMsg = `Could not fetch movie cards from ${getMovieAPI()}`;
             if (pagination == null) {
                 setErrorMsg(errorMsg);
             }
             setMovieCards(movieCards);
             setPagination(pagination);
-        })
+        });
     }, [
         currentPage,
-        movieQueryHook.getMovieCards,
-        getMovieAPI
+        movieQueryHook.getMovieCards
     ]);
 
     useEffect(() => {
@@ -40,7 +39,7 @@ export const MovieListSection = (): ReactElement => {
 		return <ErrorModal
 			title={"Error"}
 			message={errorMsg}
-			onClose={() => { setErrorMsg(emptyError) }} />;
+			onClose={() => { setErrorMsg(emptyError); }} />;
 	}
 
     return (
@@ -60,4 +59,4 @@ export const MovieListSection = (): ReactElement => {
                 }
         </section>
     );
-}
+};

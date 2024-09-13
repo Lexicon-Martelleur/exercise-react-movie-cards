@@ -32,4 +32,4 @@ export const MovieCardProvider: React.FC<Props> = ({
 			{children}
 		</MovieCardContext.Provider>
 	);
-}
+};

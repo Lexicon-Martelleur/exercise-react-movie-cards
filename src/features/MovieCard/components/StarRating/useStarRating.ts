@@ -4,7 +4,7 @@ export const useStarRating = () => {
         updateRating?: (value: number) => void
     ) => {
         updateRating && updateRating(value);
-    }
+    };
 
     return { handleRating };
-}
+};

@@ -27,12 +27,12 @@ export const MovieCardDialog: React.FC<Props> = ({
                 <p>Confirm to use movie card?</p>
                 <div className={styles.movieCardDialogFooter}>
                     <button 
-                        onClick={_ => onConfirm()}
+                        onClick={() => onConfirm()}
                         data-testid="confirm-btn">
                         Confirm
                     </button>
                     <button 
-                        onClick={_ => onClose()}
+                        onClick={() => onClose()}
                         data-testid="close-btn">
                         Close
                     </button>
@@ -40,4 +40,4 @@ export const MovieCardDialog: React.FC<Props> = ({
             </div>
         </dialog>
     );
-}
+};

@@ -9,18 +9,18 @@ export const useMovieList = () => {
     const handleSelectMovieCard = (movieCardEntity: IMovieCardEntity) => {
         setSelectedMovieCard(movieCardEntity);
         setIsMovieCardDialogOpen(true);
-    }
+    };
 
     const handleCloseMovieCardDialog = () => {
         setIsMovieCardDialogOpen(false);
         setSelectedMovieCard(null);
-    }
+    };
 
     const handleConfirm = () => {
         if (selectedMovieCard == null) { return; }
         setIsMovieCardDialogOpen(false);
         setSelectedMovieCard(null);
-    }
+    };
 
     return {
         isMovieCardDialogOen,
@@ -28,5 +28,5 @@ export const useMovieList = () => {
         handleSelectMovieCard,
         handleCloseMovieCardDialog,
         handleConfirm
-    }
-}
+    };
+};

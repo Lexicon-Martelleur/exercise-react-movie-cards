@@ -66,5 +66,5 @@ export const getAllMovieCardsMock = (): IMovieCardEntity[] => {
                 timeStamp: getUNIXTimestampInSeconds(),
             }
         },
-    ]
+    ];
 };

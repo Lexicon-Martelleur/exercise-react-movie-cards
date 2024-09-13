@@ -10,4 +10,4 @@ export const useAuthContext = () => {
         throw new Error("useAuthContext must be used within a Provider");
     }
     return contextValue;
-}
+};

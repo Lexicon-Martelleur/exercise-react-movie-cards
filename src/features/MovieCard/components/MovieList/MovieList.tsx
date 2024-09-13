@@ -30,4 +30,4 @@ export const MovieList: React.FC<Props> = ({
                 onConfirm={movieListHook.handleConfirm}/>
         </>
     );
-}
+};

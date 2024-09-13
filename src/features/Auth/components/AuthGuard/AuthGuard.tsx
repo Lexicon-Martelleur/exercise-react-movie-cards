@@ -10,15 +10,15 @@ interface Props {
 export const AuthGuard: React.FC<Props> = ({
 	children
 }): ReactElement => {
-  	const { isLoggedIn } = useAuthContext();
+	const { isLoggedIn } = useAuthContext();
 
-  	if (isLoggedIn === false) {
+	if (isLoggedIn === false) {
 		return <Navigate to="/login" />;
-  	}
+	}
 
-  	return (
+	return (
 		<>
 			{children}
 		</>
 	);
-}
+};

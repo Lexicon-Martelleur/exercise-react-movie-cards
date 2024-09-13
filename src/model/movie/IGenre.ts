@@ -1,4 +1,4 @@
-import { INameObject, isNameObject } from "./INameObject"
+import { INameObject, isNameObject } from "./INameObject";
 
 export interface IGenre extends INameObject {
     id: string

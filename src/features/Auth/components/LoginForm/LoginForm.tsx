@@ -38,4 +38,4 @@ export const LoginForm = (): ReactElement => {
 			</fieldset>
 		</form>
 	);
-}
+};

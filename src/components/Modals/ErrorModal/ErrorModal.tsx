@@ -47,4 +47,4 @@ export const ErrorModal: React.FC<Props> = ({
             </div>
         </article>
     );
-}
+};

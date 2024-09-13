@@ -15,15 +15,15 @@ export const Icon: React.FC<Props> = ({
   size,
   className
 }): ReactElement => (() => {
-  const inClasses = className ?? ""
+  const inClasses = className ?? "";
   switch (size) {
     case "medium":
-      return <img className={`${styles.medium} ${inClasses}`} {...icon} />
+      return <img className={`${styles.medium} ${inClasses}`} {...icon} />;
     case "large":
-      return <img className={`${styles.large} ${inClasses}`} {...icon} />
+      return <img className={`${styles.large} ${inClasses}`} {...icon} />;
     case "xlarge":
-      return <img className={`${styles.xlarge} ${inClasses}`} {...icon} />
+      return <img className={`${styles.xlarge} ${inClasses}`} {...icon} />;
     case "small":
     default:
-      return <img className={`${inClasses}`} {...icon} />
+      return <img className={`${inClasses}`} {...icon} />;
   }})();

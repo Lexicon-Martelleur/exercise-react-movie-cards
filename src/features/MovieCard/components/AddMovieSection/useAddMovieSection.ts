@@ -7,15 +7,15 @@ export const useAddMovieSection = () => {
 
     const toggleForm = () => {
         setIsFormOpen(preValue => !preValue);
-    }
+    };
 
     const updateFormOpen = (open: boolean) => {
         setIsFormOpen(open);
-    }
+    };
 
     return {
         isFormOpen,
         toggleForm,
         updateFormOpen
     };
-}
+};

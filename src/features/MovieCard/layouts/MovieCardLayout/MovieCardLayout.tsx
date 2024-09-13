@@ -22,5 +22,5 @@ export const MovieCardLayout: React.FC<Props> = ({
 				<p>joel.martelleur@gmail.com</p>
 			</footer>
 		</>
-	)
-}
+	);
+};

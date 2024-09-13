@@ -15,7 +15,7 @@ export const AuthProvider: React.FC<Props> = ({
 	children
 }): ReactElement => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-	const authAPIHook = useAuthQuery()
+	const authAPIHook = useAuthQuery();
     const [
 		tokens,
 		setTokens,
@@ -23,24 +23,34 @@ export const AuthProvider: React.FC<Props> = ({
 	] = useLocalStorage<ITokenContainer | null>(TOKEN_KEY, null);
   
     useEffect(() => {
-      	if (tokens === null) setIsLoggedIn(false);
-      	if (tokens) setIsLoggedIn(true);
+		if (tokens == null) { setIsLoggedIn(false); }
+		else { setIsLoggedIn(true); }
     }, [tokens]);
 
 	const login = async (userName: string, password: string) => {
 		const userAuth = { userName, password };
-		if (!isUserAuth(userAuth)) { return };
+		if (!isUserAuth(userAuth)) { return; }
 		const tokens = await authAPIHook.login(userAuth);
 		setTokens(tokens);
-	}
+	};
 	
 	const logout = () => {
 		clearTokens();
-	}
+	};
+
+	const updateTokens = (tokens: ITokenContainer | null) => {
+		setTokens(tokens);
+	};
 
 	const getAuthContextValues = (): IAuthContext => {
-		return { isLoggedIn, tokens, login, logout };
-	}
+		return {
+			isLoggedIn,
+			tokens,
+			updateTokens,
+			login,
+			logout
+		};
+	};
   
     return (
 		<AuthContext.Provider 
@@ -48,5 +58,5 @@ export const AuthProvider: React.FC<Props> = ({
 			{children}
 		</AuthContext.Provider>
 	);
-}
+};
   

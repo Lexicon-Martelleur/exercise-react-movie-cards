@@ -27,7 +27,7 @@ const selectMenuTitles = {
 	directors: "Directors",
 	genres: "Genres",
 	none: ""
-} as const
+} as const;
 
 type SelectMenuTitleType = typeof selectMenuTitles[
 	keyof typeof selectMenuTitles
@@ -66,7 +66,7 @@ export const AddMovieForm: React.FC<Props> = ({
 		if (ratingInput.current == null) { return; }
 		ratingInput.current.value = `${value}`;
 		addMovieFormHook.handleChange(form.current);
-	}
+	};
 
 	const updateSelectedActors = (value: string) => {
 		if (actorsInput.current == null) { return; }
@@ -75,13 +75,13 @@ export const AddMovieForm: React.FC<Props> = ({
 			: newMovieCard.actors.filter(item => item !== value);
 		actorsInput.current.value = updatedList.join(",");
 		addMovieFormHook.handleChange(form.current);
-	}
+	};
 
 	const updateSelectedDirector = (value: string) => {
 		if (directorInput.current == null) { return; }
 		directorInput.current.value = `${value}`;
 		addMovieFormHook.handleChange(form.current);
-	}
+	};
 
 	const updateSelectedGenres = (value: string) => {
 		if (genresInput.current == null) { return; }
@@ -90,18 +90,18 @@ export const AddMovieForm: React.FC<Props> = ({
 			: newMovieCard.genres.filter(item => item !== value);
 		genresInput.current.value = updatedList.join(",");
 		addMovieFormHook.handleChange(form.current);
-	}
+	};
 
 	const handleOpenSelectMenu = (title: string) => {
 		if (Object.values(selectMenuTitles).includes(title as SelectMenuTitleType)) {
 			const selectTitle = title as SelectMenuTitleType;
 			setCurrentSelectMenu(selectTitle);
 		}
-	}
+	};
 
 	const handlePreSubmit = (keepFormOpen: boolean) => {
 		setKeepFormOpen(keepFormOpen);
-	}
+	};
 
 	return (
 		<form ref={form}
@@ -114,7 +114,7 @@ export const AddMovieForm: React.FC<Props> = ({
 						? <Loader /> 
 						: <button type="button" 
 							className={styles.clearButton}
-							onClick={_ => { addMovieFormHook.handleClearForm(); }}
+							onClick={() => { addMovieFormHook.handleClearForm(); }}
 							disabled={addMovieFormHook.isPending}
 							data-testid="clear-button">
 							Clear all fields
@@ -126,7 +126,7 @@ export const AddMovieForm: React.FC<Props> = ({
 					value={newMovieCard.title}
 					minLength={Constant.minLengthTitle}
 					maxLength={Constant.maxLengthTitle}
-					onChange={() => { addMovieFormHook.handleChange(form.current) }} />
+					onChange={() => { addMovieFormHook.handleChange(form.current); }} />
 				<HiddenInput ref={ratingInput}
 					id={movieFormInputNames.rating}
 					value={`${newMovieCard.rating}`}
@@ -177,25 +177,25 @@ export const AddMovieForm: React.FC<Props> = ({
 					value={newMovieCard.description}
 					minLength={Constant.minLengthDescription}
 					maxLength={Constant.maxLengthDescription}
-					onChange={() => { addMovieFormHook.handleChange(form.current) }} />
+					onChange={() => { addMovieFormHook.handleChange(form.current); }} />
 				<div className={`${styles.formStatusCtr}`}>
 					{addMovieFormHook.isPending && <Loader />}
 				</div>
 				<button className={styles.submitButton}
 					type="submit"
 					disabled={addMovieFormHook.isPending}
-					onMouseDown={_ => { handlePreSubmit(true); }} 
+					onMouseDown={() => { handlePreSubmit(true); }} 
 					data-testid="submit-btn">
 					Create Card
 				</button>
 				<button className={styles.submitButton}
 					type="submit"
 					disabled={addMovieFormHook.isPending}
-					onMouseDown={_ => { handlePreSubmit(false); }} 
+					onMouseDown={() => { handlePreSubmit(false); }} 
 					data-testid="submit-btn-with-close">
 					Create Card And Close Form
 				</button>
 			</fieldset>
 		</form>
 	);
-}
+};

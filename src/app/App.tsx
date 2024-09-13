@@ -7,5 +7,5 @@ export function App() {
 		<Feature.AuthProvider>
 			<RouterProvider router={appRouter}/>
 		</Feature.AuthProvider>
-  	);
+	);
 }

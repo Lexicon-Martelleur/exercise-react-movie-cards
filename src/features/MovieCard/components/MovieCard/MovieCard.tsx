@@ -16,7 +16,7 @@ export const MovieCard: React.FC<Props> = ({
 }): ReactElement => {
     return (
         <article className={styles.movieCardArticle}
-            onClick={_ => onSelect(movieCardEntity)}
+            onClick={() => onSelect(movieCardEntity)}
             data-testid="movie-card">
             <h3>{State.selectTitle(movieCardEntity)}</h3>
             <StarRating rating={State.selectRating(movieCardEntity)} size="small"/>
@@ -24,4 +24,4 @@ export const MovieCard: React.FC<Props> = ({
             <p>{State.selectDescription(movieCardEntity)}</p>          
         </article>
     );
-}
+};

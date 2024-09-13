@@ -21,7 +21,7 @@ export const movieCardReducer = (
         default: 
             return state;
     }
-}
+};
 
 function handleUpdateNewMovieCard (
     state: Type.IMovieCardState,

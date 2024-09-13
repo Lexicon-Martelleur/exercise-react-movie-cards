@@ -29,4 +29,4 @@ export const AddMovieSection = (): ReactElement => {
                 close={() => { dispatchMovieAction(updateCreatedMovieCardAction(null)); }}/>}
         </section>
     );
-}
+};

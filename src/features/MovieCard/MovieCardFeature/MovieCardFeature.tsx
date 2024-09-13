@@ -14,4 +14,4 @@ export const MovieCardFeature = (): ReactElement => {
             <MovieListSection />
         </MovieCardLayout>
     );
-}
+};

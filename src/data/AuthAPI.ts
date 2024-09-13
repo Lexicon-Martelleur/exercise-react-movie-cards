@@ -15,6 +15,7 @@ export class AuthAPI implements IAuthAPI {
     ): Promise<Model.ITokenContainer> {
 
         const url = `${this.API}/authenticate/login`;
+        console.log('user', user);
         const res = await fetch(url, {
             method: "POST",
             headers: this.defaultHeader,
@@ -24,8 +25,32 @@ export class AuthAPI implements IAuthAPI {
 
         if(!res.ok) { throw new APIError(res.statusText); }
         const resJSON: unknown = await res.json();
-
-        if (!Model.isTokenContainer(resJSON)) { throw new APIError(); }
+        console.log('resJSON', resJSON);
+        if (!Model.isTokenContainer(resJSON)) {
+            throw new APIError("Invalid response type");
+        }
         return resJSON;
-    };
+    }
+
+    async refreshTokens(
+        tokens: Model.ITokenContainer,
+        signal?: AbortSignal
+    ): Promise<Model.ITokenContainer> {
+        const url: string = `${this.API}/token/refresh`;
+      
+        const res: Response = await fetch(url, {
+          method: "POST",
+          headers: this.defaultHeader,
+          signal,
+          body: JSON.stringify(tokens),
+        });
+      
+        if (!res.ok) { throw new APIError(res.statusText); }
+
+        const resJSON: unknown = await res.json();
+        if (!Model.isTokenContainer(resJSON)) {
+            throw new APIError("Invalid response type");
+        }
+        return resJSON;
+    }
 }

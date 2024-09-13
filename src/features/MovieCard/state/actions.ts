@@ -22,7 +22,7 @@ export const updateNewMovieCardAction = (
         type: movieCardActions.updateNewMovieCard,
         payload: movieCard
     };
-}
+};
 
 export const updateCreatedMovieCardAction = (
     movieCard: IMovieCardEntity | null
@@ -31,7 +31,7 @@ export const updateCreatedMovieCardAction = (
         type: movieCardActions.updateCreatedMovieCard,
         payload: movieCard
     };
-}
+};
 
 export const updateSelectableActorsAction = (
     actors: IActor[]
@@ -40,7 +40,7 @@ export const updateSelectableActorsAction = (
         type: movieCardActions.updateSelectableActors,
         payload: actors
     };
-}
+};
 
 export const updateSelectableDirectorsAction = (
     directors: IDirector[]
@@ -49,7 +49,7 @@ export const updateSelectableDirectorsAction = (
         type: movieCardActions.updateSelectableDirectors,
         payload: directors
     };
-}
+};
 
 export const updateSelectableGenresAction = (
     genres: IGenre[]
@@ -58,7 +58,7 @@ export const updateSelectableGenresAction = (
         type: movieCardActions.updateSelectableGenres,
         payload: genres
     };
-}
+};
 
 export const updateErrorStateAction = (
     isError: boolean,
@@ -68,11 +68,11 @@ export const updateErrorStateAction = (
         type: movieCardActions.updateErrorState,
         payload: { isError, msg }
     };
-}
+};
 
 export const clearErrorStateAction = (): UpdateErrorStateAction => {
     return {
         type: movieCardActions.updateErrorState,
         payload: { isError: false, msg: "" }
     };
-}
+};

@@ -1,6 +1,6 @@
-import { getMovieAPI, isDevelopment } from "../config"
+import { getMovieAPI, isDevelopment } from "../config";
 
-const errorMsg = `Api error from ${getMovieAPI()}`
+const errorMsg = `Api error from ${getMovieAPI()}`;
 
 export const APIErrorCode = {
     DEFAULT: 0, 
@@ -12,7 +12,7 @@ export type APIErrorCodeType = typeof APIErrorCode[
 ]
 
 export class APIError extends Error {
-    readonly name = "APIError"
+    readonly name = "APIError";
     readonly internalError: Error | null;
     readonly errorCode: APIErrorCodeType; 
 

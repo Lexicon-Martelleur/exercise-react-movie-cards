@@ -52,7 +52,7 @@ export const HiddenInput = forwardRef<HTMLInputElement | null, Props>(({
                 name={getLowerCaseTitle(id)}
                 id={getLowerCaseTitle(id)}
                 value={value}
-                onChange={_ => {}}
+                onChange={() => {}}
             />
             {children}
         </div>

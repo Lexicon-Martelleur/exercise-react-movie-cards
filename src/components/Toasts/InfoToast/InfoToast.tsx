@@ -19,12 +19,12 @@ export const InfoToast: React.FC<Props> = ({
         }, timeInSeconds * 1000);
         return () => {
             clearTimeout(closeTimeout);
-        }
-    }, []);
+        };
+    }, [timeInSeconds, close]);
 
     return (
         <article className={styles.infoToastArticle}>
             <p className={styles.infoToastMessage}>{message}</p>
         </article>
-    )
-}
+    );
+};

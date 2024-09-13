@@ -25,14 +25,14 @@ export function createAPIProxy<ApiTarget extends object>(
                     clearTimeout(timeoutId);
                     return result;
                 } catch (err) {
-                    clearTimeout(timeoutId)
+                    clearTimeout(timeoutId);
                     if (err instanceof APIError && err.errorCode === APIErrorCode.ABORTED) {
                         throw new APIError(`The request was aborted from ${endpoint}`, err);
                     } else if (err instanceof Error) {
                         throw new APIError(`Api error when requesting data from ${endpoint}`, err);
                     } else {
                         throw new  APIError();
-                    };
+                    }
                 }
             };
         }

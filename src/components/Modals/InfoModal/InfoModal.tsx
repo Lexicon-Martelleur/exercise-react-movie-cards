@@ -54,4 +54,4 @@ export const InfoModal: React.FC<Props> = ({
             </div>
         </article>
     );
-}
+};

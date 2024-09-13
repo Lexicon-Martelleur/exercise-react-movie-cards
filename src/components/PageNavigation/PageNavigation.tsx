@@ -47,7 +47,7 @@ export const PageNavigation: React.FC<PropsWithChildren> = ({
             }
         </>
     );
-}
+};
 
 const InnerPageNavigation: React.FC<Props> = ({
     page,
@@ -56,24 +56,24 @@ const InnerPageNavigation: React.FC<Props> = ({
     onNext
 }) => {
     const isFirstPage = () => {
-        return page === 1
-    }
+        return page === 1;
+    };
 
     const isLastPage = () => {
-        return page >= nrOfPages
-    }
+        return page >= nrOfPages;
+    };
 
     return (
         <article className={styles.pageNavigationArticle}>
             <button
                 disabled={isFirstPage()}
                 type="button"
-                onClick={_ => { onPrev() }}>{"<"}</button>
+                onClick={() => { onPrev(); }}>{"<"}</button>
             <p>{`${page}/${nrOfPages}`}</p>
             <button
                disabled={isLastPage()}
                 type="button"
-                onClick={_ => { onNext() }}>{">"}</button>
+                onClick={() => { onNext(); }}>{">"}</button>
         </article>
-    )
-}
+    );
+};

@@ -13,4 +13,4 @@ export const useMovieCardContext = () => {
         throw new Error("useMovieCardContext must be used within a Provider");
     }
     return contextValue;
-}
+};

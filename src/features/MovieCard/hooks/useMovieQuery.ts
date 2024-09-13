@@ -7,6 +7,8 @@ import * as Model from "../../../model";
 import { mapNewMoviCardEntityToNewMOvieCardDTO } from "../../../utility";
 import { useAuthContext } from "../../Auth/context";
 import { APIError } from "../../../data/APIError";
+import { expiredToken } from "../../../service";
+import { useAuthQuery } from "../../Auth/hooks";
 
 export type MovieAPIHook = ReturnType<typeof useMovieQuery>;
 
@@ -17,7 +19,8 @@ export type MovieAPIHook = ReturnType<typeof useMovieQuery>;
 export function useMovieQuery (
     dispatchMovieAction?: React.Dispatch<State.MovieCardActionType>
 ) {
-    const { tokens } = useAuthContext();
+    const { tokens, updateTokens } = useAuthContext();
+    const { refreshTokens } = useAuthQuery();
     const [pending, setPending] = useState(false);
     const isDispatchable = dispatchMovieAction != null;
     const apiEndPoint = getMovieAPI();
@@ -27,13 +30,25 @@ export function useMovieQuery (
         msg: string
     ) => {
         isDevelopment() && console.log(err);
-        isDispatchable && dispatchMovieAction(State.updateErrorStateAction(true, msg))
+        isDispatchable && dispatchMovieAction(State.updateErrorStateAction(true, msg));
     }, [dispatchMovieAction]);
 
-    const constructMovieApi = () => {
-        if (tokens == null) { throw new APIError("Token is not set") }
+    /**
+     * @TODO Display for user the reason why logged is due
+     * (refresh)token has expired.
+     */
+    const constructMovieApi = useCallback(async () => {
+        if (tokens == null) { throw new APIError("Token is not set"); }
+        if (expiredToken(tokens.accessToken)) {
+            const refreshedTokens = await refreshTokens(tokens);
+            updateTokens(refreshedTokens);
+            if (refreshedTokens == null) {
+                throw new APIError("Could not refresh token");
+            }
+            return createMovieAPI(apiEndPoint, refreshedTokens); 
+        }
         return createMovieAPI(apiEndPoint, tokens);
-    }
+    }, [apiEndPoint]);
 
     const getMovieCards = useCallback(async (
         page: number,
@@ -46,13 +61,14 @@ export function useMovieQuery (
         let movieCards: Model.IMovieCardEntity[] = [];
         let pagination: Model.IPaginationMeta | null = null;
         try {
-            [movieCards, pagination] = await constructMovieApi().getMovies(page);
+            const api = await constructMovieApi();
+            [movieCards, pagination] = await api.getMovies(page);
         } catch (err) {
             handleError(err, constructedErrosMsg);
         } finally {
             setPending(false);
-            return [movieCards, pagination];
         }
+        return [movieCards, pagination];
     }, [apiEndPoint, handleError]);
 
     const getActors = useCallback((errorMsg?: string) => {
@@ -62,14 +78,15 @@ export function useMovieQuery (
             : `Failed fetching available actors from ${apiEndPoint}`;
         (async () => {
             try {
-                const actors = await constructMovieApi().getActors();
+                const api = await constructMovieApi();
+                const actors = await api.getActors();
                 isDispatchable && dispatchMovieAction(State.updateSelectableActorsAction(actors));
             } catch (err) {
                 handleError(err, constructedErrosMsg);
             } finally {
                 setPending(false);
             }
-        })()
+        })();
     }, [apiEndPoint, dispatchMovieAction, handleError]);
 
     const getDirectors = useCallback((errorMsg?: string) => {
@@ -79,14 +96,15 @@ export function useMovieQuery (
             : `Failed fetching available directors from ${apiEndPoint}`;
         (async () => {
             try {
-                const directors = await constructMovieApi().getDirectors();
+                const api = await constructMovieApi();
+                const directors = await api.getDirectors();
                 isDispatchable && dispatchMovieAction(State.updateSelectableDirectorsAction(directors));
             } catch (err) {
                 handleError(err, constructedErrosMsg);
             } finally {
                 setPending(false);
             }
-        })()
+        })();
     }, [apiEndPoint, dispatchMovieAction, handleError]);
 
     const getGenres = useCallback((errorMsg?: string) => {
@@ -96,14 +114,15 @@ export function useMovieQuery (
             : `Failed fetching available directors from ${apiEndPoint}`;
         (async () => {
             try {
-                const genres = await constructMovieApi().getGenres();
+                const api = await constructMovieApi();
+                const genres = await api.getGenres();
                 isDispatchable && dispatchMovieAction(State.updateSelectableGenresAction(genres));
             } catch (err) {
                 handleError(err, constructedErrosMsg);
             } finally {
                 setPending(false);
             }
-        })()
+        })();
     }, [apiEndPoint, dispatchMovieAction, handleError]);
 
     const createMovieCard = useCallback((
@@ -114,21 +133,22 @@ export function useMovieQuery (
             ? errorMsg
             : `Failed creating movie card at ${apiEndPoint}`;
         (async () => {
-            let createdMovieCard: Model.IMovieCardEntity | null = null
+            let createdMovieCard: Model.IMovieCardEntity | null = null;
             try {
-                const moviCardDTO = mapNewMoviCardEntityToNewMOvieCardDTO(movieCard)
-                createdMovieCard = await constructMovieApi().createMovieCard(moviCardDTO);
+                const moviCardDTO = mapNewMoviCardEntityToNewMOvieCardDTO(movieCard);
+                const api = await constructMovieApi();
+                createdMovieCard = await api.createMovieCard(moviCardDTO);
             } catch (err) {
                 handleError(err, constructedErrosMsg);
             } finally {
                 isDispatchable && dispatchMovieAction(State.updateCreatedMovieCardAction(createdMovieCard));
                 setPending(false);
             }
-        })()
+        })();
     }, [apiEndPoint, dispatchMovieAction, handleError]);
 
     const isPending = () => {
-        return pending
+        return pending;
     };
 
     return {

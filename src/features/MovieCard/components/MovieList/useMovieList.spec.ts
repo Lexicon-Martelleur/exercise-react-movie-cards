@@ -85,7 +85,7 @@ describe("useMovieList", () => {
             expect(result.current.isMovieCardDialogOen).toBe(false);
         });
     });
-})
+});
 
 function renderMovieListHook () {
     return renderHook(() => useMovieList());

@@ -12,4 +12,4 @@ export const useMovieCardDialog = (
             dialog.current.close();
         }
     }, [open]);
-}
+};

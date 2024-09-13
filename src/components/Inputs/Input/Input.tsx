@@ -27,8 +27,8 @@ export const Input: React.FC<Props> = ({
     onChange
 }): ReactElement => {
     const getLowerCaseTitle = (title: string) => {
-        return title.toLowerCase()
-    }
+        return title.toLowerCase();
+    };
 
     const getPascalCase = (title: string) => {
         return title
@@ -36,12 +36,12 @@ export const Input: React.FC<Props> = ({
             .split(' ')
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
             .join(' ');
-    }
+    };
 
     const constructContainerStyle = () => {
         return orientation === "column" || orientation == null
             ? `${styles.columnCtr} ${styles.input}`
-            : `${styles.rowCtr} ${styles.input}`
+            : `${styles.rowCtr} ${styles.input}`;
     };
 
     return (
@@ -66,5 +66,5 @@ export const Input: React.FC<Props> = ({
                     onChange={onChange} />
             }
         </div>    
-    )
-}
+    );
+};

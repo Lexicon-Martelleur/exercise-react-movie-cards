@@ -25,11 +25,11 @@ export const StarRating: React.FC<Props> = ({
         {Array.from({ length: maxRating }, (_, index) => index + 1)
         .map(value => <div key={uuid()}
             className={styles.starRatingIcon}
-            onClick={_ => hook.handleRating(value, updateRating)}>
+            onClick={() => hook.handleRating(value, updateRating)}>
             {value > rating
                 ? <Icon size={size == null ? "medium": size} icon={icons.gradeUnchecked}/>
                 : <Icon size={size == null ? "medium": size} icon={icons.gradeChecked}/>}
             </div>)}
         </div>
     );
-}
+};

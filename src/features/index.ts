@@ -1,2 +1,2 @@
 export * from "./MovieCard";
-export * from "./Auth"
+export * from "./Auth";

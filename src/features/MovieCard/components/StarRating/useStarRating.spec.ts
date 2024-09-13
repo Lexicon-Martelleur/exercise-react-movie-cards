@@ -19,5 +19,5 @@ describe("useStarRating", () => {
             starRating.handleRating(mockValue);
             expect(mockUpdate).toHaveBeenCalledTimes(0);
         });
-    })
-})
+    });
+});

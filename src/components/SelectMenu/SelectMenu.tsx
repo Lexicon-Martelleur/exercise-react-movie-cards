@@ -25,24 +25,24 @@ export const SelectMenu: React.FC<Props<INameObject>> = ({
     const [isOpen, setIsOpen] = useState(open);
 
     useEffect(() => {
-        setIsOpen(open)
-    }, [open])
+        setIsOpen(open);
+    }, [open]);
 
     const getSelectButtonClassNames = () => {
-        return `${styles.selectButton} ${isOpen ? styles.selectOpen : ""}`
-    }
+        return `${styles.selectButton} ${isOpen ? styles.selectOpen : ""}`;
+    };
 
     const getOptionMarkClassNames = (option: INameObject) => {
         const isSelected = [...selectedOptionIds.values()].find(id => id === option.id) != null;
-        return `${styles.optionMark} ${isSelected ? styles.optionSelected : ""}`
-    }
+        return `${styles.optionMark} ${isSelected ? styles.optionSelected : ""}`;
+    };
 
-    const toggleOpen: React.MouseEventHandler<HTMLButtonElement> = (_) => {
+    const toggleOpen: React.MouseEventHandler<HTMLButtonElement> = () => {
         setIsOpen(!isOpen);
         if (!isOpen) {
             onOpenMenu(title);
         }
-    }
+    };
 
     const handleSelect = (
         event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -50,7 +50,7 @@ export const SelectMenu: React.FC<Props<INameObject>> = ({
     ) => {
         event.stopPropagation();
         onSelectOption(option.id);
-    }
+    };
 
     return (
         <article className={styles.selectArticle}>
@@ -81,4 +81,4 @@ export const SelectMenu: React.FC<Props<INameObject>> = ({
             </button>
         </article>
     );
-}
+};

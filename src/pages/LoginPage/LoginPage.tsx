@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 
 import { LoginForm } from "../../features";
-import styles from "./LoginPage.module.css"
+import styles from "./LoginPage.module.css";
 
 export const LoginPage = (): ReactElement => {
     return (
@@ -10,4 +10,4 @@ export const LoginPage = (): ReactElement => {
             <LoginForm />
         </main>
     );
-}
+};

@@ -39,4 +39,4 @@ export const FormExpander: React.FC<Props> = ({
             </div>
         </div>
     );
-}
+};

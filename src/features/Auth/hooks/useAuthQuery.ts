@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 import { createAuthAPI } from "../../../data";
 import { getMovieAPI, isDevelopment } from "../../../config";
@@ -12,7 +12,8 @@ export type MovieAPIHook = ReturnType<typeof useAuthQuery>;
  */
 export function useAuthQuery () {
     const apiEndPoint = getMovieAPI();
-    const movieAPi = createAuthAPI(apiEndPoint);
+    const authAPi = createAuthAPI(apiEndPoint);
+    const [pending, setPending] = useState(false);
 
     const handleError = useCallback((
         err: unknown,
@@ -24,21 +25,45 @@ export function useAuthQuery () {
 
     const login = useCallback(async (
         userAuth: Model.IUserAuth,
-        errorMsg?: string) => {
+        errorMsg?: string
+    ) => {
+        setPending(true);
         let tokens: Model.ITokenContainer | null = null; 
         const constructedErrosMsg = errorMsg != null
             ? errorMsg
-            : `Failed fetching available movie cards from ${apiEndPoint}`;
+            : `Failed login to ${apiEndPoint}`;
         try {
-            tokens = await movieAPi.login(userAuth);
+            tokens = await authAPi.login(userAuth);
         } catch (err) {
             handleError(err, constructedErrosMsg);
         } finally {
-            return tokens;
+            setPending(false);
         }
-    }, []);
+        return tokens;
+    }, [authAPi, apiEndPoint, handleError]);
+
+    const refreshTokens = useCallback(async (
+        tokens: Model.ITokenContainer,
+        errorMsg?: string
+    ) => {
+        setPending(true);
+        let refreshTokens: Model.ITokenContainer | null = null;
+        const constructedErrosMsg = errorMsg != null
+            ? errorMsg
+            : `Failed refreshing token at ${apiEndPoint}`;
+        try {
+            refreshTokens = await authAPi.refreshTokens(tokens);
+        } catch (err) {
+            handleError(err, constructedErrosMsg);
+        } finally {
+            setPending(false);
+        }
+        return refreshTokens;
+    }, [authAPi, apiEndPoint, handleError]);
 
     return {
-        login
+        pending,
+        login,
+        refreshTokens
     };
 }

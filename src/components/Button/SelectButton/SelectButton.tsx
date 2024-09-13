@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from "react";
 
-import styles from "./SelectButton.module.css"
+import styles from "./SelectButton.module.css";
 
 interface Props {
     children?: ReactNode;
@@ -19,8 +19,8 @@ export const SelectButton: React.FC<Props> = ({
         <button className={styles.selectBtn}
             type={type}
             disabled={disabled}
-            onClick={_ => { onSelect() }}>
+            onClick={() => { onSelect(); }}>
             {children} 
         </button>
     );
-}
+};
