@@ -40,7 +40,7 @@ export function useAuthQuery () {
             setPending(false);
         }
         return tokens;
-    }, [authAPi, apiEndPoint, handleError]);
+    }, [authAPi.login, apiEndPoint, handleError]);
 
     const refreshTokens = useCallback(async (
         tokens: Model.ITokenContainer,
@@ -59,7 +59,7 @@ export function useAuthQuery () {
             setPending(false);
         }
         return refreshTokens;
-    }, [authAPi, apiEndPoint, handleError]);
+    }, [authAPi.refreshTokens, apiEndPoint, handleError]);
 
     return {
         pending,

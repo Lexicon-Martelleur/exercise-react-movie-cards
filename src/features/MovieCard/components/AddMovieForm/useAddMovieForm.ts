@@ -15,6 +15,9 @@ export const useAddMovieForm = () => {
     const isPending = movieQueryHook.isPending();
     const submitResultTimeout = useRef<NodeJS.Timeout | null>(null);
 
+    /**
+     * @TODO Combine to one request.
+     */
     useEffect(() => {
         const errorMsg = `Could not load form data from ${getMovieAPI()}`;
         movieQueryHook.getActors(errorMsg);

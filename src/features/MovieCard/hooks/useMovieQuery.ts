@@ -31,15 +31,17 @@ export function useMovieQuery (
     ) => {
         isDevelopment() && console.log(err);
         isDispatchable && dispatchMovieAction(State.updateErrorStateAction(true, msg));
-    }, [dispatchMovieAction]);
+    }, [isDispatchable, dispatchMovieAction]);
 
     /**
      * @TODO Display for user the reason why logged is due
      * (refresh)token has expired.
+     * @TODO Refresh API is occasionaly not working.
      */
     const constructMovieApi = useCallback(async () => {
         if (tokens == null) { throw new APIError("Token is not set"); }
         if (expiredToken(tokens.accessToken)) {
+            // console.log("Refreshing token", tokens)
             const refreshedTokens = await refreshTokens(tokens);
             updateTokens(refreshedTokens);
             if (refreshedTokens == null) {
@@ -48,7 +50,7 @@ export function useMovieQuery (
             return createMovieAPI(apiEndPoint, refreshedTokens); 
         }
         return createMovieAPI(apiEndPoint, tokens);
-    }, [apiEndPoint]);
+    }, [apiEndPoint, tokens, updateTokens]);
 
     const getMovieCards = useCallback(async (
         page: number,
@@ -69,7 +71,7 @@ export function useMovieQuery (
             setPending(false);
         }
         return [movieCards, pagination];
-    }, [apiEndPoint, handleError]);
+    }, [apiEndPoint, constructMovieApi, handleError]);
 
     const getActors = useCallback((errorMsg?: string) => {
         setPending(true);
@@ -87,7 +89,12 @@ export function useMovieQuery (
                 setPending(false);
             }
         })();
-    }, [apiEndPoint, dispatchMovieAction, handleError]);
+    }, [
+        apiEndPoint,
+        isDispatchable,
+        dispatchMovieAction,
+        handleError
+    ]);
 
     const getDirectors = useCallback((errorMsg?: string) => {
         setPending(true);
@@ -105,7 +112,12 @@ export function useMovieQuery (
                 setPending(false);
             }
         })();
-    }, [apiEndPoint, dispatchMovieAction, handleError]);
+    }, [
+        apiEndPoint,
+        isDispatchable,
+        dispatchMovieAction,
+        handleError
+    ]);
 
     const getGenres = useCallback((errorMsg?: string) => {
         setPending(true);
@@ -123,7 +135,12 @@ export function useMovieQuery (
                 setPending(false);
             }
         })();
-    }, [apiEndPoint, dispatchMovieAction, handleError]);
+    }, [
+        apiEndPoint,
+        isDispatchable,
+        dispatchMovieAction,
+        handleError
+    ]);
 
     const createMovieCard = useCallback((
         movieCard: Model.INewMovieCard,
@@ -145,7 +162,12 @@ export function useMovieQuery (
                 setPending(false);
             }
         })();
-    }, [apiEndPoint, dispatchMovieAction, handleError]);
+    }, [
+        apiEndPoint,
+        isDispatchable,
+        dispatchMovieAction,
+        handleError
+    ]);
 
     const isPending = () => {
         return pending;

@@ -15,7 +15,6 @@ export class AuthAPI implements IAuthAPI {
     ): Promise<Model.ITokenContainer> {
 
         const url = `${this.API}/authenticate/login`;
-        console.log('user', user);
         const res = await fetch(url, {
             method: "POST",
             headers: this.defaultHeader,
@@ -25,7 +24,6 @@ export class AuthAPI implements IAuthAPI {
 
         if(!res.ok) { throw new APIError(res.statusText); }
         const resJSON: unknown = await res.json();
-        console.log('resJSON', resJSON);
         if (!Model.isTokenContainer(resJSON)) {
             throw new APIError("Invalid response type");
         }
