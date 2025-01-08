@@ -11,7 +11,8 @@
       "url": "http://localhost:5173",
       "webRoot": "${workspaceFolder}/src",
       "sourceMaps": true,
-      // May be need for some projects build tool for source mapping between source files and transpiled files.
+      // May be needed for some build tools for source mapping between source files and transpiled files
+      // .e.g, next.js.
       // "sourceMapPathOverrides": {
       //   "webpack://_N_E/*": "${webRoot}/*"
       // }
